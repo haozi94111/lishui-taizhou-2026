@@ -1031,11 +1031,30 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     toast.textContent = msg; toast.classList.add('on');
     clearTimeout(timer); timer = setTimeout(function(){ toast.classList.remove('on'); }, 1600);
   }
+  /* 剪贴板 API 在微信内置浏览器里常被拒。兜底顺序：
+     execCommand 复制 -> 选中全文（iOS 会弹出「拷贝」菜单）-> 实在不行就把号码念出来让用户手抄。
+     注意不能提示 Ctrl+C：这个页面绝大多数访问来自手机。 */
   function fallback(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed; top:0; left:-9999px; opacity:0';
+    document.body.appendChild(ta);
+    var ok = false;
+    try{
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      ok = document.execCommand('copy');
+    }catch(e){ ok = false; }
+    document.body.removeChild(ta);
+    if(ok){ say('已复制 ' + text); return; }
+
+    /* 选中自己：长按号码即可「拷贝」 */
     try{
       var r = document.createRange(); r.selectNodeContents(el);
-      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); say('已选中，按 Ctrl+C 复制');
-    }catch(e){ say(text); }
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      say('已选中，长按号码选「拷贝」');
+    }catch(e){ say('号码：' + text); }
   }
   document.addEventListener('click', function(e){
     var ph = e.target.closest ? e.target.closest('.ph') : null;

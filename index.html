@@ -279,6 +279,21 @@ footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font
 }
 
 /* ── 打印 / 导出 PDF ── */
+/* ── 第五部分 · 要带的东西（打包清单）── */
+.packgrid{margin-top:22px; display:grid; grid-template-columns:1fr 1fr; gap:14px}
+.packcard{background:var(--surface); border:1px solid var(--line); border-radius:8px; overflow:hidden}
+.packcard h4{display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+.packcard h4 i{font-style:normal; font-size:11px; font-weight:400; letter-spacing:0; color:var(--pine); opacity:.62}
+ul.pack{list-style:none; margin:0; padding:12px 16px 14px}
+ul.pack li{position:relative; padding-left:21px; margin-bottom:9px; font-size:13px; line-height:1.5}
+ul.pack li:last-child{margin-bottom:0}
+ul.pack li::before{content:""; position:absolute; left:0; top:4px; width:11px; height:11px;
+  border:1.5px solid var(--faint); border-radius:2.5px}
+ul.pack li.must::before{border-color:var(--warn)}
+ul.pack li.must{color:var(--ink)}
+ul.pack li.must > b{color:var(--warn)}
+ul.pack li em{display:block; font-style:normal; font-size:12px; color:var(--muted); margin-top:1px; line-height:1.5}
+
 @media print{
   @page{size:A4 portrait; margin:14mm}
   body{background:#fff; color:#000; font-size:10.5pt}
@@ -287,16 +302,20 @@ footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font
   section.parted{margin-top:26px; padding-block:26px 0}
   .eat,.callout,.rows > li,table,tr,figure,ul.plain li,ol.steps li,.toc ol > li{break-inside:avoid}
   h2,h3,.route-line,.todo ol > li,.part,.day-head{break-after:avoid}
-  .toc{break-after:page}
+  .toc{break-after:page; margin-top:16px; padding:16px 18px 18px}
+  .toc > p{margin-bottom:10px; font-size:9pt}
+  .toc a{padding:8px 6px}
+  .toc .t{font-size:13pt}
+  .toc .t em{font-size:8.5pt; margin-top:2px; line-height:1.4}
   .pg{display:inline; font-family:var(--mono); font-style:normal; font-size:9pt; font-weight:700;
       color:#9E6C1C; letter-spacing:0; padding-top:2px}
-  .toc-mini{display:block; margin:14px 0 0; padding-top:12px; border-top:1px solid #ccc;
-      font-size:8.5pt; color:#444; line-height:1.95}
+  .toc-mini{display:block; margin:10px 0 0; padding-top:9px; border-top:1px solid #ccc;
+      font-size:8pt; color:#444; line-height:1.8}
   .toc-mini b{display:block; font-size:8pt; letter-spacing:.1em; text-transform:uppercase;
       color:#777; margin-bottom:4px}
   .toc-mini span{white-space:nowrap; margin-right:14px}
   .toc-mini .ind{color:#888}
-  .pdfhint{display:block; margin:14px 0 0; font-size:9pt; color:#555; border-top:1px solid #ccc; padding-top:10px}
+  .pdfhint{display:block; margin:10px 0 0; font-size:8.5pt; color:#555; border-top:1px solid #ccc; padding-top:8px}
   a{color:#000; text-decoration:none}
   .scroll{overflow:visible}
   table{min-width:0; font-size:9pt}
@@ -314,6 +333,12 @@ footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font
   .todo ol > li{font-size:10pt; margin-bottom:12px; padding-left:34px}
   .todo ol > li em{font-size:9pt}
   .todo .quote{font-size:9pt; padding:6px 10px}
+  .packcard,ul.pack li{break-inside:avoid}
+  #pack{break-before:page; margin-top:0; padding-block:0 0}
+  #pack .part{break-after:avoid; margin-bottom:10px}
+  .packgrid{gap:10px}
+  ul.pack li{font-size:9pt; margin-bottom:7px}
+  ul.pack li em{font-size:8pt}
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
 }
 
@@ -356,7 +381,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 </header>
 
 <nav class="toc">
-  <h2>这份文档分四段</h2>
+  <h2>这份文档分五段</h2>
   <p>先花 5 分钟看完第一段，后面照着做就行。</p>
   <ol>
     <li><a href="#part1">
@@ -378,6 +403,12 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
       <span class="n">04</span>
       <span class="t">出发前必办<em>六件事，前四件今天就能办掉</em></span>
       <span class="pg" data-pg="zzTODO">P32</span>
+    </a></li>
+
+    <li><a href="#pack">
+      <span class="n">05</span>
+      <span class="t">要带的东西<em>六组打包清单，照着打勾——证件、衣服、雨具、药、工具、吃喝</em></span>
+      <span class="pg" data-pg="zzPACK">P33</span>
     </a></li>
   </ol>
   <div class="toc-mini">
@@ -401,6 +432,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P30</i></span>
     <span>天气与提醒 <i class="pg" data-pg="zzWX">P31</i></span>
     <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P32</i></span>
+    <span>★ 要带的东西 <i class="pg" data-pg="zzPACK">P33</i></span>
   </div>
   <p class="pdfhint">在微信 / 手机里看：照上面的<strong>页码滑过去</strong>就行，不需要点。<br>在电脑上看：左侧「书签」栏有同样的目录，目录行、住宿表里的民宿名、停车表里的导航关键词都能直接点。</p>
 </nav>
@@ -1582,9 +1614,90 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         · <strong>神仙居 <span class="ph" data-copy="057687038686">0576-87038686</span></strong>——问 ① <strong>10/6 南登山步道是否开放徒步下山</strong>（北步道已确认封闭，南步道 7/18 起恢复开放）；② 国庆 6:00 开园是否 10/6 也适用；③ 南门停车场车位与收费。<br>
         · <strong>仙都景区 <span class="ph" data-copy="05783120301">0578-3120301</span></strong>——确认国庆当天的报备方式和管控时段。</em></li>
       <li><b>打包 + 收尾</b>
-        <em>防滑鞋（雨后栈道滑）、厚外套（梯田清晨 10℃ 出头）、手电或手机支架灯（凌晨走观景台用）、<strong>雨衣</strong>（10/4 中雨，比伞好用）、充电宝、身份证、<strong>驱蚊药水 + 长裤</strong>（仙都溪边和淡竹乡蠓虫多）、<strong>晕车药</strong>（两段山路弯多）。<br><strong>神仙居按实名验票，6 个人的票和身份证前一晚就装在一起</strong>，10/6 早上 7 点就要用。</em></li>
+        <em>直接照<strong>第五部分「要带的东西」</strong>那份清单打勾：证件与票、衣服、雨具、药、工具、吃喝六组，标红的是缺了会影响行程的。<br><strong>神仙居按实名验票，6 个人的票和身份证 10/5 晚上就装进一个袋子</strong>，10/6 早上 7 点就要用。</em></li>
     </ol>
   </div>
+</section>
+
+<section class="parted" id="pack">
+  <p class="part">第五部分 · 要带的东西</p>
+  <h2>出发前照着这份清单打勾<span class="sub">前一晚按包分好、装上车，早上不用翻箱</span></h2>
+
+  <div class="callout">
+    <strong>最要紧的一条：10/5 晚上就把 6 张身份证和 6 张票单独装进一个袋子。</strong>
+    神仙居按<strong>实名验票</strong>，一人一证，10/6 早上 7 点进山就要用。六个人的证件临时现翻包，是那天最容易误事的地方——票和证装一起，早上拎起来就走。
+  </div>
+
+  <div class="packgrid">
+
+    <div class="packcard">
+      <h4>证件与票<i>缺一样就进不去</i></h4>
+      <ul class="pack">
+        <li class="must"><b>身份证 ×6</b><em>神仙居实名验票，一人一证</em></li>
+        <li class="must"><b>神仙居一票通 ×6</b><em>买好后截图存离线，山上信号不稳</em></li>
+        <li>云和梯田门票 ×6<em>提前一天线上 70 元/人，当天现场是 80</em></li>
+        <li>仙都车辆报备回执<em>10/4 当天有效，把店家的回复截图留着</em></li>
+        <li>驾驶证 + 行驶证<em>报备要报车牌，证件随车放</em></li>
+        <li>现金 300–500 元<em>停车、摆渡车，山上小卖部偶尔断网</em></li>
+      </ul>
+    </div>
+
+    <div class="packcard">
+      <h4>衣服<i>三天都在山里，按深秋带</i></h4>
+      <ul class="pack">
+        <li class="must"><b>厚外套或抓绒</b><em>梯田清晨 10℃ 出头，神仙居山顶风大</em></li>
+        <li class="must"><b>长裤</b><em>仙都溪边和淡竹乡蠓虫多，穿短裤必被咬</em></li>
+        <li class="must"><b>防滑徒步鞋</b><em>三天全是雨后的湿滑栈道和石板路</em></li>
+        <li>换洗内衣袜子 ×2 套<em>连住两家不同地方，潮了不容易干</em></li>
+        <li>拖鞋<em>民宿多数不提供一次性</em></li>
+      </ul>
+    </div>
+
+    <div class="packcard">
+      <h4>工具<i>凌晨那两个小时全靠它们</i></h4>
+      <ul class="pack">
+        <li class="must"><b>手电或头灯 ×2</b><em>03:40 上观景台，山上没有路灯</em></li>
+        <li class="must"><b>充电宝 ×2–3</b><em>6 个人两天拍照，山上没有充电的地方</em></li>
+        <li>车载充电器 + 数据线<em>车程长，路上补电</em></li>
+        <li>保温杯<em>神仙居如意桥厕所旁有免费开水，山上买水一瓶贵得多</em></li>
+        <li>手机支架<em>车拍和延时</em></li>
+      </ul>
+    </div>
+
+    <div class="packcard">
+      <h4>药<i>两段山路弯道密</i></h4>
+      <ul class="pack">
+        <li class="must"><b>晕车药</b><em>云和 → 仙居、仙居上山两段</em></li>
+        <li class="must"><b>驱蚊药水</b><em>仙都溪边、淡竹乡蠓虫多，黄昏最凶</em></li>
+        <li>感冒药、肠胃药<em>山里早晚温差 10℃ 以上</em></li>
+        <li>创可贴<em>湿滑路面磕碰</em></li>
+        <li>个人常用药<em>够三天量，山里买不到</em></li>
+      </ul>
+    </div>
+
+    <div class="packcard">
+      <h4>雨具<i>10/4 有中雨</i></h4>
+      <ul class="pack">
+        <li class="must"><b>雨衣 ×6</b><em>比伞好用：小赤壁要爬台阶，手得腾出来</em></li>
+        <li>折叠伞 1–2 把<em>放车上备用</em></li>
+        <li>防水袋 / 大号密封袋<em>装手机、相机、充电宝</em></li>
+        <li>擦镜布<em>雨天镜头起雾，两天都要用</em></li>
+      </ul>
+    </div>
+
+    <div class="packcard">
+      <h4>吃的<i>早起那两顿来不及买</i></h4>
+      <ul class="pack">
+        <li class="must"><b>矿泉水 + 零食</b><em>山上物价偏高，带够上山那半天</em></li>
+        <li class="must"><b>面包或饭团</b><em>10/5 四点出发、10/6 七点进山，早饭都在路上</em></li>
+        <li>巧克力 / 能量棒<em>等日出时垫一口</em></li>
+        <li>垃圾袋<em>景区里垃圾桶少，自己带下山</em></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="note-bar">清单里<strong style="color:var(--warn)">加粗标红</strong>的是缺了会直接影响行程的那几样：身份证、票、雨衣、厚外套、防滑鞋、手电、晕车药、驱蚊药水、水和干粮。<strong>10/5 在梯田、10/6 一早进神仙居——这两天的东西 10/4 晚上就分包装好，别等当天早上现找。</strong></div>
 </section>
 
 <footer>

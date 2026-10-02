@@ -218,6 +218,21 @@ td b{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:600
   background:var(--surface); border-left:2px solid var(--pine); border-radius:0 4px 4px 0}
 h2.h2gap{margin-top:52px}
 .note-bar{margin-top:18px; border-left:3px solid var(--line); padding:2px 0 2px 16px; font-size:13.5px; color:var(--muted); line-height:1.65}
+
+/* ── 住宿已定：这些列表降权保留，留着换房 / 加人 / 比价时查 ── */
+.dim{opacity:.55}
+.dim:hover,.dim:focus-within{opacity:1}
+.booked{margin-top:22px; background:var(--pine-soft); border:1px solid var(--pine); border-radius:8px; padding:18px 22px 20px}
+.booked h3{margin:0 0 12px; padding:0; border:none; font-size:12.5px; letter-spacing:.08em; color:var(--pine)}
+.booked .two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.booked .b{background:var(--surface); border-radius:6px; padding:13px 16px}
+.booked .b .dt{margin-bottom:8px}
+.booked .b b{display:block; font-size:15.5px; color:var(--ink); line-height:1.35}
+.booked .b span.wh{display:block; font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.55}
+.booked .b span.wh b{display:inline; font-size:13px; color:var(--pine)}
+.booked p{margin:14px 0 0; font-size:13.5px; line-height:1.6}
+.booked p.dn{font-size:12.5px; color:var(--muted)}
+@media screen and (max-width:640px){ .booked .two{grid-template-columns:1fr} }
 ul.plain{margin:12px 0 0; padding-left:20px}
 ul.plain li{margin-bottom:9px; line-height:1.65}
 ul.plain li::marker{color:var(--muted)}
@@ -229,6 +244,7 @@ ol.steps li::marker{font-family:var(--mono); font-weight:700; color:var(--pine)}
 .todo{margin-top:22px; background:var(--ink); color:var(--bg); border-radius:10px; padding:26px 26px 28px}
 .todo h2{font-family:var(--serif); color:var(--bg); margin:0 0 6px; font-size:26px}
 .todo .sub{display:block; font-family:var(--sans); font-size:13px; font-weight:400; color:var(--bg); opacity:.62; margin-top:7px; letter-spacing:0}
+.todo b.yes{color:var(--gold-line)}
 .todo ol{list-style:none; counter-reset:t; margin:22px 0 0; padding:0}
 .todo ol > li{counter-increment:t; position:relative; padding:0 0 0 40px; margin-bottom:18px; font-size:14.5px; line-height:1.6}
 .todo ol > li::before{
@@ -351,6 +367,8 @@ ul.pack li em{display:block; font-style:normal; font-size:12px; color:var(--mute
   .packgrid{gap:10px}
   ul.pack li{font-size:9pt; margin-bottom:7px}
   ul.pack li em{font-size:8pt}
+  .dim{opacity:.72}
+  .booked{break-inside:avoid}
   *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
 }
 
@@ -414,13 +432,13 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <li><a href="#todo">
       <span class="n">04</span>
       <span class="t">出发前必办<em>六件事，前四件今天就能办掉</em></span>
-      <span class="pg" data-pg="zzTODO">P32</span>
+      <span class="pg" data-pg="zzTODO">P33</span>
     </a></li>
 
     <li><a href="#pack">
       <span class="n">05</span>
       <span class="t">要带的东西<em>六组打包清单，照着打勾——证件、衣服、雨具、药、工具、吃喝</em></span>
-      <span class="pg" data-pg="zzPACK">P33</span>
+      <span class="pg" data-pg="zzPACK">P34</span>
     </a></li>
   </ol>
   <div class="toc-mini">
@@ -438,13 +456,13 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <span>10/6 时刻表 <i class="pg" data-pg="zzD6">P15</i></span>
     <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD6PARK">P18</i></span>
     <span>住宿与电话 <i class="pg" data-pg="zzSTAY">P21</i></span>
-    <span>门票 <i class="pg" data-pg="zzTICKET">P27</i></span>
-    <span>日出与云海工具 <i class="pg" data-pg="zzSUN">P27</i></span>
-    <span>顺路吃与免费景点 <i class="pg" data-pg="zzALT">P28</i></span>
-    <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P30</i></span>
-    <span>天气与提醒 <i class="pg" data-pg="zzWX">P31</i></span>
-    <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P32</i></span>
-    <span>★ 要带的东西 <i class="pg" data-pg="zzPACK">P33</i></span>
+    <span>门票 <i class="pg" data-pg="zzTICKET">P28</i></span>
+    <span>日出与云海工具 <i class="pg" data-pg="zzSUN">P28</i></span>
+    <span>顺路吃与免费景点 <i class="pg" data-pg="zzALT">P29</i></span>
+    <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P31</i></span>
+    <span>天气与提醒 <i class="pg" data-pg="zzWX">P32</i></span>
+    <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P33</i></span>
+    <span>★ 要带的东西 <i class="pg" data-pg="zzPACK">P34</i></span>
   </div>
   <p class="pdfhint">在微信 / 手机里看：照上面的<strong>页码滑过去</strong>就行，不需要点。<br>在电脑上看：左侧「书签」栏有同样的目录，目录行、住宿表里的民宿名、停车表里的导航关键词都能直接点。</p>
 </nav>
@@ -467,15 +485,15 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
           <td><b>211–219 km</b><span class="where">约 2 小时 50 分–3 小时 15 分</span></td></tr>
         <tr><td>几点出发</td>
           <td><b>05:30</b><span class="where">杭州出门 · 06:35 到绍兴后梅小区接人</span></td>
-          <td><b>04:10</b><span class="where">出门去看日出 · 住县城则 03:35</span></td>
+          <td><b>04:10</b><span class="where">出门去看日出 · 夏秋农家乐开 10.3 km</span></td>
           <td><b>05:15</b><span class="where">起床 · 05:50 出发 · 06:10 到南门</span></td></tr>
         <tr><td>几点收工</td>
-          <td>17:50 到云和梯田<span class="where">住县城则 17:10</span></td>
+          <td>17:50 到黄家畲村<span class="where">夏秋农家乐</span></td>
           <td>17:00 到仙居淡竹乡</td>
           <td>16:00 到杭州<span class="where">堵则 17:00–18:00</span></td></tr>
         <tr><td>住哪</td>
-          <td>云和梯田景区内 <span class="no">或</span> 云和县城<span class="where">见 10/4 的对比表</span></td>
-          <td>仙居淡竹乡<span class="where">神仙居南门旁</span></td>
+          <td><b>夏秋农家乐</b><span class="where">云和 · 黄家畲村 · 已定</span></td>
+          <td><b>范范的家</b><span class="where">仙居 · 淡竹乡下叶村 · 已定</span></td>
           <td>—</td></tr>
         <tr><td>今天看什么</td>
           <td>朱潭山<span class="where">11:00 老农牵牛</span> · 岩宕书房 · 小赤壁<span class="where">三个点都自驾可达，不用换景交车</span></td>
@@ -483,7 +501,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
           <td>南天索道 · 南天梯 · 南天顶 · 观音峰 · 如意桥</td></tr>
         <tr><td>今天门票</td>
           <td>0 或 <b>540</b><span class="where">不进朱潭山闸门就是 0；进去 90/人</span></td>
-          <td>携程 <b>70</b> / 人<span class="where">门市 80；住景区民宿买 6 折约 48</span></td>
+          <td>携程 <b>70</b> / 人<span class="where">门市 80；两家民宿都不代订，自己线上买</span></td>
           <td>一票通 <b>327</b> / 人<span class="where">含门票+索道+观光车+南天顶</span></td></tr>
         <tr><td>今天最大的坑</td>
           <td class="no">没报备就开不进卡口</td>
@@ -512,12 +530,12 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td>高速费</td><td class="yes">0</td><td class="yes">0</td><td>国庆 7 座以下免费</td></tr>
         <tr><td>停车费</td><td>—</td><td><b>约 20–40</b></td><td>仙都报备后景点门口免费；<strong>云和梯田以免费为主</strong>（七星墩、坑根石寨实测免费；九曲云环 D 区场内约 5 元/小时）；神仙居约 10–20</td></tr>
         <tr><td>10/4 仙都门票</td><td>0 或 90</td><td>0 或 <b>540</b></td><td>只走<strong>岩宕书房 + 小赤壁</strong>是 0；<strong>进朱潭山闸门要主景区大门票 90 元/人</strong>（六景点联票 130）。7:30 前进场才免票，你们 11:00 到，赶不上</td></tr>
-        <tr><td>云和梯田门票</td><td>携程 70<br>民宿 6 折约 48</td><td><b>约 288–420</b></td><td>门市 80，携程提前订 <b>70</b>；<strong>住景区民宿买 6 折最便宜</strong></td></tr>
+        <tr><td>云和梯田门票</td><td>携程 70</td><td><b>420</b></td><td>门市 80，携程提前一天 <b>70</b>。原本还有「住景区民宿买 6 折约 48」这条路，<strong>但我们订的两家都不代订票</strong>，所以按 70 × 6 人算，别指望到店谈</td></tr>
         <tr><td>云和梯田景交车</td><td>往返 20</td><td class="yes">0<span class="where">全程自驾用不上</span></td><td>要坐的话：1 号线往返 20；持大门票 2 号线免费</td></tr>
         <tr><td>云和梯田索道<span class="where">观云索道</span></td><td class="yes">0<span class="where">本方案自驾上山</span></td><td class="yes">0</td><td><strong>九曲云环 → 七星墩可自驾（约 20 分钟）</strong>，所以不买索道。若临时改坐：「门票 + 往返索道（成人票）」携程 <b>190</b>/人（门市 240），6 人 <b>1140</b>；单买索道全程往返 <b>160</b>。可选人群套票 <b>144.49 起</b></td></tr>
         <tr><td>神仙居一票通</td><td>327</td><td><b>1962</b><span class="where">当天票 347，即 2082</span></td><td>含大门票 + 索道往返 + 接驳车观光车 + 南天顶。全拆开单买是 99 + 120 + 99 = <b>318</b>，<strong>一票通贵 9 元，买的是免掉现场排队买索道票</strong></td></tr>
-        <tr><td>住宿</td><td>约 130–500/间·晚</td><td><b>约 850–2500</b><span class="where">3 间 × 2 晚</span></td><td>见第三部分「住宿」的实价表</td></tr>
-        <tr><td><b>硬开销合计</b></td><td colspan="2"><b>约 3700–6100</b></td><td><b>人均 约 620–1020</b>（不含吃饭）<span class="where">已按全程自驾、不买梯田索道、神仙居提前购一票通计</span></td></tr>
+        <tr><td class="free">住宿<span class="where">已定</span></td><td>200 / 171</td><td class="free"><b>1113</b><span class="where">3 间 × 2 晚</span></td><td>10/4 云和 <b>夏秋农家乐</b> 200/间 · 10/5 仙居 <b>范范的家</b> 171/间</td></tr>
+        <tr><td><b>硬开销合计</b></td><td colspan="2"><b>约 4050–4600</b></td><td><b>人均 约 675–770</b>（不含吃饭）<span class="where">住宿 1113、梯田门票 420 都是实数了；区间两头只剩「仙都只走免费的岩宕书房 + 小赤壁」和「进朱潭山买 90 的门票」</span></td></tr>
         <tr><td class="free">还能再省</td><td colspan="2" class="free"><b>约 384</b></td><td>神仙居若走南步道下山：不买一票通，改「门票 99 + 上行索道 65 + 南天顶 99 = 263 元/人」，<strong>6 人 1578，比一票通省 384</strong>。梯田索道那笔已经不在上面的硬开销里了</td></tr>
       </tbody>
     </table>
@@ -569,11 +587,11 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
       <div class="main">仙都 <span class="arrow">→</span> 云和<span class="km">114 km · 2h</span></div>
       <p class="note">到云和县城 114km；<strong>继续上山到梯田景区还要再 20km / 40 分钟</strong></p></li>
     <li class="sleep"><time>17:10</time>
-      <div class="main">到云和县城（住县城走这条）</div>
-      <p class="note">吃饭选择多，房价便宜，代价是明天要 4 点出门</p></li>
+      <div class="main">到云和县城<span class="km">备选路线，你们不走这条</span></div>
+      <p class="note">订了县城的房才走这里：吃饭选择多、房价便宜，代价是明天 03:05 就得起</p></li>
     <li class="sleep"><time>17:50</time>
-      <div class="main">到云和梯田景区，入住（住山上走这条）</div>
-      <p class="note">用房卡或订单在民宿买 <strong>6 折门票</strong></p></li>
+      <div class="main">到黄家畲村，入住<b>夏秋农家乐</b></div>
+      <p class="note">车停民宿门口。<strong>这家不代订门票</strong>——梯田门票今晚自己线上买好（携程提前一天 70/人），别等到明早在景区门口买 80 的现场票</p></li>
     <li class="meal"><time>18:20</time>
       <div class="main">晚饭 · 住哪吃哪</div>
       <p class="note">山上民宿基本老板亲自下厨；县城选择多得多</p></li>
@@ -710,7 +728,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 
   <h3>晚上住哪 · 梯田景区 vs 云和县城</h3>
   <p class="lead">价格是<strong>携程 10/4–10/5 一晚、1 间 2 人</strong>的实际报价（2026-10-02 查），不是民宿名录上的虚价。</p>
-  <div class="scroll">
+  <div class="scroll dim">
     <table class="wide">
       <thead><tr><th></th><th>住梯田景区内</th><th>住云和县城</th></tr></thead>
       <tbody>
@@ -739,7 +757,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     </table>
   </div>
   <div class="callout good">
-    <strong>建议：住山上。</strong>10/5 的日出是 <b>05:57</b>，九曲云环 <b>04:40</b> 就开门。住县城意味着 <b>03:05 起床、摸黑开 22.3 km / 46 分钟山路</b>（高德实测，云和汽车站起算，见下方拆解）——6 个人凌晨走这种路，风险和体验都不划算。差价按 3 间房算一晚也就 300–600 元，摊到 6 个人身上每人 50–100 元，换一个安稳的日出。
+    <strong>已经这么办了——住的是山上的夏秋农家乐（黄家畲村）。</strong>10/5 的日出是 <b>05:57</b>，九曲云环 <b>04:40</b> 就开门。住县城意味着 <b>03:05 起床、摸黑开 22.3 km / 46 分钟山路</b>（高德实测，云和汽车站起算，见下方拆解）——6 个人凌晨走这种路，风险和体验都不划算。差价按 3 间房算一晚也就 300–600 元，摊到 6 个人身上每人 50–100 元，换一个安稳的日出。
     <br><br>如果山上实在订不到（国庆房态很紧），<strong>再退到县城</strong>：按日出倒推，最晚 <b>04:30 出城、03:55 起床</b>；想跟住山上一样从容（04:35 到检票口），就得 <b>03:35 出城、03:05 起床</b>。
   </div>
   <div class="callout info">
@@ -756,9 +774,10 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <strong>九曲云环 · 下垟村 · 坑根村 · 崇头镇 · 梅源村。</strong>住前三个，<strong>开车 3 分钟就到观景台</strong>；<strong>梅源村是折中档</strong>（省掉县城到梅源的平路，盘山段照开，见上方）。攻略里反复出现的一句话：<strong>头一晚一定要住到九曲云环附近</strong>，因为上山路没有路灯——<strong>不是弯多，是没灯、要会车</strong>。<br>
     有人实际住过、离得最近的两家：<strong>云中别舍</strong>（距九曲云环游客中心<strong>约 800 米，走路就能到</strong>，房间少、旺季要早订，阳台直接能看日出）· <strong>云和遇见民宿</strong>（距景点约 1 公里，老板凌晨 5:10 免费开车送客人上观景台，也免费送去白银谷）。
   </div>
-  <h4>订房时一次问清四件事</h4>
+  <h4>房已定，入住当晚还要问这三件事</h4>
   <div class="note-bar">
-    ① 门票能不能按 6 折代购；② 明早日出几点、走到哪个台子、车停哪；③ <strong>能不能凌晨开车送一趟观景台</strong>（能送最省事）；④ 从九曲云环到七星墩能不能自驾上去、国庆有没有管制。
+    门票这条不用问了——<strong>两家都已确认不代订票</strong>，自己线上买。<br>
+    ① 明早日出几点、从黄家畲村开到九曲云环走哪条路、车停哪（<strong>车能停民宿门口就停民宿</strong>）；② <strong>能不能凌晨开车送一趟观景台</strong>（能送最省事，山路没路灯）；③ 从九曲云环到七星墩能不能自驾上去、国庆有没有管制。
   </div>
 
   <div class="callout info">
@@ -793,9 +812,9 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   <ul class="rows">
     <li><time>03:40</time>
       <div class="main">起床</div>
-      <p class="note">穿厚外套（清晨 10℃ 上下）、带热水和手电。<strong>住县城的 03:05 就得起、03:35 出城</strong>（山路实测 46 分钟，见上方拆解）</p></li>
+      <p class="note">穿厚外套（清晨 10℃ 上下）、带热水和手电。<strong>你们住黄家畲村，到九曲云环 10.3 km / 约 14 分钟</strong>——不用像住县城那样 03:05 就起、03:35 出城（那是 22.3 km / 46 分钟）</p></li>
     <li class="drive"><time>04:10</time>
-      <div class="main">开车去九曲云环<span class="km">住山上 15–30 分钟</span></div>
+      <div class="main">开车去九曲云环<span class="km">夏秋农家乐出发 10.3 km · 约 14 分钟</span></div>
       <p class="note">导航「<strong>云和梯田景区D区小车停车场</strong>」（高德里的全名），但<strong>别开进场内</strong>——再往前约 100 米路边停。这一段山路<strong>全程没有路灯</strong>，慢开。<br><strong>停好车先想清楚下一步往哪走、直接把车头调过来</strong>——山上车一多，掉头非常麻烦（2025 国庆实录）</p></li>
     <li class="hi"><time>04:35</time>
       <div class="main">验票入园，走去观景台</div>
@@ -921,7 +940,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     · 门票 + 往返索道（可选人群）：240 → <strong>144.49 元起</strong><br>
     之前网上流传的「120 / 180 / 240 三个说不清的说法」，现在可以定下来了：<strong>240 是门市套票价，160 是索道本身，190 是携程成人套票到手价</strong>。<br>
     另有「门票 + 往返索道 + 2 号线景交接驳车」成人套票、以及含 9D 飞跃剧场的组合在售。<br>
-    <strong>住景区民宿的话，门票走 6 折（约 48 元）更便宜</strong>（索道不打折）。按上面「全程自驾」的方案，<strong>你们其实不用买索道</strong>，190 元套票只是备选方案的价格参照。若确实要坐，最优解是<strong>民宿买 6 折门票 + 携程买纯索道</strong>，订房时问一句民宿能不能单独出索道票。
+    <strong>门票的另一条路是「住景区民宿买 6 折」（约 48 元），但你们订的两家都不代订票</strong>，所以直接按携程 <b>70</b> 买、6 人 <b>420</b>，别把它算进预算。按上面「全程自驾」的方案，<strong>你们其实不用买索道</strong>，190 元套票只是备选方案的价格参照；真要坐，最优解是携程「门票 + 往返索道」<b>190/人</b>，而不是门票和索道分开凑。
   </p>
 
   <h3>云和梯田吃什么 · 大众点评全收录（按人均升序）</h3>
@@ -970,9 +989,9 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   <ul class="rows">
     <li class="meal"><time>05:15</time>
       <div class="main">起床、民宿吃早饭</div>
-      <p class="note">提前一晚跟老板说 <strong>5:15 要吃饭</strong>。住淡竹乡<strong>下陈朱村</strong>的话，到南门只有 <strong>1.8 km</strong>，大堵车时甚至能走过去</p></li>
+      <p class="note">提前一晚跟老板说 <strong>5:15 要吃饭</strong>。<strong>你们住的范范的家在下叶村叶宅，到南门 5.2 km</strong>——比下陈朱村那几家（1.8 km、能走过去）远一点，所以 5:50 必须准时出发，不能拖</p></li>
     <li class="drive"><time>05:50</time>
-      <div class="main">淡竹乡 <span class="arrow">→</span> 神仙居南门 3 号停车场<span class="km">1.8–4 km · 3–10 min</span></div>
+      <div class="main">范范的家 <span class="arrow">→</span> 神仙居南门 3 号停车场<span class="km">5.2 km · 约 13 min</span></div>
       <p class="note"><strong>3 号停车场离南天索道最近</strong>，是南门三个场子里最该抢的。<strong>国庆有一条硬期限：8 点前必须开进去</strong>——8 点后 3 号场就进不去了，只能停外面换乘景区大巴（2026-10-01 实地记录）</p></li>
     <li class="hi"><time>06:10</time>
       <div class="main">到南门，检票入园</div>
@@ -1125,8 +1144,29 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <!-- ══════════════════════ 第三部分 · 后勤 ══════════════════════ -->
 <section class="parted" id="part3">
   <p class="part">第三部分 · 订房、买票、查天</p>
-  <h2>住宿<span class="sub">点电话号码可以直接复制；点民宿名可以在地图里搜</span></h2>
+  <h2>住宿<span class="sub">两晚都已经定了，下面这些表置灰留档</span></h2>
+
+  <div class="booked">
+    <h3>已定 · 这两晚不用再挑了</h3>
+    <div class="two">
+      <div class="b">
+        <span class="dt d4">10/4 晚</span>
+        <b>云和 · 夏秋农家乐</b>
+        <span class="wh">黄家畲村，海拔 1110 m（全村最高）· ¥200/间<br>到九曲云环 <b>10.3 km / 约 14 分钟</b></span>
+      </div>
+      <div class="b">
+        <span class="dt d5">10/5 晚</span>
+        <b>仙居 · 范范的家</b>
+        <span class="wh">淡竹乡下叶村叶宅 · ¥171/间<br>到神仙居南门 <b>5.2 km / 约 13 分钟</b></span>
+      </div>
+    </div>
+    <p><b>两家都不能代订门票。</b>所以云和梯田门票和神仙居一票通都得自己线上买，别指望到店再让老板搞定——<strong>神仙居现场还会停售，必须提前买</strong>。</p>
+    <p><b>两家都可以停车</b>，车直接停民宿门口，白天出去玩不用挪。</p>
+    <p class="dn">下面所有住宿表都置灰了。留着不是为了现在，是万一要换房、加人，或者想跟别的候选比个价。</p>
+  </div>
   <p class="lead">价格分两类：<strong>「携程实价」是从携程 10/4–10/5 的真实报价里读出来的</strong>（1 间 2 人），可以直接当预算用；标「询价」的是名录里查不到当天报价的，需要打电话确认——<strong>国庆房态紧，直接打电话比在平台上比价更容易拿到真房</strong>。</p>
+
+  <div class="dim">
 
   <div class="note-bar">
     <strong>四个平台都试过（2026-10-02 实查）：</strong>携程、美团能出真实报价，<strong>去哪儿 web 端不展示房价</strong>（酒店入口全部跳回官网首页，只剩 App），<strong>飞猪网页版搜酒店直接跳淘宝登录页</strong>，不登录看不到价。<span>所以下面用<strong>携程 + 美团双源对照</strong>——同一晚同一间房，两家常差 100–400 元，<strong>已经在两家各挑了实例标在表里</strong>。</span>
@@ -1144,7 +1184,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     </table>
   </div>
   <div class="note-bar">
-    <strong>超过 500 的一律没往上放</strong>（平台上还有七八家，550–1207 元）。上面这三家订不到，就翻到下面<strong>「打个电话直接订」</strong>那张表——那一批按间算只有 <strong>150–290 元</strong>，比平台便宜得多，还能顺手把门票 6 折一起谈掉。<br>
+    <strong>超过 500 的一律没往上放</strong>（平台上还有七八家，550–1207 元）。上面这三家订不到，就翻到下面<strong>「打个电话直接订」</strong>那张表——那一批按间算只有 <strong>150–290 元</strong>，比平台便宜得多。表里的「6 折」是当时的调研结果，<strong>我们订的两家已确认不代订票</strong>，真要换房再单独问一句。<br>
     <strong>云和县城也过一遍：</strong>云和美居 464、云和大酒店 488、华威国际 498、森泉山庄 284 都在预算内——但住县城明早要 <strong>03:35 出城、摸黑开 22.3 km / 46 分钟山路</strong>，这一条比省几十块重要。
   </div>
 
@@ -1289,7 +1329,13 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <strong>神仙居的「优惠票」是假的。</strong>农家乐报的优惠价约 110 元，比网上直订的 99 还贵。别为门票折扣选民宿，它们的真实价值是<strong>能不能协调早班进山</strong>。订房时直接问：<em>「6 个人，10/6 早上能不能走早班通道、几点能进？」</em>答不上来的就别选。
   </div>
 
+  </div>
+
   <h3>候选清单对照图 · 这十家到景点分别多远</h3>
+  <div class="callout good">
+    <strong>这十家里你们已经定掉了两家：云和的夏秋农家乐、仙居的范范的家。</strong>所以下面整段置灰留着——万一要换房、加人，或者想跟别的候选比个价，再翻回来。
+  </div>
+  <div class="dim">
   <div class="callout info">
     <strong>这十家和上面的表不是同一批。</strong>上面那些是通用备选；下面这十家是你自己挑出来的候选，所以单独做两张图放在一起比。<strong>确认过位置、按真实经纬度摆点</strong>，编号与卡片一一对应；<strong>卡片左侧色条就是距离档</strong>——<b>绿 ≤6 km · 金 6–12 km · 红 &gt;12 km</b>，一眼能看出谁远谁近。
   </div>
@@ -1457,6 +1503,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     真正要避开的是<b>沐语山居</b>：它在景区<b>北侧</b>的白塔镇感德村，到<b>南门</b>要 10.9 km / 约 22 分钟，南进南出等于每天多开约 20 分钟。<br>
     <em>唯一要留意：范范的家在<b>高德里的词条没有坐标</b>（所以地图工具搜不到、携程美团也搜不出来），导航时请用你手上那个高德位置口令 <b>021053</b>，或者直接搜「淡竹乡下叶村叶宅」。</em>
   </div>
+  </div>
 
   <h2 class="h2gap">门票<span class="sub">含 2026 国庆的实际政策</span></h2>
   <div class="scroll">
@@ -1470,7 +1517,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td>云和梯田<span class="where">10/5</span></td>
           <td>5A</td>
           <td><b>携程 70</b><span class="where">门市 80 · 国庆按单次票执行（当天可再进一次）· 含九曲云环 + 白银谷 + 七星墩</span></td>
-          <td><strong>携程 2026-10-02 实查价目</strong>：<br>· 门票（成人票）<b>80 → 70</b>，已优惠 10<br>· 门票优待票（儿童/老人/学生）、学生票 <b>40</b><br>· <strong>门票 + 往返索道（成人票）240 → 190</strong>，已优惠 50<br>· 门票 + 往返索道（可选人群）240 → <b>144.49 起</b><br>官方单买索道全程往返 <b>160</b>（= 240 − 80），免门票人群购索道全程票也是 <b>160</b>。<br>入住景区民宿买 <b>6 折</b>，门票约 48。景交 1 号线往返 20 元/人，<strong>有大门票或索道票则 2 号线免费</strong>；不自驾看日出可约景区「追光巴士」<b>20 元/人</b>。索道 8:00–16:30，景交 8:30–16:20</td></tr>
+          <td><strong>携程 2026-10-02 实查价目</strong>：<br>· 门票（成人票）<b>80 → 70</b>，已优惠 10<br>· 门票优待票（儿童/老人/学生）、学生票 <b>40</b><br>· <strong>门票 + 往返索道（成人票）240 → 190</strong>，已优惠 50<br>· 门票 + 往返索道（可选人群）240 → <b>144.49 起</b><br>官方单买索道全程往返 <b>160</b>（= 240 − 80），免门票人群购索道全程票也是 <b>160</b>。<br>入住景区民宿多数能买到 <b>6 折</b>门票（约 48），<strong>但我们订的两家都不代订</strong>，按携程 70 备好。景交 1 号线往返 20 元/人，<strong>有大门票或索道票则 2 号线免费</strong>；不自驾看日出可约景区「追光巴士」<b>20 元/人</b>。索道 8:00–16:30，景交 8:30–16:20</td></tr>
         <tr><td>神仙居<span class="where">10/6</span></td>
           <td>5A</td>
           <td><b>现场 110</b> · 线上提前订 <b>99</b></td>
@@ -1606,19 +1653,19 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <section class="parted" id="todo">
   <p class="part">第四部分 · 出发前必办</p>
   <div class="todo">
-    <h2>出发前必须先办的 6 件事<span class="sub">按顺序做，前四件今天就能办掉</span></h2>
+    <h2>出发前必须先办的 6 件事<span class="sub">订房两件已办完，还剩四件</span></h2>
     <ol>
       <li><b>办仙都的车辆报备（10/4 用）</b>
         <em>这是唯一一件不办就进不去的事。<strong>最省事的办法：订 10/4 午饭的座位时，把车牌报给店家</strong>，让他们替你报——推荐好兆头（人均 66，2935 评）或家谦农家菜（人均 59，2197 评），这两家接待量大、流程熟。当天有效。</em>
         <span class="quote">「我们 10/4 中午 6 个人来吃饭，想顺便办一下车辆报备，车牌是 ×××××，可以吗？」</span></li>
-      <li><b>订 10/4 云和梯田景区内的房，6 人 3 间</b>
-        <em>国庆房态很紧。<strong>平台上有房的三家</strong>：桦时代 473、九曲云环景区民宿 475、稻草屋 500；<strong>打电话能订到的更便宜</strong>：栖心 150 含早、栖溪景田 208、云欢喜 270–290。都在第三部分「住宿」那两张表里，点号码可直接复制。</em></li>
-      <li><b>问死三件事（订梯田房时一起问）</b>
-        <em>① 门票能不能按 6 折代购（约 48/人，比携程 70 更低）；② 明早日出的走法和停车位在哪；③ <strong>国庆 10/5 山上有没有临时交通管制</strong>——自驾上七星墩已经证实可行（约 20 分钟），这一步只确认管制。<strong>梯田索道不买，净省 720</strong>；临时要买的话，携程「门票 + 往返索道」190/人。</em>
+      <li><b class="yes">✓ 订 10/4 云和梯田景区内的房 —— 已完成</b>
+        <em>订的是<b>夏秋农家乐</b>（黄家畲村，海拔 1110 m，200/间）。<strong>这家不代订门票</strong>，所以还有一件小事要自己办：<b>今晚就把梯田门票线上买好</b>（携程提前一天 70/人，现场买是 80）。<strong>可以停车</strong>，车停民宿门口。</em></li>
+      <li><b class="yes">✓ 订 10/5 仙居淡竹乡的房 —— 已完成</b>
+        <em>订的是<b>范范的家</b>（淡竹乡下叶村叶宅，171/间，全组最便宜）。到神仙居南门 5.2 km / 约 13 分钟。<strong>这家同样不代订门票</strong>，神仙居一票通要自己买（见下一条）。<strong>可以停车。</strong><br>
+        <em>导航注意：范范的家在高德里没有坐标，用位置口令 <b>021053</b>，或直接搜「淡竹乡下叶村叶宅」。</em></em></li>
+      <li><b>入住当晚把这三件事问清楚（两家都问）</b>
+        <em>① <strong>明早日出的走法和停车位</strong>——夏秋农家乐到九曲云环 10.3 km，<strong>能不能凌晨开车送一趟观景台</strong>（能送最省事，那条山路没路灯）；② <strong>国庆 10/5 山上有没有临时交通管制</strong>——自驾上七星墩已经证实可行（约 20 分钟），这一步只确认管制。<strong>梯田索道不买，净省 720</strong>；临时要买的话，携程「门票 + 往返索道」190/人；③ <strong>10/6 早上几点能进山</strong>——你们 5:50 就要从淡竹乡出发赶 6:10 到南门。</em>
         <span class="quote">「我们自己开车，不想坐索道——10/5 国庆期间山上有没有交通管制？从九曲云环能开上七星墩吗？三个点停车收费吗？」</span></li>
-      <li><b>订 10/5 仙居淡竹乡的房</b>
-        <em>选能协调早班进山的那几家（迎君客栈、静界·无冬山舍都提供通道或接送）——<strong>它们能不能协调早班，比所谓的门票折扣值钱得多</strong>。</em>
-        <span class="quote">「6 个人，10/6 早上能不能走早班通道、几点能进山？」</span></li>
       <li><b>买神仙居一票通（10/6 用）+ 打三个确认电话</b>
         <em><strong>一票通 327 元/人（提前购）</strong>，含大门票 + 索道往返 + 接驳车观光车 + 南天顶玻璃观景台——全拆开单买是 99 + 120 + 99 = 318，<strong>一票通贵 9 元，买的就是免掉现场排队买索道票</strong>。（若打算走南步道下山就别买，改拆开买，见 10/6 那节。）线上渠道：微信小程序「神仙居旅游」或公众号「神仙居」。<br>
         再打三个电话：<br>
@@ -1713,8 +1760,9 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 </section>
 
 <footer>
-  房价来自携程 2026-10-02 对 10/4–10/5 的实际报价；餐厅评分、人均、评价数来自大众点评。<br>
-  票价与房价国庆期间会浮动，下单前请再确认一次。<strong>直接打电话比在平台比价更容易拿到国庆的真实房态。</strong>
+  房价与票价来自携程 2026-10-02 对 10/4–10/5 的实际报价；餐厅评分、人均、评价数来自大众点评。距离与车程为 OpenStreetMap 路网实测，已知的那一段用高德校准过，出行前请在导航里复核。<br>
+  住宿（云和夏秋农家乐、仙居范范的家）已于 2026-10-02 订好，<strong>两家都不代订门票、都可以停车</strong>；第三部分「住宿」里的表全部置灰留档，只在换房、加人、比价时翻。<br>
+  <strong>出发前一定要自己线上买掉的票</strong>：云和梯田门票（携程提前一天 70/人）、神仙居一票通（327/人，现场会停售）——这两张没人能替你们买。
 </footer>
 
 </div>

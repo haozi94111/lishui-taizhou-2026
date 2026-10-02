@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 646" font-family="Noto Sans SC,PingFang SC,Microsoft YaHei,Source Han Sans SC,sans-serif" role="img">
+<rect width="700" height="646" rx="10" fill="#F5F7F4"/>
+<text x="20" y="40" font-size="19" font-weight="700" fill="#1A211C">云和 · 从住处到九曲云环看日出</text>
+<text x="20" y="63" font-size="12.5" fill="#65706A">10/5 日出 05:57　·　九曲云环 04:40 开门　·　四家都在预算 500 以内</text>
+<rect x="20" y="82" width="660" height="300" rx="8" fill="#FFFFFF" stroke="#DCE1D9"/>
+<path d="M 239.2 246.7 L 617.4 132.2" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round"/>
+<path d="M 239.2 246.7 L 617.4 132.2" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6"/>
+<path d="M 239.2 246.7 L 192.8 286.2" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round"/>
+<path d="M 239.2 246.7 L 192.8 286.2" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6"/>
+<path d="M 239.2 246.7 L 83.0 327.8" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round"/>
+<path d="M 239.2 246.7 L 83.0 327.8" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6"/>
+<circle cx="239.2" cy="246.7" r="15" fill="#F2E6CE"/>
+<circle cx="239.2" cy="246.7" r="7" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="2.5"/>
+<text x="239.2" y="206.7" font-size="14" font-weight="700" text-anchor="middle" fill="#9E6C1C">九曲云环</text>
+<text x="239.2" y="223.7" font-size="11.5" text-anchor="middle" fill="#8A948E">海拔 739 m</text>
+<circle cx="617.4" cy="132.2" r="6" fill="#9A482D" stroke="#FFFFFF" stroke-width="2.5"/>
+<rect x="604.2" y="97.2" width="26.5" height="22" rx="11" fill="#9A482D"/>
+<text x="617.4" y="112.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">1</text>
+<circle cx="192.8" cy="286.2" r="6" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="2.5"/>
+<rect x="179.5" y="251.2" width="26.5" height="22" rx="11" fill="#9E6C1C"/>
+<text x="192.8" y="266.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">2</text>
+<circle cx="83.0" cy="327.8" r="6" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/>
+<rect x="56.2" y="292.8" width="53.5" height="22" rx="11" fill="#2E5948"/>
+<text x="83.0" y="308.3" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">3 4</text>
+<g><rect x="20" y="402" width="324" height="78" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/>
+<rect x="20" y="402" width="3.5" height="78" rx="1.75" fill="#9A482D"/>
+<circle cx="47" cy="424" r="10.5" fill="#9A482D"/>
+<text x="47" y="428.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text>
+<text x="66" y="429" font-size="15.5" font-weight="700" fill="#1A211C">云城酒店</text>
+<text x="330" y="429" font-size="15.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥240</text>
+<text x="66" y="451" font-size="12" fill="#65706A">县城·汽车站旁</text>
+<text x="330" y="451" font-size="13" font-weight="700" text-anchor="end" fill="#9A482D">22.1 km · 46 分</text>
+<text x="66" y="470" font-size="11.5" fill="#8A948E">唯一一家在县城，其余全在山上</text>
+</g>
+<g><rect x="356" y="402" width="324" height="78" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/>
+<rect x="356" y="402" width="3.5" height="78" rx="1.75" fill="#9E6C1C"/>
+<circle cx="383" cy="424" r="10.5" fill="#9E6C1C"/>
+<text x="383" y="428.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text>
+<text x="402" y="429" font-size="15.5" font-weight="700" fill="#1A211C">云和陌野山居</text>
+<text x="666" y="429" font-size="15.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥274</text>
+<text x="402" y="451" font-size="12" fill="#65706A">梅竹村</text>
+<text x="666" y="451" font-size="13" font-weight="700" text-anchor="end" fill="#9E6C1C">10.2 km · 约 17 分</text>
+<text x="402" y="470" font-size="11.5" fill="#8A948E">看着近，路绕——绕行比 3.95</text>
+</g>
+<g><rect x="20" y="492" width="324" height="78" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/>
+<rect x="20" y="492" width="3.5" height="78" rx="1.75" fill="#9E6C1C"/>
+<circle cx="47" cy="514" r="10.5" fill="#9E6C1C"/>
+<text x="47" y="518.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text>
+<text x="66" y="519" font-size="15.5" font-weight="700" fill="#1A211C">拾间民宿</text>
+<text x="330" y="519" font-size="15.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥281</text>
+<text x="66" y="541" font-size="12" fill="#65706A">黄家畲村</text>
+<text x="330" y="541" font-size="13" font-weight="700" text-anchor="end" fill="#9E6C1C">9.4 km · 约 13 分</text>
+<text x="66" y="560" font-size="11.5" fill="#8A948E">海拔 1109 m，和夏秋同村</text>
+</g>
+<g><rect x="356" y="492" width="324" height="78" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/>
+<rect x="356" y="492" width="3.5" height="78" rx="1.75" fill="#9E6C1C"/>
+<circle cx="383" cy="514" r="10.5" fill="#9E6C1C"/>
+<text x="383" y="518.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text>
+<text x="402" y="519" font-size="15.5" font-weight="700" fill="#1A211C">夏秋农家乐</text>
+<text x="666" y="519" font-size="15.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥200</text>
+<text x="402" y="541" font-size="12" fill="#65706A">黄家畲村</text>
+<text x="666" y="541" font-size="13" font-weight="700" text-anchor="end" fill="#9E6C1C">10.3 km · 约 14 分</text>
+<text x="402" y="560" font-size="11.5" fill="#8A948E">海拔 1110 m，全村最高</text>
+</g>
+<text x="20" y="596" font-size="11" fill="#8A948E">示意图：圆点按真实经纬度摆放，编号与下方卡片对应；虚线只表示「从这里出发」，不是行车路径。</text>
+<text x="20" y="614" font-size="11" fill="#8A948E">色条＝距离档：绿 ≤6 km · 金 6–12 km · 红 &gt;12 km。</text>
+<text x="20" y="632" font-size="11" fill="#8A948E">只有云城酒店的 22.1 km / 46 分钟是高德实测值，其余按 OpenStreetMap 路网＋高德山区车速换算，出行前请在导航里复核。</text>
+</svg>

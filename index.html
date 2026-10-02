@@ -17,8 +17,9 @@
 <style>
 /* ── 设计说明 ──────────────────────────────────────────────
    主题：10 月浙南梯田的稻浪金 + 山雾青灰。
-   三段式：① 定方案（10/4 三选一）② 照着走（10/5、10/6）
-          ③ 后勤（订房买票 + 出发前必办）
+   方案已定，所以不再有 A/B/C 分支——全文变成一条直线：
+   ① 定案（三天怎么排）② 照着走（每天几点导航到哪）
+   ③ 后勤（订房买票 + 出发前必办）
    线性长文，不用标签页——方便转发、打印、导出可跳转的 PDF。
    ──────────────────────────────────────────────────────── */
 :root{
@@ -68,6 +69,7 @@ a{color:inherit}
 .eyebrow{font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 12px}
 h1{font-family:var(--serif); font-weight:700; font-size:clamp(30px,6vw,42px); line-height:1.16; margin:0; text-wrap:balance; letter-spacing:-.01em}
 .masthead p{margin:14px 0 0; color:var(--muted); max-width:62ch}
+.masthead p strong{color:var(--ink)}
 
 /* ── 路线条 ── */
 .route{
@@ -79,7 +81,6 @@ h1{font-family:var(--serif); font-weight:700; font-size:clamp(30px,6vw,42px); li
 .route .dot{width:7px; height:7px; border-radius:50%; background:var(--pine); flex:none}
 .route .dot.gold{background:var(--gold)}
 .route .link{color:var(--line); letter-spacing:-1px}
-.route .split{color:var(--gold); font-weight:700; font-family:var(--mono); font-size:12px}
 
 /* ── 目录 ── */
 .toc{
@@ -96,14 +97,9 @@ h1{font-family:var(--serif); font-weight:700; font-size:clamp(30px,6vw,42px); li
   align-items:start; padding:12px 8px; text-decoration:none; border-radius:4px
 }
 .toc a:hover,.toc a:focus-visible{background:var(--surface-2); outline:none}
-.toc .n{
-  font-family:var(--mono); font-size:12px; font-weight:700; color:var(--gold);
-  grid-row:1/span 2
-}
+.toc .n{font-family:var(--mono); font-size:12px; font-weight:700; color:var(--gold); grid-row:1/span 2}
 .toc .t{font-weight:700; font-size:15px; min-width:0}
 .toc .t em{display:block; font-style:normal; font-weight:400; font-size:13px; color:var(--muted); margin-top:3px; line-height:1.55}
-.toc .go{display:none}
-/* 页码：屏幕上不显示（浏览器本来就能点着跳），只在打印/PDF 里出现 */
 .pg{display:none}
 .toc-mini{display:none}
 
@@ -126,44 +122,7 @@ h2.day-title{font-size:26px}
 h3{font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:36px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line)}
 h3:first-of-type{margin-top:0}
 .lead{margin:14px 0 0; color:var(--muted); max-width:66ch}
-
-/* ── 方案卡 ── */
-.plan{
-  border:1px solid var(--line); border-radius:var(--radius); background:var(--surface);
-  padding:20px 22px 24px; margin-top:22px
-}
-.plan.recommended{border-color:var(--gold-line); box-shadow:var(--shadow)}
-.plan-head{display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; margin:0 0 4px}
-.chip{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:26px; height:26px; border-radius:7px; flex:none;
-  font-family:var(--mono); font-size:14px; font-weight:700;
-  background:var(--ink); color:var(--bg); align-self:center
-}
-.plan.recommended .chip{background:var(--gold); color:#fff}
-.plan-head h3{
-  margin:0; padding:0; border:none; font-family:var(--serif);
-  font-size:19px; font-weight:600; letter-spacing:0; text-transform:none; color:var(--ink)
-}
-.tag{font-size:11px; font-weight:700; letter-spacing:.06em; padding:3px 9px; border-radius:100px; background:var(--gold-soft); color:var(--gold); white-space:nowrap; align-self:center}
-.verdict{margin:8px 0 18px; font-size:13.5px; color:var(--muted); line-height:1.6}
-.verdict b{color:var(--ink)}
-
-/* 方案 C：保守选项，刻意压低存在感 */
-.plan.muted{background:transparent; border-style:dashed; border-color:var(--line)}
-.plan.muted .chip{background:var(--faint)}
-.plan.muted .plan-head h3{font-family:var(--sans); font-size:16.5px; font-weight:500; color:var(--muted)}
-.plan.muted .tag{background:var(--surface-2); color:var(--muted)}
-.plan.muted .verdict{color:var(--faint)}
-.plan.muted .verdict b{color:var(--muted); font-weight:600}
-.plan.muted .route-line{background:transparent; border:1px dashed var(--line); color:var(--muted)}
-.plan.muted .rows li.drive{background:transparent}
-.plan.muted .rows li.meal{background:transparent}
-.plan.muted .rows li.hi{background:var(--surface-2)}
-.plan.muted .rows li.hi .main,.plan.muted .rows li.hi time{color:var(--muted)}
-.plan.muted .eat{border-style:dashed; background:transparent}
-.plan.muted .eat h4{background:var(--surface-2); color:var(--muted)}
-.plan.muted .eat .dish{background:transparent; color:var(--muted)}
+h2 + .lead{margin-top:12px}
 
 /* ── 日卡 ── */
 .weather{font-size:12.5px; color:var(--muted); margin:8px 0 20px; font-variant-numeric:tabular-nums}
@@ -172,15 +131,17 @@ h3:first-of-type{margin-top:0}
   background:var(--surface-2); padding:7px 12px; border-radius:4px;
   display:inline-block; margin:0 0 4px; word-break:break-word
 }
+.day-head{margin-top:52px}
+.day-head:first-of-type{margin-top:0}
 
 /* ── 流程表 ── */
 .rows{list-style:none; margin:0; padding:0}
 .rows > li{
-  display:grid; grid-template-columns:52px minmax(0,1fr); gap:3px 14px;
+  display:grid; grid-template-columns:56px minmax(0,1fr); gap:3px 14px;
   padding:11px 12px; border-top:1px solid var(--line); align-items:baseline; border-radius:3px
 }
 .rows > li:first-child{border-top:none}
-@media(min-width:720px){ .rows > li{grid-template-columns:52px minmax(0,1fr) 215px} }
+@media(min-width:720px){ .rows > li{grid-template-columns:56px minmax(0,1fr) 215px} }
 .rows time{font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink)}
 .rows .main{font-size:14.5px; line-height:1.5; min-width:0}
 .rows .note{margin:0; font-size:12.5px; color:var(--muted); line-height:1.5; grid-column:2}
@@ -214,13 +175,9 @@ tbody tr:last-child td{border-bottom:none}
 td b{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:600}
 .no{color:var(--warn); font-weight:700}
 .yes{color:var(--gold); font-weight:700}
-/* 对比表：A 金（主推）/ B 青 / C 灰（保守） */
-.cmp thead th:nth-child(2),.cmp td:nth-child(2){background:var(--gold-soft)}
-.cmp thead th:nth-child(3),.cmp td:nth-child(3){background:var(--pine-soft)}
-.cmp thead th:nth-child(4),.cmp td:nth-child(4){color:var(--faint)}
-.cmp td:first-child{color:var(--muted)}
-.wide{min-width:780px}
+.wide{min-width:760px}
 .wide td:first-child{white-space:normal; padding-right:20px}
+.narrow{min-width:0}
 .dt{display:inline-block; font-family:var(--mono); font-size:11.5px; font-weight:700; line-height:1.4; padding:3px 8px; border-radius:4px; white-space:nowrap}
 .dt.d4{background:var(--gold-soft); color:var(--gold); border:1px solid var(--gold-line)}
 .dt.d5{background:var(--pine-soft); color:var(--pine); border:1px solid var(--pine)}
@@ -240,14 +197,25 @@ td b{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:600
 .r4{color:var(--muted)}
 .ph{font-family:var(--mono); font-size:12.5px; font-variant-numeric:tabular-nums; cursor:pointer; border-bottom:1px dotted var(--muted); white-space:nowrap}
 .ph:hover,.ph:focus-visible{color:var(--gold); border-bottom-color:var(--gold); outline:none}
+/* 停车表：导航关键词要能整段换行，手机上是最高频的一栏 */
+.park{min-width:720px}
+.park td:first-child{white-space:nowrap}
+.park td:nth-child(2){white-space:normal}
+.kw{font-family:var(--mono); font-size:12.5px; background:var(--gold-soft); border:1px solid var(--gold-line); color:var(--gold); padding:2px 7px; border-radius:4px; display:inline-block; line-height:1.5; white-space:normal}
+.free{color:var(--pine); font-weight:700}
 
 /* ── 提示 ── */
 .callout{margin-top:20px; border-left:3px solid var(--warn); background:var(--warn-soft); padding:14px 18px; border-radius:0 4px 4px 0; font-size:13.5px; line-height:1.65}
 .callout strong{color:var(--warn)}
+.callout.good{border-left-color:var(--pine); background:var(--pine-soft)}
+.callout.good strong{color:var(--pine)}
 .note-bar{margin-top:18px; border-left:3px solid var(--line); padding:2px 0 2px 16px; font-size:13.5px; color:var(--muted); line-height:1.65}
 ul.plain{margin:12px 0 0; padding-left:20px}
 ul.plain li{margin-bottom:9px; line-height:1.65}
 ul.plain li::marker{color:var(--muted)}
+ol.steps{margin:12px 0 0; padding-left:22px}
+ol.steps li{margin-bottom:10px; line-height:1.65}
+ol.steps li::marker{font-family:var(--mono); font-weight:700; color:var(--pine)}
 
 /* ── 出发前必办 ── */
 .todo{margin-top:22px; background:var(--ink); color:var(--bg); border-radius:10px; padding:26px 26px 28px}
@@ -276,27 +244,27 @@ ul.plain li::marker{color:var(--muted)}
 }
 /* 导出 PDF 用的隐形锚点：字号 1px、白色，是为了让 PyMuPDF 能在文字层里定位章节 */
 .mk{font-size:1px; color:#fff; font-style:normal; letter-spacing:0; font-weight:400}
-/* 只在打印/PDF 里出现的提示 */
 .pdfhint{display:none}
 #toast.on{opacity:1; transform:translate(-50%,0)}
 @media(prefers-reduced-motion:reduce){#toast{transition:none}}
 
 footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted)}
 
-/* ── 窄屏：住宿表从「横向滚动」变成「一店一卡」 ──
-   手机上查电话是最高频的动作，不能让电话列躲在屏幕右边。
+/* ── 窄屏：住宿表 / 停车表从「横向滚动」变成「一店一卡」 ──
+   手机上查电话、查导航关键词是最高频的动作，不能让关键列躲在屏幕右边。
    用 @media screen 限定，避免影响 PDF 排版。 */
 @media screen and (max-width:640px){
-  table.stay{min-width:0; display:block}
-  table.stay thead{display:none}
-  table.stay tbody{display:block}
-  table.stay tr{display:block; padding:13px 0; border-bottom:1px solid var(--line)}
-  table.stay tr:last-child{border-bottom:none}
-  table.stay td{display:block; width:auto; border:none; padding:2px 0; font-size:13.5px}
-  table.stay td:first-child{padding-right:0; white-space:normal}
-  table.stay td:first-child .name{font-size:15px}
-  table.stay td[data-th]:not(:first-child)::before{
-    content:attr(data-th); display:inline-block; min-width:46px;
+  table.stay,table.park{min-width:0; display:block}
+  table.stay thead,table.park thead{display:none}
+  table.stay tbody,table.park tbody{display:block}
+  table.stay tr,table.park tr{display:block; padding:13px 0; border-bottom:1px solid var(--line)}
+  table.stay tr:last-child,table.park tr:last-child{border-bottom:none}
+  table.stay td,table.park td{display:block; width:auto; border:none; padding:2px 0; font-size:13.5px}
+  table.stay td:first-child,table.park td:first-child{padding-right:0; white-space:normal}
+  table.stay td:first-child .name,table.park td:first-child{font-size:15px}
+  table.stay td[data-th]:not(:first-child)::before,
+  table.park td[data-th]:not(:first-child)::before{
+    content:attr(data-th); display:inline-block; min-width:52px;
     color:var(--muted); font-size:12px; font-weight:400; vertical-align:1px
   }
   table.stay .ph{font-size:14px}
@@ -309,8 +277,8 @@ footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font
   .wrap{max-width:none; padding:0}
   section{padding-block:16px 0}
   section.parted{margin-top:26px; padding-block:26px 0}
-  .eat,.callout,.rows > li,table,tr,figure,ul.plain li,.toc ol > li{break-inside:avoid}
-  h2,h3,.plan-head,.route-line,.todo ol > li,.part{break-after:avoid}
+  .eat,.callout,.rows > li,table,tr,figure,ul.plain li,ol.steps li,.toc ol > li{break-inside:avoid}
+  h2,h3,.route-line,.todo ol > li,.part,.day-head{break-after:avoid}
   .toc{break-after:page}
   .pg{display:inline; font-family:var(--mono); font-style:normal; font-size:9pt; font-weight:700;
       color:#9E6C1C; letter-spacing:0; padding-top:2px}
@@ -322,15 +290,16 @@ footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--line); font
   .toc-mini .ind{color:#888}
   .pdfhint{display:block; margin:14px 0 0; font-size:9pt; color:#555; border-top:1px solid #ccc; padding-top:10px}
   a{color:#000; text-decoration:none}
-  .plan{margin-top:12px; padding:12px 14px 14px}
   .scroll{overflow:visible}
   table{min-width:0; font-size:9pt}
-  .wide,.stay,.cmp{min-width:0}
+  .wide,.stay,.park,.narrow{min-width:0}
   th,td{padding:4px 8px 4px 0; font-size:9pt}
   td:first-child{white-space:normal}
-  .rows > li{grid-template-columns:44px minmax(0,1fr) 175px; padding:5px 7px; gap:2px 10px}
+  .kw{background:none; border:none; padding:0; font-weight:700; color:#000}
+  .rows > li{grid-template-columns:48px minmax(0,1fr) 175px; padding:5px 7px; gap:2px 10px}
   .rows .main{font-size:10pt}
   .rows .note{font-size:8.5pt}
+  .day-head{margin-top:24px}
   .todo{margin-top:20px; padding:16px 18px 18px; background:#1A211C !important; color:#F5F7F4 !important; break-before:page; break-inside:avoid}
   .todo h2{font-size:18pt}
   .todo ol{margin-top:14px}
@@ -357,13 +326,13 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <div class="wrap">
 
 <header class="masthead">
-  <p class="eyebrow">2026 国庆 · 浙南环线 · 6 人 3 间房</p>
+  <p class="eyebrow">2026 国庆 · 浙南环线 · 6 人 3 间房 · 杭州往返</p>
   <h1>丽水台州三日自驾</h1>
-  <p>杭州往返，10/4 出发 10/6 回。云和梯田和神仙居是定死的，<strong>唯一要选的是 10/4 那天去哪</strong>——那天中雨，所以给了三条走法。</p>
+  <p>方案已定，这份文档只写这一条。10/4 走<strong>缙云仙都「免费版」</strong>——不去鼎湖峰，提前办车辆报备，自驾直达朱潭山、岩宕书房、小赤壁；当晚到云和，第二天看梯田日出，第三天神仙居南上南下后回杭州。<strong>每天几点、导航搜什么、车停哪、多少钱，都写在下面。</strong></p>
   <div class="route">
     <span class="node"><i class="dot"></i>杭州</span>
     <span class="link">────</span>
-    <span class="node"><i class="dot gold"></i><span class="split">10/4 三选一</span>　A 双龙洞｜B 仙都+日出｜C 仙都不过夜</span>
+    <span class="node"><i class="dot gold"></i>缙云仙都</span>
     <span class="link">────</span>
     <span class="node"><i class="dot"></i>云和梯田</span>
     <span class="link">────</span>
@@ -375,416 +344,532 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 
 <nav class="toc">
   <h2>这份文档分三段</h2>
-  <p>先花 5 分钟看完第一段把方案定下来，后面两段照着做就行。</p>
+  <p>先花 5 分钟看完第一段，后面两段照着做就行。</p>
   <ol>
     <li><a href="#part1">
       <span class="n">01</span>
-      <span class="t">定方案 · 10/4 走哪条<em>对比表 + 三条走法的完整时刻表 + 都不满意时的备选景点。只影响 10/4 一天</em></span>
+      <span class="t">定案 · 三天怎么排<em>骨架表、为什么是这个走法、钱花在哪。看完这段就够定心了</em></span>
       <span class="pg" data-pg="zzP1">P2</span>
     </a></li>
     <li><a href="#part2">
       <span class="n">02</span>
-      <span class="t">照着走 · 10/5、10/6<em>这两天三个方案完全一样，没有分支。云和梯田看日出 → 神仙居 → 回杭州</em></span>
-      <span class="pg" data-pg="zzP2">P7</span>
+      <span class="t">照着走 · 每天几点导航到哪<em>10/4、10/5、10/6 各一张时刻表，每天再配一张「导航搜什么 · 车停哪 · 多少钱」</em></span>
+      <span class="pg" data-pg="zzP2">P4</span>
     </a></li>
     <li><a href="#part3">
       <span class="n">03</span>
-      <span class="t">后勤 · 订房、买票、出发前<em>民宿电话表、门票与优惠政策、天气，最后是一张出发前必办清单</em></span>
-      <span class="pg" data-pg="zzP3">P11</span>
+      <span class="t">后勤 · 订房买票出发前<em>住宿实价与电话表、门票、日出与云海查询工具、顺路的平价饭店与免费景点、必办清单</em></span>
+      <span class="pg" data-pg="zzP3">P10</span>
     </a></li>
   </ol>
   <div class="toc-mini">
     <b>详细位置</b>
-    <span>方案对比 <i class="pg" data-pg="zzCMP">–</i></span>
-    <span>A/B 花费 <i class="pg" data-pg="zzCOST">P2</i></span>
-    <span>三条走法 <i class="pg" data-pg="zzSCHED">P3</i></span>
-    <span class="ind">└ A 双龙洞 <i class="pg" data-pg="zzPLANA">P3</i></span>
-    <span class="ind">└ B 仙都+日出 <i class="pg" data-pg="zzPLANB">P4</i></span>
-    <span class="ind">└ C 不过夜 <i class="pg" data-pg="zzPLANC">P5</i></span>
-    <span>备选景点 <i class="pg" data-pg="zzALT">P6</i></span>
-    <span>10/5 看日出版 <i class="pg" data-pg="zzD5A">P8</i></span>
-    <span>10/5 不看日出版 <i class="pg" data-pg="zzD5C">P9</i></span>
-    <span>10/6 第 3 天 <i class="pg" data-pg="zzD6">P10</i></span>
-    <span>住宿 <i class="pg" data-pg="zzSTAY">P11</i></span>
-    <span>门票 <i class="pg" data-pg="zzTICKET">P14</i></span>
-    <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P15</i></span>
-    <span>天气与提醒 <i class="pg" data-pg="zzWX">P15</i></span>
-    <span>附录 · 参考文档 <i class="pg" data-pg="zzREF">P16</i></span>
-    <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P17</i></span>
+    <span>三天骨架 <i class="pg" data-pg="zzPLAN">P2</i></span>
+    <span>为什么这么走 <i class="pg" data-pg="zzWHY">P2</i></span>
+    <span>钱花在哪 <i class="pg" data-pg="zzCOST">P3</i></span>
+    <span>10/4 时刻表 <i class="pg" data-pg="zzD4">P4</i></span>
+    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD4PARK">P5</i></span>
+    <span class="ind">└ 报备怎么办 <i class="pg" data-pg="zzD4REG">P5</i></span>
+    <span class="ind">└ 午饭吃哪家 <i class="pg" data-pg="zzD4EAT">P6</i></span>
+    <span class="ind">└ 晚上住哪 <i class="pg" data-pg="zzD4STAY">P6</i></span>
+    <span>10/5 时刻表 <i class="pg" data-pg="zzD5">P7</i></span>
+    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD5PARK">P8</i></span>
+    <span>10/6 时刻表 <i class="pg" data-pg="zzD6">P8</i></span>
+    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD6PARK">P9</i></span>
+    <span>住宿与电话 <i class="pg" data-pg="zzSTAY">P10</i></span>
+    <span>门票 <i class="pg" data-pg="zzTICKET">P12</i></span>
+    <span>日出与云海工具 <i class="pg" data-pg="zzSUN">P13</i></span>
+    <span>顺路吃与免费景点 <i class="pg" data-pg="zzALT">P13</i></span>
+    <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P14</i></span>
+    <span>天气与提醒 <i class="pg" data-pg="zzWX">P14</i></span>
+    <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P15</i></span>
   </div>
-  <p class="pdfhint">在微信 / 手机里看：照上面的<strong>页码滑过去</strong>就行，不需要点。<br>在电脑上看：左侧「书签」栏有同样的目录，目录行和住宿表里的民宿名也能直接点。</p>
+  <p class="pdfhint">在微信 / 手机里看：照上面的<strong>页码滑过去</strong>就行，不需要点。<br>在电脑上看：左侧「书签」栏有同样的目录，目录行、住宿表里的民宿名、停车表里的导航关键词都能直接点。</p>
 </nav>
 
-<!-- ══════════════════════ 第一部分 · 定方案 ══════════════════════ -->
+<!-- ══════════════════════ 第一部分 · 定案 ══════════════════════ -->
 <section class="parted" id="part1">
-  <p class="part">第一部分 · 定方案</p>
-  <h2>10/4 走哪条<span class="sub">三个走法只影响 10/4 这一天，10/5 和 10/6 是共用的</span></h2>
-  <div class="scroll">
-    <table class="cmp">
-      <thead><tr><th>对比项</th><th>A · 双龙洞</th><th>B · 仙都 + 看日出</th><th>C · 仙都不过夜</th></tr></thead>
-      <tbody>
-        <tr><td>一句话</td><td><b>雨天零风险，最早到梯田</b></td><td>看得到日出，但要开雨夜山路</td><td>最轻松，看不到日出</td></tr>
-        <tr><td>10/4 去哪</td><td><b>金华双龙洞</b>（溶洞）</td><td>缙云仙都 → 当晚到梯田</td><td>缙云仙都 → 住仙都</td></tr>
-        <tr><td>10/4 出发</td><td><b>05:30</b>（赶 8 点前换乘）</td><td><b>06:00</b></td><td><b>06:30</b></td></tr>
-        <tr><td>10/4 收工</td><td class="yes">15:30 到崇头镇</td><td>18:30 到崇头镇</td><td>17:00 到仙都民宿</td></tr>
-        <tr><td>10/4 里程</td><td><b>395 km</b></td><td><b>389 km</b></td><td><b>250 km</b></td></tr>
-        <tr><td>10/5 里程</td><td><b>210 km</b></td><td><b>210 km</b></td><td><b>349 km</b></td></tr>
-        <tr><td>总里程</td><td>825 km</td><td>819 km</td><td>819 km</td></tr>
-        <tr><td>日出 / 云海</td><td class="yes">看得到</td><td class="yes">看得到</td><td class="no">看不到</td></tr>
-        <tr><td>雨天影响</td><td class="yes">零，全程在洞里</td><td>不大，仙都雨里照玩</td><td>不大</td></tr>
-        <tr><td>10/4 风险</td><td class="yes">无，天黑前就到</td><td class="no">夜间雨中山路 2.5–3h</td><td class="yes">无</td></tr>
-        <tr><td>门票折扣</td><td class="yes">梯田民宿可买 6 折</td><td class="yes">梯田民宿可买 6 折</td><td>仙都没有此机制</td></tr>
-        <tr><td>多玩到</td><td>双龙洞、冰壶洞</td><td>仙都 + 日出云海</td><td>倪翁洞、仙都傍晚</td></tr>
-        <tr><td>少了什么</td><td class="no">仙都整块放弃</td><td>—</td><td class="no">看不到日出云海</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="callout">
-    <strong>一句话。</strong>10/4 中雨。<b>怕雨、怕开夜山路 → 选 A</b>，双龙洞是溶洞，洞内恒温 15–18℃，外面下多大都不影响，而且它本来就在杭州去丽水的路上（杭金衢 → 金丽温），不多绕路；真正的好处是 15:30 就到崇头镇，比 B 早三小时，天黑前收工、还能赶上傍晚的梯田。唯一要多做一步的是<b>国庆期间私家车开不上山，得在游客中心换景交车</b>，所以出发要提早到 5:30。<b>想看日出、愿意接受雨夜山路 → 选 B</b>，云海有时间窗，日出前后到 08:00 云雾压在谷底，太阳一高就散，住到梯田才赶得上。<b>C 是不想早起、也不想赶路的保守选择</b>，代价是放弃日出。
-    <br><br>A 和 B 的 10/5、10/6 是逐字一样的。选哪个只影响 10/4 一天。
-  </div>
-
-  <h3>A 和 B 到底差多少钱</h3>
-  <p class="lead">结论先说：<strong>几乎不差钱</strong>。全队 6 人的硬开销（门票 + 油费 + 停车）A 比 B 贵不到 100 元，人均十几块。别拿钱当理由选。</p>
+  <p class="part">第一部分 · 定案</p>
+  <h2>三天骨架<span class="sub">云和梯田和神仙居是钉死的，10/4 那天插仙都，就成了这条线</span></h2>
   <div class="scroll">
     <table class="wide">
-      <thead><tr><th>项目</th><th>A · 双龙洞</th><th>B · 仙都 + 看日出</th><th>差额</th></tr></thead>
+      <thead><tr><th></th><th><span class="dt d4">10/4<em>第 1 天</em></span></th><th><span class="dt d5">10/5<em>第 2 天</em></span></th><th><span class="dt d6">10/6<em>第 3 天</em></span></th></tr></thead>
       <tbody>
-        <tr><td>10/4 门票</td>
-          <td>联票（门票 + 景交车）<b>115–120</b> / 人<span class="where">× 6 人 = <b>690–720</b></span></td>
-          <td>仙都通票 <b>105</b> / 人<span class="where">× 6 人 = <b>630</b>，含 2 天景交车</span></td>
-          <td class="no">A 多 60–90</td></tr>
-        <tr><td>10/4 油费</td>
-          <td><b>395</b> km<span class="where">约 237</span></td>
-          <td><b>389</b> km<span class="where">约 233</span></td>
-          <td>A 多约 4</td></tr>
-        <tr><td>高速费</td>
-          <td class="yes">0</td><td class="yes">0</td>
-          <td><span class="where">国庆 7 座以下免费</span></td></tr>
-        <tr><td>停车费</td>
-          <td>约 10<span class="where">双龙游客中心，换乘必需</span></td>
-          <td>约 10–20<span class="where">仙都景区 / 民宿</span></td>
-          <td>约等于</td></tr>
-        <tr><td>10/4 午饭</td>
-          <td>人均 50–75<span class="where">金华市区或景区门口</span></td>
-          <td>人均 60–100<span class="where">仙都景区内，选择少、偏贵</span></td>
-          <td class="yes">B 多 60–150</td></tr>
-        <tr><td>10/5、10/6</td>
-          <td colspan="2">两天行程逐字相同——门票、索道、住宿、油费完全一致，不参与比较</td>
-          <td><b>0</b></td></tr>
-        <tr><td><b>硬开销小计</b></td>
-          <td><b>约 940–970</b></td>
-          <td><b>约 875–885</b></td>
-          <td><b>A 多 60–90</b></td></tr>
+        <tr><td>路线</td>
+          <td>杭州 → <b>缙云仙都</b> → 云和</td>
+          <td>云和梯田 → <b>仙居</b></td>
+          <td><b>神仙居</b> → 杭州</td></tr>
+        <tr><td>当天车程</td>
+          <td><b>231 + 114 km</b><span class="where">约 5.5 小时</span></td>
+          <td><b>约 200–240 km</b><span class="where">约 3–4 小时（山路 20km 在景区侧）</span></td>
+          <td><b>211–219 km</b><span class="where">约 2 小时 50 分–3 小时 15 分</span></td></tr>
+        <tr><td>几点出发</td>
+          <td><b>06:00</b><span class="where">杭州出门</span></td>
+          <td><b>04:20</b><span class="where">出门去看日出</span></td>
+          <td><b>05:30</b><span class="where">起床，6 点前进山</span></td></tr>
+        <tr><td>几点收工</td>
+          <td>18:30 到云和<span class="where">住县城则 18:00</span></td>
+          <td>17:30 到仙居淡竹乡</td>
+          <td>18:30 到杭州</td></tr>
+        <tr><td>住哪</td>
+          <td>云和梯田景区内 <span class="no">或</span> 云和县城<span class="where">见 P6 的对比</span></td>
+          <td>仙居淡竹乡<span class="where">神仙居南门旁</span></td>
+          <td>—</td></tr>
+        <tr><td>今天看什么</td>
+          <td>朱潭山 · 岩宕书房 · 小赤壁<span class="where">三个点都自驾可达，不用换景交车</span></td>
+          <td>九曲云环日出 + 云海 · 白银谷坑根石寨 · 七星墩</td>
+          <td>南天索道 · 南天梯 · 南天顶 · 观音峰 · 如意桥</td></tr>
+        <tr><td>今天门票</td>
+          <td class="yes">0<span class="where">不去鼎湖峰就不进检票口</span></td>
+          <td>约 40–48 / 人<span class="where">住景区民宿买 6 折</span></td>
+          <td>一票通 <b>327</b> / 人<span class="where">含门票+索道+观光车+南天顶</span></td></tr>
+        <tr><td>今天最大的坑</td>
+          <td class="no">没报备就开不进卡口</td>
+          <td class="no">起床晚了赶不上日出</td>
+          <td class="no">走错收费站 / 撞返程高峰</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="callout">
-    <strong>所以别按钱选。</strong>门票上 A 贵 60–90 元，但 10/4 的午饭 B 在景区里吃、反而贵 60–150 元——两项基本对冲，<b>全队总差额在 ±100 元以内，人均不到 20 块，一顿饭的钱</b>。
-    <br><br>真正的差别是：<b>选 A 少开 6km、早 3 小时到、全程不淋雨</b>，代价是放弃仙都；<b>选 B 能看日出、玩到仙都</b>，代价是傍晚 2.5–3 小时雨夜盘山路。按天气和体力选。
-    <br><span class="where">两套方案共有的开销都一样，所以不计入比较：神仙居门票 99 + 索道 120 = 219/人，住宿约 300/间 × 2 晚，梯田索道（若需要）200/人。</span>
-  </div>
 
-  <h3>三条走法的完整时刻表</h3>
-
-  <!-- ── A ── -->
-  <div class="plan recommended">
-    <div class="plan-head">
-      <span class="chip">A</span>
-      <h3>双龙洞 · 雨天零风险</h3>
-      <span class="tag">推荐</span>
-    </div>
-    <p class="verdict">杭州 → 金华双龙洞 → 云和梯田崇头镇 · <b>约 395km</b>。全程在洞里，外面下多大雨都不影响。<b>注意：国庆期间私家车开不上山</b>，得在游客中心换景交车——所以出发时间要提前到 5:30。下午 15:30 就到民宿，天黑前收工，傍晚的梯田光线正好。</p>
-
-    <p class="route-line">杭州 → 金华双龙游客中心 → 云和梯田崇头镇</p>
-    <p class="weather">中雨转小雨　·　洞内恒温 15–18℃，与天气完全无关</p>
-
-    <ul class="rows">
-      <li class="drive"><time>05:30</time>
-        <div class="main">杭州 <span class="arrow">→</span> 金华双龙游客中心<span class="km">180km · 2h</span></div>
-        <p class="note">杭金衢高速，下高速后还有约 15km 山路。<strong>必须 8 点前到</strong>，见下条</p></li>
-      <li><time>07:30</time>
-        <div class="main">到双龙游客中心，停车</div>
-        <p class="note"><strong>10/1–10/7 每天 8:00–16:30 上山道路限行</strong>（罗电线 / 花果路 / 新朝线 / 金九线），私家车开不上去，只能停这儿换景交车。停车约 10 元/天</p></li>
-      <li class="drive"><time>07:50</time>
-        <div class="main">坐景交车上山 <span class="arrow">→</span> 双龙洞洞口<span class="km">往返约 40/人</span></div>
-        <p class="note">游客中心和洞口不是一个地方，隔得挺远，走不了。也可买门票+景交联票，约 115–120/人。<strong>早到就是为了赶第一批车</strong></p></li>
-      <li class="hi"><time>08:00</time>
-        <div class="main">双龙洞开门，仰卧乘船进洞</div>
-        <p class="note">头顶岩壁只有约 30cm，全程严禁抬头、手放胸前，每船 4–6 人。<strong>晚了排队很长</strong></p></li>
-      <li><time>09:15</time><div class="main">冰壶洞</div><p class="note">与双龙洞相连，洞里有瀑布</p></li>
-      <li><time>10:15</time><div class="main">桃源洞 / 仙瀑洞（时间够再去）</div><p class="note">走完回洞口坐景交车下山。双龙洞 + 冰壶洞本身约 2 小时</p></li>
-      <li class="meal"><time>11:00</time><div class="main">午饭 · 金华</div><p class="note">景区门口有农家乐，想吃好点就下山进市区</p></li>
-      <li class="drive"><time>12:30</time><div class="main">金华 <span class="arrow">→</span> 云和梯田崇头镇<span class="km">约 215km · 3h</span></div><p class="note">金丽温高速，路况好。大白天开，不用摸黑</p></li>
-      <li class="sleep"><time>15:30</time><div class="main">到崇头镇 / 梅竹村，入住</div><p class="note"><strong>比方案 B 早 3 小时到</strong>，傍晚的梯田光线正好</p></li>
-      <li class="meal"><time>17:30</time><div class="main">晚饭 · 住哪吃哪</div><p class="note">用房卡或订单在民宿买 6 折门票</p></li>
-      <li><time>20:00</time><div class="main">睡。明早 5 点起</div><p class="note">跟民宿确认明早日出的接送或步行路线</p></li>
-    </ul>
-
-    <div class="eat">
-      <h4>今天吃什么</h4>
-      <dl>
-        <dt>午饭 · 金华</dt>
-        <dd>金华火腿名气大，但当地人日常吃的是<strong>金华煲</strong>（砂锅炖）和汤溪菜。
-          <br><span>赶时间就在景区门口农家乐解决；想吃正经一顿，下山到金华市区，选择多得多。</span></dd>
-        <dt>晚饭 · 崇头镇</dt>
-        <dd>照"梯田十八味"点，这是崇头镇统一推的餐饮品牌，<span>201 家农家乐一个标准</span>。
-          <br><span>高山火锅：</span><span class="dish">梯田稻鱼火锅</span><span class="dish">将军土猪脚火锅</span>
-          <span>山珍：</span><span class="dish">梯田三白</span><span class="dish">风炉豆腐娘</span><span class="dish">云端小土豆</span>
-          <br><span>人均 40–70 元，住店吃最省事。</span></dd>
-      </dl>
-    </div>
-  </div>
-
-  <!-- ── B ── -->
-  <div class="plan">
-    <div class="plan-head">
-      <span class="chip">B</span>
-      <h3>仙都 + 看日出</h3>
-    </div>
-    <p class="verdict">杭州 → 仙都景区 → 云和梯田崇头镇 · <b>389km</b>。仙都全天有雨但照玩（丹霞绝壁湿了更红，岩宕书房是室内的）。代价是傍晚那段 <b>2.5–3 小时的雨夜盘山路</b>。</p>
-
-    <p class="route-line">杭州 → 仙都景区 → 云和梯田崇头镇</p>
-    <p class="weather">中雨转小雨　·　仙都全天有雨，梯田夜间转小</p>
-
-    <ul class="rows">
-      <li class="drive"><time>06:00</time><div class="main">杭州 <span class="arrow">→</span> 仙都景区<span class="km">250km · 3.5h</span></div><p class="note">走 G25 长深高速。国庆首段会缓行，按 4h 留量</p></li>
-      <li><time>09:30</time><div class="main">到仙都景区，停车换景交车</div><p class="note">通票含 2 天无限次景交车，不用重复买</p></li>
-      <li><time>10:00</time><div class="main">朱潭山</div><p class="note">拍鼎湖峰倒影的机位。<strong>雨天没倒影，可跳过</strong>——这是全场最受雨天影响的一站</p></li>
-      <li><time>10:50</time><div class="main">鼎湖峰</div><p class="note">仙都招牌。雨天云雾绕山，反而有仙气</p></li>
-      <li class="meal"><time>12:00</time><div class="main">午饭 · 景区内农家乐</div><p class="note">鼎湖峰周边最集中，见下方「吃什么」</p></li>
-      <li><time>13:30</time><div class="main">岩宕书房</div><p class="note"><strong>室内，雨天最舒服的一站</strong></p></li>
-      <li><time>14:30</time><div class="main">小赤壁</div><p class="note">丹霞绝壁走一圈约 40 分钟。湿岩颜色更红，不算亏</p></li>
-      <li class="drive"><time>15:30</time><div class="main">仙都 <span class="arrow">→</span> 云和梯田崇头镇<span class="km">139km · 2.5–3h</span></div><p class="note">盘山路 + 雨天，按 3h 算，到店天已黑</p></li>
-      <li class="sleep"><time>18:30</time><div class="main">到崇头镇 / 梅竹村，入住</div><p class="note">用房卡或订单在民宿买 6 折门票</p></li>
-      <li class="meal"><time>19:00</time><div class="main">晚饭 · 住哪吃哪</div><p class="note">山上民宿基本老板亲自下厨</p></li>
-      <li><time>21:00</time><div class="main">睡。明早 5 点起</div><p class="note">跟民宿确认明早日出的接送或步行路线</p></li>
-    </ul>
-
-    <div class="eat">
-      <h4>今天吃什么</h4>
-      <dl>
-        <dt>午饭 · 仙都景区内</dt>
-        <dd>缙云是"烧饼之乡"，景区门口和矴步桥边有现烤摊，<span>约 8 元一个，梅干菜扣肉馅，必须趁热吃</span>。
-          <br><span>正餐推荐：</span><span class="dish">缙云烤麻鸭</span><span class="dish">红烧好溪溪鱼</span><span class="dish">仙都土鸡煲</span><span class="dish">敲肉羹</span><span class="dish">肉沫山粉皮</span>
-          <br><span>店：</span><strong>家谦农家菜·仙都土菜</strong>（紧邻鼎湖峰，人均约 75）；<strong>珍仙都土菜馆</strong>（白切鸡、红烧溪鱼）；<strong>新人民公社三松农家大院</strong>（鼎湖路官店村66号，人均约 64，4.5 分）。农家乐人均 60–100 元。</dd>
-        <dt>晚饭 · 崇头镇</dt>
-        <dd>点菜照"梯田十八味"点：
-          <span class="dish">梯田稻鱼火锅</span><span class="dish">梯田三白</span><span class="dish">风炉豆腐娘</span><span class="dish">云端小土豆</span>
-          <br><span>人均 40–70 元。到得晚，提前跟民宿说一声留饭。</span></dd>
-      </dl>
-    </div>
-  </div>
-
-  <!-- ── C（保守选项，视觉上压低） ── -->
-  <div class="plan muted">
-    <div class="plan-head">
-      <span class="chip">C</span>
-      <h3>仙都不过夜 · 保守选项</h3>
-      <span class="tag">不推荐，除非不想早起</span>
-    </div>
-    <p class="verdict">杭州 → 仙都景区（住景区内）· <b>250km</b>。10/4 最轻松的一天，不用赶路，倪翁洞这种 B 没时间排的也能走完。代价是<b>看不到日出云海</b>——10/5 上午才往梯田走，到的时候云海窗口已经关了，而且 10/5 要跑 349km。</p>
-
-    <p class="route-line">杭州 → 仙都景区（住景区内）</p>
-    <p class="weather">中雨转小雨　·　全天有雨</p>
-
-    <ul class="rows">
-      <li class="drive"><time>06:30</time><div class="main">杭州 <span class="arrow">→</span> 仙都景区<span class="km">250km · 3.5h</span></div><p class="note">比方案 B 晚半小时出发</p></li>
-      <li><time>10:00</time><div class="main">到仙都景区，停车换景交车</div><p class="note">车停景区民宿的位子，之后不再动</p></li>
-      <li><time>10:30</time><div class="main">朱潭山</div><p class="note">雨天没倒影，可跳过</p></li>
-      <li><time>11:20</time><div class="main">鼎湖峰</div><p class="note">雨天云雾绕山反而好看</p></li>
-      <li class="meal"><time>12:00</time><div class="main">午饭 · 景区内农家乐</div><p class="note">见下方「吃什么」</p></li>
-      <li><time>13:30</time><div class="main">岩宕书房</div><p class="note">室内，雨天最舒服</p></li>
-      <li><time>14:30</time><div class="main">小赤壁</div><p class="note">丹霞绝壁，湿岩更红，走一圈约 40 分钟</p></li>
-      <li><time>15:30</time><div class="main">倪翁洞（时间够再去）</div><p class="note">方案 B 没时间排的一站，这里可以从容走完</p></li>
-      <li class="sleep"><time>17:00</time><div class="main">入住仙都景区内民宿</div><p class="note">车停好就不再动了</p></li>
-      <li class="meal"><time>18:00</time><div class="main">晚饭 · 轩辕街一带</div><p class="note">烧饼总店就在这条街上</p></li>
-      <li><time>20:00</time><div class="main">逛轩辕街，早点睡</div><p class="note">明早 7 点出发去梯田</p></li>
-    </ul>
-
-    <div class="eat">
-      <h4>今天吃什么</h4>
-      <dl>
-        <dt>午饭 · 仙都景区内</dt>
-        <dd>景区门口和矴步桥边有现烤<strong>缙云烧饼</strong>摊，<span>约 8 元一个，梅干菜扣肉馅，必须趁热吃</span>。
-          <br><span>正餐推荐：</span><span class="dish">缙云烤麻鸭</span><span class="dish">红烧好溪溪鱼</span><span class="dish">仙都土鸡煲</span><span class="dish">敲肉羹</span>
-          <br><span>店：</span><strong>家谦农家菜·仙都土菜</strong>（紧邻鼎湖峰，人均约 75）；<strong>轩辕堂农家乐</strong>（鼎湖大道，人均约 80，412 条评论）；<strong>新人民公社三松农家大院</strong>（人均约 64）。</dd>
-        <dt>晚饭 · 轩辕街</dt>
-        <dd>这条街上有<strong>缙云烧饼总店</strong>（五云镇黄龙路48号）和朱家烧饼总店。
-          <br><span>想换口味可以点：</span><span class="dish">肉麦饼</span><span class="dish">山粉饺</span><span class="dish">豆腐丸</span><span class="dish">神仙豆腐</span>
-          <br><span>住景区内晚上餐饮选择少、也冷清，这是它的代价。</span></dd>
-      </dl>
-    </div>
-  </div>
-
-  <h3>三条都不满意？这八个别处放不进</h3>
-  <p class="lead">别把这张表当成"10/4 的选项"——它们的顺路程度差很多，硬塞会拖垮后面两天。云和梯田和神仙居是定死的，所以能插备选的只有三段路：</p>
+  <h3>为什么是这个走法</h3>
   <ul class="plain">
-    <li><strong>10/4 一整天</strong>　杭州 → 云和梯田这段路上。这是唯一能换掉整个上午 / 下午的窗口。</li>
-    <li><strong>10/5 下午 14:30–17:30</strong>　从梯田下山到仙居这段。要挤进来就得砍掉七星墩或白银谷。</li>
-    <li><strong>10/6 下午 12:00–18:30</strong>　神仙居下山后回杭州这段。10/6 本来就是返程高峰，塞景点会晚到杭州。</li>
+    <li><strong>「仙都免费版」成立的前提是——不去鼎湖峰。</strong>仙都的 90 元是<strong>联票</strong>，覆盖景区里所有景点，但<strong>只有鼎湖峰设了检票点</strong>。所以你走朱潭山、岩宕书房、小赤壁这条线，事实上不花钱；但官方口径里并没有"收费景点 / 免费景点"的划分，别拿着"免费"去跟检票员理论。2026-06-08 缙云县政府在问政平台的答复也是"暂时还不具备免门票条件"。</li>
+    <li><strong>报备是「车辆报备」，不是门票豁免。</strong>2026-09-30 的国庆公告写的是"车辆进入景区实行报备制"。报备解决的是<strong>车能不能开进卡口</strong>，不解决门票。详见 P5。</li>
+    <li><strong>看日出只能靠自驾，不能指望索道。</strong>云和梯田观云索道 08:00 才开始运行，而 10/5 日出是 <b>05:57</b>。九曲云环 04:40 就开门（国庆口径），自己开车上去是唯一办法。</li>
+    <li><strong>神仙居的北登山步道确认封闭，索道大概率躲不掉。</strong>北步道自 2026-06-11 起官方封闭施工，南海桥、西线老君台—蟠桃园也在维保。<strong>南步道是否开放没法证实</strong>——打电话问清楚，如果开着，体力好的能省下 6 人 720 元的索道钱。</li>
+    <li><strong>10/4 那天有雨，所以三个点挑的都是淋不着或者淋了不亏的。</strong>岩宕书房是室内的；小赤壁是丹霞绝壁，湿了颜色更红；朱潭山是全场最受雨天影响的（倒影没了），但它是仙都的标志，还是去看一眼。</li>
   </ul>
+
+  <h3>钱花在哪</h3>
+  <p class="lead">按 <strong>6 人 3 间房</strong>算。国庆 7 座以下小客车免高速费，所以高速费是 0。</p>
   <div class="scroll">
     <table class="wide">
-      <thead><tr><th>备选</th><th>级别</th><th>门票</th><th>适合作为哪天的备选</th><th>特点 · 雨天判断</th></tr></thead>
+      <thead><tr><th>项目</th><th>单价</th><th>全队（6 人）</th><th>说明</th></tr></thead>
       <tbody>
-        <tr><td class="name">松阳古村落<span class="where">杨家堂 · 酉田 · 松庄　｜　丽水松阳</span></td>
-          <td>—</td><td class="yes">免费</td>
-          <td><span class="dt d4">10/4<em>完全顺路，零代价</em></span></td>
-          <td>黄土墙老屋群，被叫"江南最后的秘境"。杭州→云和必经，高速有松阳出口，<b>不用改路线</b>，路过停 2 小时。<b>雨天可去</b>，村里有屋檐，山路湿滑慢开</td></tr>
-        <tr><td class="name">遂昌金矿国家矿山公园<span class="where">丽水遂昌　｜　松阳往北</span></td>
-          <td>4A</td><td>约 80–100<span class="where">含矿洞小火车</span></td>
-          <td><span class="dt d4">10/4<em>绕行约 1h</em></span></td>
-          <td>唐代金窟，坐小火车进矿洞。<b>全程在洞内，雨天零影响</b>。它和双龙洞是同一类，属于"双龙洞去不了时的替补"，但更偏、更远</td></tr>
-        <tr><td class="name">南尖岩<span class="where">丽水遂昌　｜　和遂昌金矿同一方向</span></td>
-          <td>4A</td><td>约 60–80</td>
-          <td><span class="dt d4">10/4<em>绕行约 1h</em></span></td>
-          <td>千米之上的玻璃栈道 + 云海梯田。<b>和梯田的看点重复</b>，而且第二天就要去云和梯田，除非你就是想再看一次</td></tr>
-        <tr><td class="name">北斗崖<span class="where">丽水遂昌</span></td>
-          <td>—</td><td>约 60</td>
-          <td><span class="dt d4">10/4<em>绕行约 1h</em></span></td>
-          <td>丹霞崖壁，和仙都小赤壁同一个成因。<b>去了仙都就不用再来</b>；砍掉仙都又想在雨天看丹霞，可以顶上</td></tr>
-        <tr><td class="name">云中大漈<span class="where">含时思寺 · 雪花漈　｜　丽水景宁，云和往南约 1h</span></td>
-          <td>4A</td><td>约 40–60</td>
-          <td><span class="dt d5">10/5 下午<em>要砍掉七星墩</em></span></td>
-          <td>海拔 1000m 的瀑布群 + 宋代时思寺。<b>雨后水量最大，越下越好看</b>，是全场唯一"下雨加分"的点。但它在云和南边，去了就直接从景宁往仙居走，七星墩和白银谷得放弃</td></tr>
-        <tr><td class="name">石门洞<span class="where">丽水青田　｜　丽水往温州方向</span></td>
-          <td>4A</td><td>单票约 60 / 联票约 80</td>
-          <td><span class="dt d5">10/5 下午<em>绕行约 1.5h</em></span></td>
-          <td>瓯江边上的摩崖石刻群，刘基读书处。<b>雨天可去</b>（有洞有廊）。但它在东南方向，和去仙居的路是反的</td></tr>
-        <tr><td class="name">石梁飞瀑<span class="where">天台山　｜　台州天台，仙居往北 1.5h</span></td>
-          <td>5A</td><td>约 60</td>
-          <td><span class="dt d6">10/6 下午<em>顺路，但会晚到杭州</em></span></td>
-          <td>天然石桥横跨瀑布，徐霞客写过。<b>雨后最壮观</b>。它恰好在仙居回杭州的方向上，所以是 10/6 唯一塞得进的——代价是到杭州从 18:30 推到 19:30 以后，而 10/6 本来就是返程高峰，要慎重</td></tr>
-        <tr><td class="name">长屿硐天<span class="where">台州温岭　｜　神仙居东南 2h</span></td>
-          <td>4A</td><td>联票约 112–120</td>
-          <td><span class="dt no">不建议<em>除非砍掉神仙居</em></span></td>
-          <td>千年采石留下的硐群，洞内石壁如天幕，<b>洞内不怕雨</b>。但它在行程末端且完全反方向，去了就得牺牲神仙居或把它挪到 10/7，不划算</td></tr>
+        <tr><td>油费</td><td>约 0.6 元/km</td><td><b>约 640</b><span class="where">全程约 1070 km</span></td><td>按 1 辆车、百公里 8L 估</td></tr>
+        <tr><td>高速费</td><td class="yes">0</td><td class="yes">0</td><td>国庆 7 座以下免费</td></tr>
+        <tr><td>停车费</td><td>—</td><td><b>约 40–80</b></td><td>仙都报备后景点门口基本免费；云和梯田约 20/天；神仙居约 10–20</td></tr>
+        <tr><td>10/4 仙都门票</td><td class="yes">0</td><td class="yes">0</td><td>不去鼎湖峰</td></tr>
+        <tr><td>云和梯田门票</td><td>约 40–48</td><td><b>约 240–290</b></td><td>住景区民宿买 6 折（原价 70–80）</td></tr>
+        <tr><td>云和梯田景交车</td><td>往返 20</td><td><b>约 120</b></td><td>有大门票或索道票，2 号线免费</td></tr>
+        <tr><td>云和梯田索道</td><td>约 200</td><td><b>约 1200</b><span class="where">能自驾上七星墩则省下</span></td><td>无官方标准价目表，按 200/人预留。<strong>打电话问出能自驾就省这 1200</strong></td></tr>
+        <tr><td>神仙居一票通</td><td>327</td><td><b>1962</b><span class="where">当天票 347，即 2082</span></td><td>含大门票 + 索道往返 + 接驳车观光车 + 南天顶，<strong>比单买省 20 元还省排队</strong></td></tr>
+        <tr><td>住宿</td><td>约 300–600/间</td><td><b>约 1800–3600</b><span class="where">3 间 × 2 晚</span></td><td>见 P10 的真实房价</td></tr>
+        <tr><td><b>硬开销合计</b></td><td colspan="2"><b>约 4700–7000</b></td><td><b>人均 780–1170</b>（不含吃饭）</td></tr>
+        <tr><td class="free">能省的部分</td><td colspan="2" class="free"><b>约 1200–1900</b></td><td>梯田索道 1200（若自驾可上七星墩）+ 神仙居索道 720（若南步道开着、体力够）</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="callout">
-    <strong>结论：真正"零代价"的备选只有三个。</strong>
-    ① <b>10/4 的松阳古村落</b>——不收门票、不用改路线，路过停两小时就行；
-    ② <b>10/4 的方案 A 双龙洞</b>——已经在主线里了，不绕路；
-    ③ <b>10/5 下午的云中大漈</b>——唯一下雨加分的，但要用七星墩来换。
-    <br><br>其余几个（遂昌金矿、南尖岩、北斗崖、石门洞、石梁飞瀑、长屿硐天）都要绕路或牺牲固定景点，更适合"下次专门去遂昌 / 台州"时用。
-    <br>门票价格是查到的区间，国庆可能浮动，以景区现场或小程序为准。
+  <div class="callout good">
+    <strong>能省的最大一笔是梯田索道，6 人 1200 元。</strong>九曲云环到七星墩这一段，<strong>官方零信息，网友说法互相矛盾</strong>——有说自驾能开上去（有停车场、约 20 元/辆），也有说只有索道。订房时打一个电话问死它，答案决定你要不要花这 1200。
+    <span class="quote" style="display:block; margin-top:10px; padding:9px 13px; font-size:13px; line-height:1.55; background:var(--surface); border-left:2px solid var(--pine); border-radius:0 4px 4px 0">"我们自己开车，从九曲云环到七星墩能开上去吗？国庆有没有管制？车停哪？"</span>
   </div>
 </section>
 
 <!-- ══════════════════════ 第二部分 · 照着走 ══════════════════════ -->
 <section class="parted" id="part2">
   <p class="part">第二部分 · 照着走</p>
-  <h2 class="day-title">10/5 · 第 2 天<span class="sub">云和梯田全天 → 仙居。选 A 或 B 走「看日出版」，选 C 走「不看日出版」</span></h2>
 
-  <div class="plan recommended">
-    <div class="plan-head">
-      <span class="chip">A</span>
-      <h3>看日出版（方案 A、B 用这个）</h3>
-    </div>
-    <p class="verdict">云和梯田全天 → 仙居淡竹乡 · <b>210km</b>。云海窗口是日出前后到 08:00，太阳一高就散——这就是为什么前一晚必须住在山上。</p>
-
-    <p class="route-line">云和梯田全天 → 仙居淡竹乡</p>
-    <p class="weather">丽水晴 23/13℃　·　山区清晨约 10℃，按深秋穿</p>
-
-    <ul class="rows">
-      <li><time>05:00</time><div class="main">起床</div><p class="note">穿厚外套，带热水</p></li>
-      <li class="hi"><time>05:30</time><div class="main">到九曲云环观景台</div><p class="note">住景区内步行约 800m；住梅竹村有民宿接送</p></li>
-      <li class="hi"><time>06:00</time><div class="main">日出 + 云海</div><p class="note">日出约 06:00。云海窗口到 08:00，太阳一高就散</p></li>
-      <li class="meal"><time>07:30</time><div class="main">回民宿吃早饭</div><p class="note">不回去也行，带干粮在观景台吃</p></li>
-      <li><time>09:00</time><div class="main">再进九曲云环，深度逛</div><p class="note">票当天有效。门票含九曲云环 + 白银谷 + 七星墩</p></li>
-      <li class="drive"><time>10:30</time><div class="main">九曲云环 <span class="arrow">→</span> 七星墩<span class="km">索道 或 自驾</span></div><p class="note"><strong>这一段出发前打电话问民宿确认</strong>，见第三部分必办清单</p></li>
-      <li><time>11:30</time><div class="main">七星墩观景台</div><p class="note">海拔 1100m，360° 全景，看整个梯田谷</p></li>
-      <li class="meal"><time>12:00</time><div class="main">午饭 · 七星墩 / 梅竹村</div><p class="note">梅竹村选择多，云端餐厅一带最集中</p></li>
-      <li class="drive"><time>13:00</time><div class="main">七星墩 <span class="arrow">→</span> 白银谷·坑根石寨<span class="km">下坡</span></div><p class="note">古村落，海拔 766m。时间紧就只走主街</p></li>
-      <li class="drive"><time>14:30</time><div class="main">取车，云和 <span class="arrow">→</span> 仙居淡竹乡<span class="km">210km · 3h</span></div><p class="note">高速为主，路况好</p></li>
-      <li class="sleep"><time>17:30</time><div class="main">到仙居淡竹乡，入住</div><p class="note"><strong>放下行李就问老板明早几点能进山</strong></p></li>
-      <li class="meal"><time>18:30</time><div class="main">晚饭 · 民宿包吃住</div><p class="note">120–180 元/人档位基本都含晚餐和早餐</p></li>
-      <li><time>20:30</time><div class="main">早睡。明早 6 点前进山</div><p class="note">票和身份证提前放好，国庆实名分时</p></li>
-    </ul>
-
-    <div class="eat">
-      <h4>今天吃什么</h4>
-      <dl>
-        <dt>早饭 · 民宿</dt>
-        <dd>山上的民宿早饭通常是<span>番薯粥、土鸡蛋、现烙饼</span>，管饱。</dd>
-        <dt>午饭 · 七星墩 / 梅竹村</dt>
-        <dd>这一带以自养土鸡和稻田鱼出名。
-          <span>推荐点：</span><span class="dish">稻花鱼</span><span class="dish">酥绵小土豆</span><span class="dish">老板娘自制腌鸭</span>
-          <br><span>店：</span><strong>云和梯田农家民宿</strong>（梅竹新村6号，就在七星墩景区内）；<strong>岙头农家乐</strong>（陈坞村1号，在七星墩与九曲云环之间，老板夫妇自己下厨）。</dd>
-        <dt>晚饭 · 仙居民宿</dt>
-        <dd>包吃住的档位直接上<strong>仙居八大碗</strong>。这套菜讲"上四碗、下四碗"，传统用八仙桌配四尺凳。
-          <br><span>常吃到的：</span><span class="dish">翻碗肉</span><span class="dish">敲敲肉</span><span class="dish">大脸豆腐</span><span class="dish">肉皮泡</span><span class="dish">泡姜</span>
-          <br><span>注意"八大碗"只是说法，各家上菜数量不一，别较真。</span></dd>
-      </dl>
-    </div>
-  </div>
-
-  <div class="plan muted">
-    <div class="plan-head">
-      <span class="chip">C</span>
-      <h3>不看日出版（只给方案 C 用）</h3>
-      <span class="tag">配方案 C</span>
-    </div>
-    <p class="verdict">缙云 → 云和梯田 → 仙居淡竹乡 · <b>349km</b>，这一天要跑的路几乎是看日出版的两倍。09:30 才到九曲云环，<b>云海窗口已经关了</b>，看到的是梯田本身。</p>
-
-    <p class="route-line">缙云仙都 → 云和梯田 → 仙居淡竹乡</p>
-    <p class="weather">丽水晴 23/13℃　·　全程晴天</p>
-
-    <ul class="rows">
-      <li class="meal"><time>06:30</time><div class="main">起床、早饭</div><p class="note">民宿含早的居多</p></li>
-      <li class="drive"><time>07:00</time><div class="main">缙云仙都 <span class="arrow">→</span> 云和梯田九曲云环<span class="km">139km · 2.5h</span></div><p class="note">晴天山路，风景好，但也是这一天里最耗时的段</p></li>
-      <li><time>09:30</time><div class="main">到九曲云环</div><p class="note"><strong>此时云海窗口已关闭</strong>，看到的是梯田本身</p></li>
-      <li><time>09:30</time><div class="main">九曲云环游览</div><p class="note">检票口步行约 800m 到最佳观景台</p></li>
-      <li class="meal"><time>11:30</time><div class="main">午饭 · 崇头镇 / 梅竹村</div><p class="note">见下方「吃什么」</p></li>
-      <li class="drive"><time>12:30</time><div class="main">九曲云环 <span class="arrow">→</span> 七星墩<span class="km">索道 或 自驾</span></div><p class="note"><strong>出发前打电话问民宿确认这一段</strong></p></li>
-      <li><time>13:00</time><div class="main">七星墩观景台</div><p class="note">海拔 1100m，360° 全景</p></li>
-      <li class="drive"><time>14:00</time><div class="main">七星墩 <span class="arrow">→</span> 白银谷·坑根石寨<span class="km">下坡</span></div><p class="note">古村落，海拔 766m</p></li>
-      <li class="drive"><time>15:30</time><div class="main">取车，云和 <span class="arrow">→</span> 仙居淡竹乡<span class="km">210km · 3h</span></div><p class="note">这一天总共要跑 349km</p></li>
-      <li class="sleep"><time>18:30</time><div class="main">到仙居淡竹乡，入住</div><p class="note">比看日出版晚一小时到。<strong>放下行李就问明早进山通道</strong></p></li>
-      <li class="meal"><time>19:00</time><div class="main">晚饭 · 民宿包吃住</div><p class="note">累了一天，直接吃住店的</p></li>
-      <li><time>21:00</time><div class="main">睡。明早 6 点前进山</div><p class="note">票和身份证提前放好</p></li>
-    </ul>
-
-    <div class="eat">
-      <h4>今天吃什么</h4>
-      <dl>
-        <dt>午饭 · 崇头镇 / 梅竹村</dt>
-        <dd>照"梯田十八味"点，崇头镇统一品牌。<span>推荐：</span><span class="dish">梯田稻鱼火锅</span><span class="dish">梯田三白</span><span class="dish">风炉豆腐娘</span><span class="dish">云端小土豆</span>
-          <br><span>店：</span><strong>云田驿站农家乐</strong>（栈云街11号，游客中心对面，价格亲民）；<strong>云和柴火灶农家</strong>（崇头村，畲族黑米糕、炒莴笋干、鸡汤）；<strong>云和梯田农家民宿</strong>（梅竹新村6号，稻花鱼）。
-          <br><span>人均 40–70 元。</span></dd>
-        <dt>晚饭 · 仙居民宿</dt>
-        <dd>包吃住档位直接上<strong>仙居八大碗</strong>。
-          <br><span>常吃到的：</span><span class="dish">翻碗肉</span><span class="dish">敲敲肉</span><span class="dish">大脸豆腐</span><span class="dish">肉皮泡</span><span class="dish">泡姜</span></dd>
-      </dl>
-    </div>
-  </div>
-
-  <h2 class="day-title" style="margin-top:52px">10/6 · 第 3 天<span class="sub">三个方案完全相同</span></h2>
-  <p class="route-line">仙居淡竹乡 → 神仙居 → 杭州　·　220km</p>
-  <p class="weather">丽水晴 21/11℃　·　台州晴</p>
+  <!-- ─────────── 10/4 ─────────── -->
+  <h2 class="day-title">10/4 · 第 1 天<span class="sub">杭州 → 缙云仙都（朱潭山 · 岩宕书房 · 小赤壁）→ 云和</span></h2>
+  <p class="route-line">杭州 → 仙都景区 → 云和　·　231 + 114 km　·　约 5.5 小时车程</p>
+  <p class="weather">中雨转小雨　·　仙都全天有雨，梯田夜间转小　·　带伞，穿防滑鞋</p>
 
   <ul class="rows">
-    <li class="meal"><time>05:30</time><div class="main">起床、民宿吃早饭</div><p class="note">提前一晚跟老板说 5:30 要吃饭</p></li>
-    <li class="drive"><time>06:00</time><div class="main">仙居淡竹乡 <span class="arrow">→</span> 神仙居南门<span class="km">3.7km · 10min</span></div><p class="note">国庆期间索道 6:00 就开</p></li>
-    <li class="hi"><time>06:30</time><div class="main">进山，坐南天索道上行</div><p class="note"><strong>步道全关，索道是必须的</strong>，65 上 / 55 下 / 120 往返，只能现场买</p></li>
-    <li class="hi"><time>07:00</time><div class="main">南天梯 → 南天顶 → 观音峰 → 如意桥 → 悬空栈道一带</div><p class="note">走"南上南下"轻松线，山上约 4–5h。南天梯是免费扶梯；南天顶玻璃观景台另收 99 元/人，自愿</p></li>
-    <li><time>11:30</time><div class="main">乘索道下山</div><p class="note">赶在中午上山高峰前撤，下行基本不排队</p></li>
-    <li class="meal"><time>12:00</time><div class="main">午饭 · 景区出口一带</div><p class="note">吃过再上高速，服务区会挤</p></li>
-    <li class="drive"><time>13:30</time><div class="main">仙居 <span class="arrow">→</span> 杭州<span class="km">220km · 3.5h</span></div><p class="note"><strong>返程高峰会到 5h，尽量 13:30 前上高速</strong></p></li>
-    <li class="sleep"><time>18:30</time><div class="main">到杭州</div><p class="note">别再安排晚上的事</p></li>
+    <li class="drive"><time>06:00</time>
+      <div class="main">杭州 <span class="arrow">→</span> 缙云仙都<span class="km">231km · 3.5–4h</span></div>
+      <p class="note">走 G25 长深高速转金丽温，仙都出口下。国庆首段会缓行，按 4 小时留量</p></li>
+    <li class="hi"><time>09:40</time>
+      <div class="main">到仙都核心区卡口</div>
+      <p class="note"><strong>7:30–17:00 是管控时段</strong>，车到闸口报车牌放行。<strong>没报备的现在掉头去游客服务中心（距卡口不到 50 米）现场办，3 分钟内搞定</strong></p></li>
+    <li><time>10:00</time>
+      <div class="main">朱潭山</div>
+      <p class="note">仙都的招牌机位，拍鼎湖峰倒影。<strong>雨天没倒影</strong>，但桥和溪还在，看 40 分钟就走</p></li>
+    <li class="meal"><time>11:30</time>
+      <div class="main">午饭 · 仙都景区内</div>
+      <p class="note">顺路还能把报备办了，见下方「午饭吃哪家」</p></li>
+    <li><time>13:00</time>
+      <div class="main">岩宕书房</div>
+      <p class="note"><strong>室内，雨天最舒服的一站。</strong>采石场留下的岩宕改成的书房，待 1 小时不算多</p></li>
+    <li><time>14:40</time>
+      <div class="main">小赤壁</div>
+      <p class="note">丹霞绝壁沿溪走一圈约 40 分钟。湿岩颜色更红，雨天不亏</p></li>
+    <li class="drive"><time>16:00</time>
+      <div class="main">仙都 <span class="arrow">→</span> 云和<span class="km">114km · 2h</span></div>
+      <p class="note">到云和县城 114km；<strong>继续上山到梯田景区还要再 20km / 40 分钟</strong></p></li>
+    <li class="sleep"><time>18:00</time>
+      <div class="main">到云和县城（住县城走这条）</div>
+      <p class="note">吃饭选择多，房价便宜，代价是明天要 4 点出门</p></li>
+    <li class="sleep"><time>18:40</time>
+      <div class="main">到云和梯田景区，入住（住山上走这条）</div>
+      <p class="note">用房卡或订单在民宿买 <strong>6 折门票</strong></p></li>
+    <li class="meal"><time>19:00</time>
+      <div class="main">晚饭 · 住哪吃哪</div>
+      <p class="note">山上民宿基本老板亲自下厨；县城选择多得多</p></li>
+    <li><time>20:30</time>
+      <div class="main">睡。明早 4 点起</div>
+      <p class="note">跟民宿确认明早日出的走法、停车位，以及"能不能自驾上七星墩"</p></li>
   </ul>
+
+  <h3>导航与停车 · 10/4 三个点</h3>
+  <p class="lead">三个点都在景区内部道路上，<strong>自驾可达、不用换景交车</strong>——这正是报备的价值。导航关键词照下面第二列搜，别搜成"仙都景区游客服务中心"。</p>
+  <div class="scroll">
+    <table class="park">
+      <thead><tr><th>点位</th><th>高德搜这个</th><th>车停哪</th><th>停车费</th><th>步行 / 备注</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="name">朱潭山<span class="where">10:00</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E6%9C%9B%E6%B9%96%E5%86%9C%E5%BA%84%20%E4%BB%99%E9%83%BD" target="_blank" rel="noopener"><span class="kw">望湖农庄</span></a><span class="where">缙云县仙都板堰139号</span></td>
+          <td>望湖农庄<strong>对面农家小院</strong>；或再往前一点的朱潭山临时停车场</td>
+          <td class="free">报备后免费</td>
+          <td>农庄本身是个小卖铺，<strong>门口没车位</strong>。旁边桥头就是拍朱潭山的机位，下车即到</td></tr>
+        <tr>
+          <td class="name">岩宕书房<span class="where">13:00</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E5%B2%A9%E5%AE%95%E4%B9%A6%E6%88%BF%20%E7%BC%99%E4%BA%91" target="_blank" rel="noopener"><span class="kw">岩宕书房</span></a><span class="where">也可搜「喜笑岩开·岩宕书房咖啡店」</span></td>
+          <td>书房入口旁的<strong>免费停车场</strong>，车位宽敞</td>
+          <td class="free">免费</td>
+          <td>下车沿花径走约 150 米。想去二号石窟，从停车场<strong>左手走约 300 米</strong>，见蓝色铁告示牌即入口</td></tr>
+        <tr>
+          <td class="name">小赤壁<span class="where">14:40</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E5%B0%8F%E8%B5%A4%E5%A3%81%20%E7%BC%99%E4%BA%91" target="_blank" rel="noopener"><span class="kw">小赤壁（公交站）</span></a><span class="where">另一个入口搜「下洋济川丁步桥」</span></td>
+          <td><strong>下洋村党群服务中心</strong>（免费）；或村口、下洋大桥边的车位</td>
+          <td class="free">免费</td>
+          <td>节假日车位紧，<strong>尽量早到</strong>。从下洋桥入口进，沿栈道走一圈约 40 分钟</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-bar">
+    <strong>为什么不导「仙都景区游客服务中心」？</strong>那里停车场很大、国庆期间南停车场还免费，但<strong>车开不进核心景区</strong>（门口有闸口），停完得换 20 元/人的景交车。你办了报备就是为了把车开进去，直接导景点的关键词。
+  </div>
+
+  <h3>报备怎么办</h3>
+  <p class="lead">这是 10/4 唯一一件<strong>必须在出发前办掉</strong>的事。没办，车就卡在闸口外面。</p>
+  <div class="callout">
+    <strong>先纠正一个说法：报备是「车辆报备」，不是免门票。</strong>
+    依据缙政办发[2017]116 号文件和仙都景区管委会 2026-09-30 的国庆公告：10/1–10/7 每天 <b>7:30–17:00</b> 在仙官线西入口、骑龙山、一亩地、玉碧线大玉岭头、仙源村、仙岩隧道口设临时疏导点，<strong>车辆进入景区实行报备制</strong>。报备管的是"车能开进卡口"，<strong>跟门票是两回事</strong>。
+  </div>
+  <ol class="steps">
+    <li><strong>最省事的办法——让饭店或民宿替你报。</strong>按文件，"进入景区食宿的顾客车辆"由其预定的<strong>宾馆、饭店、民宿、农家乐</strong>向景区报备办公室报备，<strong>当天有效</strong>。你 10/4 中午要在景区里吃饭，<strong>订座的时候直接把车牌报给店家</strong>，一举两得。这一条正好用上你问的"仙都景区内饭店"——见下面那张平价表。</li>
+    <li><strong>备选——现场办。</strong>距卡口不到 50 米的<strong>游客服务中心</strong>可以现场办车辆报备，<strong>流程用时不超过三分钟</strong>。主要提供的信息就是车牌号。</li>
+    <li><strong>没报备的下场。</strong>车辆一律停放<strong>游客中心停车场或南停车场</strong>，换乘景交车（20 元/人）进入景区。<span class="free">好消息：国庆假期游客中心南停车场提供免费停车。</span></li>
+    <li><strong>会失效的情况。</strong>景区内车辆达到饱和即启动应急限流，<strong>暂停所有车辆报备</strong>，并酌情启用一亩地、车管所备用停车场，提供免费接驳车往返游客中心。<strong>所以越早进越好，别拖到中午。</strong></li>
+  </ol>
+  <div class="note-bar">
+    咨询电话 <span class="ph" data-copy="05783120301">0578-3120301</span>（缙云仙都景区）。也可以关注「缙云仙都景区」官方公众号看当天动态。<br>
+    轩辕文化街、鼎湖至板堰桥等通景公路主干道两侧是<strong>严管路段，违停会抓拍</strong>——停在上面写的正规车位里。
+  </div>
+
+  <h3>午饭吃哪家 · 仙都景区内</h3>
+  <p class="lead">下面是仙都景区内所有<strong>大众点评有标价</strong>的店，按人均从低到高排。评分和评价数都是大众点评的。<strong>要用来报备的话，优先挑评价数多的正餐店</strong>——店家天天接待游客，替你报车牌是熟门熟路的流程。</p>
+  <div class="scroll">
+    <table class="stay">
+      <thead><tr><th>店</th><th>大众评分</th><th>人均</th><th>评价数</th><th>类型</th></tr></thead>
+      <tbody>
+        <tr><td class="name">仙都8号岩宕书房·喜笑岩开<span class="where">岩宕书房里 · 便宜且评分最高</span></td><td class="rate r5">4.5</td><td class="price">28</td><td class="price">155</td><td>咖啡 / 简餐</td></tr>
+        <tr><td class="name">SR酒咖民谣驻唱<span class="where">仙都景区店</span></td><td class="rate r5">4.5</td><td class="price">32</td><td class="price">103</td><td>咖啡</td></tr>
+        <tr><td class="name">喜笑岩开 · 倪翁洞店<span class="where">倪翁洞旁</span></td><td class="rate r4">4.0</td><td class="price">32</td><td class="price">347</td><td>咖啡</td></tr>
+        <tr><td class="name">喜笑岩开 · 轩辕街店<span class="where">轩辕街</span></td><td class="rate r4">4.0</td><td class="price">33</td><td class="price">385</td><td>咖啡</td></tr>
+        <tr><td class="name">好溪人家（仙都店）<span class="where">苏浙菜 · 正餐里最便宜的</span></td><td class="rate r4">4.0</td><td class="price">53</td><td class="price">497</td><td>正餐</td></tr>
+        <tr><td class="name">家谦农家菜·仙都土菜<span class="where">仙都景区店 · 紧邻鼎湖峰</span></td><td class="rate r4">4.0</td><td class="price">59</td><td class="price">2197</td><td>农家菜</td></tr>
+        <tr><td class="name">珍仙都土菜馆（仙都店）<span class="where">白切鸡、红烧溪鱼</span></td><td class="rate r4">4.0</td><td class="price">64</td><td class="price">797</td><td>农家菜</td></tr>
+        <tr><td class="name">好兆头<span class="where">仙都风景区 · <strong>攻略点名可帮报车牌</strong></span></td><td class="rate r4">4.0</td><td class="price">66</td><td class="price">2935</td><td>浙菜</td></tr>
+        <tr><td class="name">刘老爷私房菜<span class="where">仙都鼎湖景区店</span></td><td class="rate r4">4.0</td><td class="price">73</td><td class="price">2273</td><td>农家菜</td></tr>
+        <tr><td class="name">缙云烧饼总部<span class="where">五云镇黄龙路 · 快餐，赶时间选它</span></td><td class="rate r4">3.5</td><td class="price">29</td><td class="price">1175</td><td>快餐简餐</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout good">
+    <strong>报备就找这两家。</strong>
+    <b>好兆头</b>（人均 66，2935 条评价）是攻略里点名提到"联系景区内饭店（如好兆头饭店）报备车牌"的那一家，接待量大、流程熟；<br>
+    <b>家谦农家菜·仙都土菜</b>（人均 59，2197 条评价）紧邻鼎湖峰，是景区内评价第二多的正餐店。<br>
+    <strong>两家都建议提前一天打电话订座 + 报车牌</strong>，别到了门口才说。
+  </div>
+  <div class="eat">
+    <h4>今天吃什么</h4>
+    <dl>
+      <dt>午饭 · 仙都景区内</dt>
+      <dd>缙云是<strong>"烧饼之乡"</strong>，景区门口和矴步桥边有现烤摊，<span>约 8 元一个，梅干菜扣肉馅，必须趁热吃</span>。
+        <br><span>正餐点这些：</span><span class="dish">缙云烤麻鸭</span><span class="dish">红烧好溪溪鱼</span><span class="dish">仙都土鸡煲</span><span class="dish">敲肉羹</span><span class="dish">肉沫山粉皮</span>
+        <br><span>人均 55–75 元。岩宕书房那家咖啡店（人均 28、4.5 分）适合下午歇脚。</span></dd>
+      <dt>晚饭 · 云和（住山上）</dt>
+      <dd>照"梯田十八味"点，这是崇头镇统一推的餐饮品牌，<span>201 家农家乐一个标准</span>。
+        <br><span>推荐：</span><span class="dish">梯田稻鱼火锅</span><span class="dish">将军土猪脚火锅</span><span class="dish">梯田三白</span><span class="dish">风炉豆腐娘</span><span class="dish">云端小土豆</span>
+        <br><span>人均 55–75 元。到得晚，提前跟民宿说一声留饭。</span></dd>
+      <dt>晚饭 · 云和（住县城）</dt>
+      <dd>县城平价选择多：<strong>云汐砂锅面</strong>（人均 23，4.5 分，161 评）、<strong>云禾小吃</strong>（人均 30，4.0 分，566 评）、<strong>外婆砂锅菜</strong>（人均 39，4.0 分，635 评）。
+        <br><span>想正经吃一顿：<strong>一株禾餐厅</strong>（人均 63，4.0 分，1635 评）、<strong>云和梯田炊烟小筑</strong>（人均 59，4.5 分，1187 评）。</span></dd>
+    </dl>
+  </div>
+
+  <h3>晚上住哪 · 梯田景区 vs 云和县城</h3>
+  <p class="lead">价格是<strong>携程 10/4–10/5 一晚、1 间 2 人</strong>的实际报价（2026-10-02 查），不是民宿名录上的虚价。</p>
+  <div class="scroll">
+    <table class="wide">
+      <thead><tr><th></th><th>住梯田景区内</th><th>住云和县城</th></tr></thead>
+      <tbody>
+        <tr><td>真实房价</td>
+          <td><b>284–1198 / 间</b><span class="where">主流 490–780；最便宜的"云和遇见民宿"299</span></td>
+          <td><b>284–588 / 间</b><span class="where">云和美居 464 · 云和大酒店 488 · 华威国际 498 · 陌尚轻居 588</span></td></tr>
+        <tr><td>明早看日出</td>
+          <td class="yes">走路就到<span class="where">住九曲云环附近步行约 800m</span></td>
+          <td class="no">要开 30–40 分钟山路</td></tr>
+        <tr><td>几点起床</td>
+          <td class="yes">04:20</td>
+          <td class="no">03:50<span class="where">04:00–04:10 前必须出城</span></td></tr>
+        <tr><td>吃饭</td>
+          <td>只有民宿自己做的<span class="where">人均 55–90</span></td>
+          <td class="yes">选择多，人均 23–40 的平价店一堆</td></tr>
+        <tr><td>停车</td>
+          <td>民宿门口，基本免费</td>
+          <td>酒店停车场，一般免费</td></tr>
+        <tr><td>夜间路况</td>
+          <td class="free">不用开夜路</td>
+          <td class="no">凌晨山路多弯、窄、基本没路灯</td></tr>
+        <tr><td>适合谁</td>
+          <td>想看日出、能接受 400+ 房价</td>
+          <td>想压预算、或订不到山上房</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>建议：住山上。</strong>10/5 的日出是 <b>05:57</b>，九曲云环 <b>04:40</b> 就开门。住县城意味着 <b>03:50 起床、摸黑开 30–40 分钟盘山路</b>——6 个人凌晨走这种路，风险和体验都不划算。差价按 3 间房算一晚也就 300–600 元，摊到 6 个人身上每人 50–100 元，换一个安稳的日出。
+    <br><br>如果山上实在订不到（国庆房态很紧），<strong>再退到县城</strong>，并且把闹钟提前到 03:40。
+  </div>
+  <div class="note-bar">
+    <strong>订房时一次问清三件事：</strong>① 门票能不能按 6 折代购；② 明早日出的走法和停车位在哪；③ 从九曲云环到七星墩能不能自驾上去，国庆有没有管制。
+  </div>
+
+  <!-- ─────────── 10/5 ─────────── -->
+  <h2 class="day-title day-head">10/5 · 第 2 天<span class="sub">云和梯田看日出 → 白银谷 → 七星墩 → 仙居</span></h2>
+  <p class="route-line">云和梯田 → 仙居淡竹乡　·　约 200–240 km　·　约 3–4 小时车程</p>
+  <p class="weather">丽水晴 23/13℃　·　山区清晨约 10℃，按深秋穿</p>
+
+  <div class="callout good">
+    <strong>今天的关键是 03:50 起床，别的都好说。</strong>
+    10/5 云和梯田日出 <b>05:57</b>（10/4 是 05:56，10/6 是 05:57）。云海窗口是日出前后到 <b>08:00</b>，太阳一高云雾就散——所以住山上、赶早，这两件事是绑在一起的。<br>
+    国庆期间的实际安排（官方 Q&amp;A）：游客接待中心 <b>07:30–20:00</b>、九曲云环区域 <b>04:40–18:30</b>、观云索道 <b>08:00–17:00</b>。也就是说<strong>看日出必须自驾</strong>，索道赶不上；但看完日出正好 08:00 坐第一班索道上七星墩。
+  </div>
+
+  <ul class="rows">
+    <li><time>03:50</time>
+      <div class="main">起床</div>
+      <p class="note">穿厚外套（清晨 10℃ 上下）、带热水和手电。<strong>住县城的 03:40 就得起</strong></p></li>
+    <li class="drive"><time>04:20</time>
+      <div class="main">开车去九曲云环<span class="km">住山上 10–30 分钟</span></div>
+      <p class="note">官方关键词是「<strong>九曲云环 D 区停车场</strong>」。<strong>D 区车位少，凌晨 4 点后可能就满了</strong>；这一段山路没路灯，慢开</p></li>
+    <li class="hi"><time>04:45</time>
+      <div class="main">验票入园，走去观景台</div>
+      <p class="note">检票口步行约 <b>10 分钟</b>到观景台，有台阶。<strong>去「日出云海」那个台子，公认最佳机位</strong></p></li>
+    <li class="hi"><time>05:57</time>
+      <div class="main">日出 + 云海</div>
+      <p class="note">四个观景点：日出云海（最佳）· 天开云顶（有玻璃塔）· 禾生云间 · 陌上云起</p></li>
+    <li class="meal"><time>07:30</time>
+      <div class="main">回民宿吃早饭</div>
+      <p class="note">不回去也行，带干粮在观景台吃。<strong>趁 08:00 前云海还没散，多待一会儿</strong></p></li>
+    <li class="hi"><time>08:00</time>
+      <div class="main">九曲云环站坐观云索道上七星墩<span class="km">索道约 11 分钟</span></div>
+      <p class="note"><strong>索道 08:00 才开</strong>，是今天第一班。车留在 D 区不动，下山回来取</p></li>
+    <li><time>08:20</time>
+      <div class="main">七星墩观景台</div>
+      <p class="note">海拔约 1100m，景区最高点，360° 俯瞰整个梯田谷。赶上"稻梦丰收季"有晒秋和割稻体验</p></li>
+    <li class="meal"><time>10:00</time>
+      <div class="main">午饭 · 七星墩 / 梅竹村</div>
+      <p class="note">梅竹村选择最多，见下方「吃什么」。<strong>吃完就往下走，别拖到中午</strong></p></li>
+    <li class="drive"><time>11:00</time>
+      <div class="main">七星墩 <span class="arrow">→</span> 九曲云环<span class="km">索道或游步道</span></div>
+      <p class="note">索道原路下约 11 分钟；走七星墩左侧游步道下山到坑根石寨约 <strong>1 小时、3600 级台阶</strong>，膝盖不好别选</p></li>
+    <li><time>11:30</time>
+      <div class="main">九曲云环站转 2 号线去白银谷 · 坑根石寨<span class="km">摆渡约 10 分钟</span></div>
+      <p class="note">海拔 766m 的古村。村内环村步行不到 1 小时。<strong>节假日 08:00–17:00 可能设卡限行</strong></p></li>
+    <li class="drive"><time>12:30</time>
+      <div class="main">坑根石寨 <span class="arrow">→</span> 九曲云环<span class="km">2 号线约 10 分钟</span></div>
+      <p class="note"><strong>回 D 区取车</strong>，然后直接下山出发</p></li>
+    <li class="drive"><time>13:00</time>
+      <div class="main">云和梯田 <span class="arrow">→</span> 仙居淡竹乡<span class="km">约 200–240km · 3–4h</span></div>
+      <p class="note">走 G25 长深高速北上 → 转 S28 台金高速往东 → 白塔 / 仙居出口。<strong>15:00–17:00 正好撞上神仙居方向的双向车流集中</strong>，多留 40 分钟</p></li>
+    <li class="sleep"><time>17:00</time>
+      <div class="main">到仙居淡竹乡，入住</div>
+      <p class="note"><strong>放下行李就问：明早几点能进山、走哪个门</strong></p></li>
+    <li class="meal"><time>18:30</time>
+      <div class="main">晚饭 · 民宿包吃住</div>
+      <p class="note">120–180 元/人档位基本都含晚餐和早餐</p></li>
+    <li><time>20:30</time>
+      <div class="main">早睡。明早 5:30 起</div>
+      <p class="note">票和身份证提前放好，乘索道进山要验</p></li>
+  </ul>
+
+  <h3>导航与停车 · 10/5 云和梯田</h3>
+  <div class="scroll">
+    <table class="park">
+      <thead><tr><th>点位</th><th>高德搜这个</th><th>车停哪</th><th>停车费</th><th>步行 / 备注</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="name">九曲云环<span class="where">04:45 看日出</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E4%B9%9D%E6%9B%B2%E4%BA%91%E7%8E%AF%20D%E5%8C%BA%E5%81%9C%E8%BD%A6%E5%9C%BA" target="_blank" rel="noopener"><span class="kw">九曲云环D区停车场</span></a><span class="where">官方口径就是搜这个（其他情况官方让搜「云和梯田游客中心」）</span></td>
+          <td>九曲云环 D 区停车场<span class="where">停不下就退到「九曲云环服务处」或游客中心</span></td>
+          <td class="price">约 30 分钟内免费<span class="where">之后约 5 元/小时，单日封顶约 20 元</span></td>
+          <td>检票口步行约 <strong>10 分钟</strong>到观景台，有台阶。<strong>D 区车位少，官方自己都标了"车位较少"——4 点后可能没位，务必早到</strong></td></tr>
+        <tr>
+          <td class="name">观云索道<span class="where">中站 = 九曲云环站</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E6%A2%AF%E7%94%B0%E7%B4%A2%E9%81%93%E4%B8%AD%E7%AB%99" target="_blank" rel="noopener"><span class="kw">云和梯田索道中站</span></a><span class="where">下站在游客中心旁，上站在梅竹七星墩</span></td>
+          <td>与九曲云环共用停车场</td>
+          <td class="price">同上</td>
+          <td><strong>08:00–17:00 运行</strong>（国庆口径），全长 3880 米、华东最长，单程约 11 分钟。看日出坐不上，看完日出正好</td></tr>
+        <tr>
+          <td class="name">游客中心<span class="where">山脚 · 备用</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E6%A2%AF%E7%94%B0%E6%B8%B8%E5%AE%A2%E4%B8%AD%E5%BF%83" target="_blank" rel="noopener"><span class="kw">云和梯田游客中心</span></a></td>
+          <td>一级游客中心大型停车场<span class="where">有充电桩</span></td>
+          <td class="free">免费</td>
+          <td>路边禁止停车。这里是景交车 1 号线的起点，也是索道下站</td></tr>
+        <tr>
+          <td class="name">白银谷 · 坑根石寨<span class="where">11:30</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E5%9D%91%E6%A0%B9%E7%9F%B3%E5%AF%A8%20%E4%BA%91%E5%92%8C" target="_blank" rel="noopener"><span class="kw">坑根石寨</span></a><span class="where">也可搜「云和梯田白银谷景区」</span></td>
+          <td>村口停车场<span class="where">节假日可能设卡，车不让进</span></td>
+          <td class="price">约 20 元/辆<span class="where">说法不一，有称免费</span></td>
+          <td class="no">节假日 08:00–17:00 可能设卡，只让管控区内民宿预订的车辆进——<strong>坐 2 号线摆渡过去最稳</strong></td></tr>
+        <tr>
+          <td class="name">七星墩观景台<span class="where">08:20</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E4%B8%83%E6%98%9F%E5%A2%A9%E8%A7%82%E6%99%AF%E5%8F%B0%20%E4%BA%91%E5%92%8C" target="_blank" rel="noopener"><span class="kw">七星墩观景台</span></a><span class="where">梅竹村一带，景区最高点</span></td>
+          <td>观景台附近 / 梅竹村<span class="where">网友称有停车场，约 20 元/辆</span></td>
+          <td class="price">约 20 元/辆</td>
+          <td class="no"><strong>官方对"能不能自驾上七星墩"零信息，网友说法互相矛盾。</strong>山路窄弯多，国庆不建议自驾——<strong>坐索道上去更省心</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>今天最大的不确定点，出发前必须打电话问。</strong>
+    官方国庆 Q&A 里提到会开「<strong>日出追光巴士</strong>」，但<strong>没有公布首班时间</strong>——这直接决定你早上是自驾上山还是坐巴士。更麻烦的是九曲云环 D 区停车场官方自己就标了"车位较少"，<strong>万一 4:20 到就满了，你只能停游客中心，而巴士首班时间未知</strong>。
+    <br><br>打 <strong>云和梯田 <span class="ph" data-copy="05785156688">0578-5156688</span></strong>，一次问清四件事：① 10/5 景区是否正常开放；② <strong>日出追光巴士首班时间、乘车点、要不要预约</strong>；③ 九曲云环 D 区停车场车位和收费；④ 景交车首末班。
+  </div>
+  <div class="note-bar">
+    <strong>停车费只能给参考值。</strong>云和梯田没有 2026 年的官方公示价目表，三个来源互相打架：2011 年县政府定价是"<strong>一票制 20 元/辆·次</strong>"；2021 年政务服务网说国庆外来车辆停游客接待中心<strong>免收停车费</strong>；2026 年网友说九曲云环"30 分钟内免费、5 元/小时、封顶 20 元"。<strong>上表按最后一种估，但要预留"20 元/次"的可能。</strong>现场以收费牌为准，一般都能扫码付。
+  </div>
+
+  <h3>云和梯田景区内交通 · 别记错票价</h3>
+  <div class="scroll">
+    <table class="wide">
+      <thead><tr><th>线路</th><th>区间</th><th>票价</th><th>运营时间</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td><b>景交 1 号线</b></td><td>游客中心 ⇋ 九曲云环</td><td class="price">往返 20 元/人</td><td class="price">约 08:30–16:20</td><td>多数说法称这一张票<strong>已含 2 号线</strong></td></tr>
+        <tr><td><b>景交 2 号线</b></td><td>九曲云环 ⇋ 白银谷 · 坑根石寨</td><td class="price">往返 10 元/人</td><td class="price">约 08:30–16:20</td><td class="free">持大门票或索道往返票<strong>免费乘坐</strong>；约 20 分钟一班</td></tr>
+        <tr><td><b>观云索道</b></td><td>游客中心 ⇋ 九曲云环 ⇋ 梅竹七星墩</td><td class="price">见下方</td><td class="price">08:00–17:00</td><td>全长 3880 米、华东最长，单程约 11 分钟</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note-bar">
+    <strong>索道票价没有官方标准价目表——但有一个有官方出处的数字。</strong>
+    云和梯田官方直播间卖过国庆早鸟票，分三阶段：9/11–9/20 <strong>99 元/人</strong>、9/21–9/27 <strong>120 元</strong>、9/28–9/30 <strong>150 元</strong>，亲子票 288/299/319 元。这套票「<strong>一票全含索道往返 + 景区门票 + 景交接驳车</strong>」，效期到 10/31。<br>
+    <strong>问题是你现在（10/2）已经买不到了</strong>——早鸟票 9/30 截止。所以到了现场按挂牌价买，网上流传的"往返 120 / 180 / 240"三个说法都没有官方依据，<strong>别拿任何一个当准数</strong>。6 人按 200 元/人预留，即 1200 元。
+  </p>
 
   <div class="eat">
     <h4>今天吃什么</h4>
     <dl>
-      <dt>午饭 · 神仙居景区出口</dt>
-      <dd><strong>味仙居</strong>（神仙居景区入口，十几年老铺，明厨现做不用冷冻货，人均几十元）；
-        <strong>桃源人家神仙居店</strong>（仙德路7号，高速出口左转 150 米、游客中心对面，主打神仙鸡、石磨豆腐）。
+      <dt>早饭 · 民宿</dt>
+      <dd>山上民宿早饭通常是<span>番薯粥、土鸡蛋、现烙饼</span>，管饱。看日出前跟老板说一声几点回来吃。</dd>
+      <dt>午饭 · 七星墩 / 梅竹村 / 崇头镇</dt>
+      <dd>这一带以自养土鸡和稻田鱼出名。<span>推荐点：</span><span class="dish">稻花鱼</span><span class="dish">酥绵小土豆</span><span class="dish">老板娘自制腌鸭</span>
+        <br><span>大众点评上评分最好的几家（都在景区内）：</span><strong>梯田筑心小阁</strong>（人均 55，<b>5.0 分</b>，863 评）、<strong>云和梯田炊烟小筑</strong>（人均 59，4.5 分，1187 评）、<strong>田园牧歌农家乐</strong>（人均 72，5.0 分，445 评）、<strong>一株禾餐厅</strong>（人均 63，4.0 分，1635 评）。
+        <br><span>想省钱：<strong>稻生一</strong>（人均 34，4.0 分）、<strong>云端美咖</strong>（人均 36，4.0 分，570 评）。</span></dd>
+      <dt>晚饭 · 仙居民宿</dt>
+      <dd>包吃住的档位直接上<strong>仙居八大碗</strong>。这套菜讲"上四碗、下四碗"，传统用八仙桌配四尺凳。
+        <br><span>常吃到的：</span><span class="dish">翻碗肉</span><span class="dish">敲敲肉</span><span class="dish">大脸豆腐</span><span class="dish">肉皮泡</span><span class="dish">泡姜</span>
+        <br><span>注意"八大碗"只是说法，各家上菜数量不一，别较真。</span></dd>
+    </dl>
+  </div>
+
+  <!-- ─────────── 10/6 ─────────── -->
+  <h2 class="day-title day-head">10/6 · 第 3 天<span class="sub">神仙居南门进，南上南下 → 回杭州</span></h2>
+  <p class="route-line">仙居淡竹乡 → 神仙居 → 杭州　·　约 211–219 km 回程　·　约 2 小时 50 分</p>
+  <p class="weather">丽水晴 21/11℃　·　台州晴　·　山里比山下低 5–8℃</p>
+
+  <ul class="rows">
+    <li class="meal"><time>05:40</time>
+      <div class="main">起床、民宿吃早饭</div>
+      <p class="note">提前一晚跟老板说 5:40 要吃饭</p></li>
+    <li class="drive"><time>06:20</time>
+      <div class="main">淡竹乡 <span class="arrow">→</span> 神仙居南门 3 号停车场<span class="km">约 4km · 10min</span></div>
+      <p class="note"><strong>3 号停车场离南天索道最近</strong>，是南门三个场子里最该抢的。南门车位历来最紧张</p></li>
+    <li class="hi"><time>06:40</time>
+      <div class="main">到南门，等开园</div>
+      <p class="note">官方开园是<strong>夏令 7:00 / 冬令 7:30</strong>，10/6 按哪个没确认——<strong>按 7:00 到，早了不亏</strong></p></li>
+    <li class="hi"><time>07:00</time>
+      <div class="main">进山，坐南天索道上行</div>
+      <p class="note">官方价：<strong>全票 120 / 上山 65 / 下山 55</strong>，只能现场买。<strong>10 点后索道排队可能 1 小时起</strong></p></li>
+    <li class="hi"><time>07:30</time>
+      <div class="main">南天梯 → 南天顶 → 观音峰 → 如意桥 → 悬空栈道</div>
+      <p class="note">走"南上南下"轻松线，山上约 4 小时。南天梯是免费扶梯；<strong>南天顶玻璃观景台另收 99 元/人，自愿</strong></p></li>
+    <li><time>11:30</time>
+      <div class="main">乘索道下山</div>
+      <p class="note">赶在中午上山高峰前撤，下行基本不排队</p></li>
+    <li class="meal"><time>12:00</time>
+      <div class="main">午饭 · 白塔镇 / 景区出口</div>
+      <p class="note">吃过再上高速，服务区会挤</p></li>
+    <li class="drive"><time>12:40</time>
+      <div class="main">仙居 <span class="arrow">→</span> 杭州<span class="km">211–219km · 2h50–3h15</span></div>
+      <p class="note"><strong>必须走「诸永高速神仙居收费站」上高速</strong>——白塔收费站 8:00–12:00 只出不进。诸永台州段限速 80，隧道多、长下坡多</p></li>
+    <li class="sleep"><time>16:00</time>
+      <div class="main">到杭州（堵则 17:00–18:00）</div>
+      <p class="note">杭州交警口径：10/6 <b>9:00–14:00 缓行最严重</b>，14 点后缓解。你们 12:40 出发只撞上尾巴</p></li>
+  </ul>
+  <div class="callout">
+    <strong>为什么走南门、南上南下？</strong>北门进要爬升、车位也比南门更难抢；南门进直接坐索道上去、从上往下走，是这条线里最省力的一版。如意桥（S 形双层玻璃悬索桥，悬空约 170m）就在这条线上，别走岔了。南天梯是免费扶梯，能省一段爬升。
+  </div>
+  <div class="callout">
+    <strong>关于"步道全关、索道必须"——我要修正一下，这条没那么确定。</strong>
+    有<strong>官方出处</strong>的是：<strong>北登山游步道自 2026 年 6 月 11 日起封闭施工</strong>，开放时间另行通知，期间官方建议"走南登山步道上下山，或乘索道"。<br>
+    但网上说的"<strong>南北步道全部封闭</strong>"，我只找到一条游客投诉，而且那个页面已经 404，<strong>无法证实</strong>。另外还有两条维保信息：南海桥自 2026-08-03 封闭检修、西线老君台—蟠桃园自 08-18 临时封闭（需改走如意桥）。
+    <br><br><strong>结论：索道大概率要买，但不一定"必须"。</strong>出发前打 <strong>神仙居 <span class="ph" data-copy="057687038686">0576-87038686</span></strong> 问清 10/6 当天南北步道和两条索道的开放状态——如果南步道开着，体力好的可以省下 720 元。
+  </div>
+
+  <h3>导航与停车 · 10/6 神仙居</h3>
+  <div class="scroll">
+    <table class="park">
+      <thead><tr><th>点位</th><th>高德搜这个</th><th>车停哪</th><th>停车费</th><th>步行 / 备注</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="name">神仙居 南门<span class="where">主推 · 南上南下</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E7%A5%9E%E4%BB%99%E5%B1%85%E5%8D%97%E9%97%A83%E5%8F%B7%E5%81%9C%E8%BD%A6%E5%9C%BA" target="_blank" rel="noopener"><span class="kw">神仙居南门3号停车场</span></a><span class="where">没有 3 号就搜「神仙居南门停车场」</span></td>
+          <td>南门 3 号停车场<span class="where">离南天索道最近</span></td>
+          <td class="price">8 小时内 10 元<span class="where">8–16 小时 15 元，16–24 小时 20 元；不足 30 分钟免费</span></td>
+          <td><strong>南门车位历来最紧张</strong>（2018 年数据南门仅 100 个，改扩建后规划 639 个）。停好车坐观光车 5 元/人·次到南门入口</td></tr>
+        <tr>
+          <td class="name">南天索道<span class="where">07:00</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E7%A5%9E%E4%BB%99%E5%B1%85%E5%8D%97%E5%A4%A9%E7%B4%A2%E9%81%93" target="_blank" rel="noopener"><span class="kw">神仙居南天索道</span></a></td>
+          <td>同上，车停在 3 号场</td>
+          <td class="price">计在停车费里</td>
+          <td>索道售票约 7:00–15:30（夏令）。<strong>票只能现场买</strong>：全票 120 / 上 65 / 下 55</td></tr>
+        <tr>
+          <td class="name">神仙居 北门<span class="where">不推荐</span></td>
+          <td><a href="https://uri.amap.com/search?keyword=%E7%A5%9E%E4%BB%99%E5%B1%85%E5%8C%97%E9%97%A8%E5%81%9C%E8%BD%A6%E5%9C%BA" target="_blank" rel="noopener"><span class="kw">神仙居北门停车场</span></a></td>
+          <td>北门停车场</td>
+          <td class="price">同南门标准</td>
+          <td class="no">北门偏、车位也紧张（网友称旺季排队是南门的 2–3 倍）。<strong>只有南门停满了才考虑</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-bar">
+    <strong>门票现在就能订。</strong>成人票现场 110 元，<strong>提前一天线上订 99 元</strong>；半价票覆盖 1.2–1.5 米儿童、6–18 岁青少年、全日制本科及以下学生、60–70 岁老人；免票覆盖 6 岁以下、70 岁以上、残疾人、现役军人/警察/消防、导游证等二十余项（<strong>部分免票人群连索道也免</strong>）。<br>
+    <strong>线上渠道：</strong>微信公众号「神仙居」/「神仙居旅游集团」、微信小程序「神仙居旅游」。<strong>没有查到"国庆强制预约"的官方文件</strong>，但强烈建议提前一天订好。<br>
+    <br>
+    <strong>可以算一笔账：一票通成人票 327 元（提前购）/ 347 元（当天），含大门票 + 索道上下行 + 接驳车与观光车往返 + 南天顶玻璃观景台。</strong>你们如果本来就打算上南天顶（99 元）和坐索道往返（120 元），加起来 99 + 120 + 99 = 318，<strong>一票通更划算而且不用现场排队买索道票</strong>。<br>
+    <br>
+    <strong>停车要提前扫码缴费</strong>——生态停车场无人工值守，离开前先扫码，<strong>缴费后 30 分钟内必须离场</strong>，超时重新计费。
+  </div>
+
+  <div class="eat">
+    <h4>今天吃什么</h4>
+    <dl>
+      <dt>午饭 · 神仙居景区出口 / 白塔镇</dt>
+      <dd>大众点评上这一带评分和评价数都好的：
+        <strong>小园土菜（神仙居店）</strong>（人均 48，<b>4.5 分</b>，1249 评）——性价比最高的一家；
+        <strong>灶香土菜·海鲜</strong>（人均 69，4.0 分，2662 评）；
+        <strong>小山村农家乐</strong>（人均 74，4.5 分，2090 评）；
+        <strong>仙居家宴·山野仙居菜</strong>（人均 78，4.0 分，4241 评）。
+        <br><span>赶时间就往白塔镇走：<strong>春笋面馆</strong>（人均 19，186 评）、<strong>三金糖水</strong>（人均 20，4.5 分，501 评）、<strong>仔仔冰汤圆</strong>（人均 16，4.5 分）。</span>
         <br><span>必点：</span><span class="dish">神仙鸡</span><span class="dish">永安溪溪滩鱼</span><span class="dish">石磨豆腐</span><span class="dish">仙居三黄鸡</span></dd>
       <dt>路上</dt>
-      <dd>仙居到杭州约 3.5h，中途服务区解决。白塔镇有夜市，<span>1 元煮串、皮蛋肉馄饨</span>，但不顺路，赶时间就别绕。</dd>
+      <dd>仙居到杭州约 211–219km，走诸永高速。<strong>返程第一站就是「神仙居服务区」</strong>（白塔镇，紧邻白塔互通），往后依次是磐安、东阳、诸暨、永嘉。<span>白塔镇有夜市，1 元煮串、皮蛋肉馄饨，但不顺路，赶时间就别绕。</span></dd>
     </dl>
   </div>
 </section>
@@ -793,33 +878,46 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <section class="parted" id="part3">
   <p class="part">第三部分 · 订房、买票、出发前</p>
   <h2>住宿<span class="sub">点电话号码可以直接复制；点民宿名可以在地图里搜</span></h2>
+  <p class="lead">价格分两类：<strong>"携程实价"是从携程 10/4–10/5 的真实报价里读出来的</strong>（1 间 2 人），可以直接当预算用；标"询价"的是名录里查不到当天报价的，需要打电话确认——<strong>国庆房态紧，直接打电话比在平台上比价更容易拿到真房</strong>。</p>
 
-  <h3>10/4 · 云和梯田（方案 A、B 住这）</h3>
+  <h3>10/4 · 云和梯田景区内（推荐住这）</h3>
   <div class="scroll">
     <table class="stay">
       <thead><tr><th>民宿</th><th>价格</th><th>门票</th><th>推荐</th><th>电话</th></tr></thead>
       <tbody>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E6%A0%96%E5%BF%83%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">栖心民宿</a><span class="where">崇头村栈云街 · 携程 4.8（42评）· 离九曲云环近</span></td>
+        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E6%A0%96%E5%BF%83%E6%B0%91%E5%AE%BF%20%E5%B4%87%E5%A4%B4" target="_blank" rel="noopener">栖心民宿</a><span class="where">崇头村栈云街 · 携程 4.8（42评）· 离九曲云环近</span></td>
           <td class="price">150/间含早</td><td class="disc">6 折</td><td class="rate r5">★★★★★</td>
           <td class="ph" data-copy="15925753090">15925753090</td></tr>
+        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E6%A2%AF%E7%94%B0%E6%99%AF%E5%8C%BA%E5%86%9C%E5%AE%B6" target="_blank" rel="noopener">云和梯田景区农家</a><span class="where">赵善村19号 · 就在九曲云环景区内，看日出走路就到</span></td>
+          <td class="price">6 人包吃住</td><td class="disc">6 折</td><td class="rate r5">★★★★★</td>
+          <td class="ph" data-copy="15967273612">15967273612</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%B1%B1%E5%BA%8F%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">云山序民宿</a><span class="where">梅竹村25号 · 七星墩观景台店 · 携程 4.9 · 提供看日出接送</span></td>
           <td class="price">询价</td><td class="disc">可代购</td><td class="rate r5">★★★★★</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E6%A0%96%E5%BA%AD%E9%9A%85%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">栖庭隅民宿</a><span class="where">梅竹村坑头48-1号 · 2024 新开 · 距七星墩观景台 372m</span></td>
           <td class="price">询价</td><td class="disc">可代购</td><td class="rate r5">★★★★★</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E6%A2%AF%E7%94%B0%E6%99%AF%E5%8C%BA%E5%86%9C%E5%AE%B6" target="_blank" rel="noopener">云和梯田景区农家</a><span class="where">赵善村19号 · 就在九曲云环景区内，看日出走路就到</span></td>
-          <td class="price">6人包吃住</td><td class="disc">6 折</td><td class="rate r5">★★★★★</td>
-          <td class="ph" data-copy="15967273612">15967273612</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E7%A8%BB%E8%8D%89%E5%B1%8B%E6%B0%91%E5%AE%BF%E5%AE%A2%E6%A0%88" target="_blank" rel="noopener">稻草屋民宿客栈</a><span class="where">梅源村41-5号 · 近白银谷、七星墩</span></td>
-          <td class="price">询价</td><td class="disc">5 折</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="15967263842">15967263842</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E5%9D%90%E7%9C%8B%E4%BA%91%E8%B5%B7" target="_blank" rel="noopener">云和坐看云起</a><span class="where">梅竹村坑头46-1号 · 近七星墩 · 携程 4.6</span></td>
-          <td class="price">询价</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
+        <tr><td class="name">拾光贰号民宿<span class="where">云和梯田七星墩观景台店 · <strong>携程实价 780</strong></span></td>
+          <td class="price">780</td><td class="disc">可代购</td><td class="rate r5">★★★★★</td>
+          <td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">云和梯田云境山苑民宿<span class="where">近武岱峰森林公园 · <strong>携程实价 590</strong></span></td>
+          <td class="price">590</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
+          <td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">云和鱼在在云民宿<span class="where">近武岱峰森林公园 · <strong>携程实价 491</strong></span></td>
+          <td class="price">491</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
+          <td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">登云间舍民宿<span class="where">云和梯田景区店 · <strong>携程实价 700</strong></span></td>
+          <td class="price">700</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
+          <td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">溪畔民宿<span class="where">云和梯田游客中心店 · <strong>携程实价 728</strong></span></td>
+          <td class="price">728</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E6%AC%A2%E5%96%9C%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">云欢喜民宿</a><span class="where">坑根村25-3号 · 白银谷景区内 · 坑根石寨最上端 · 海拔 766m</span></td>
           <td class="price">270–290</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E7%A8%BB%E8%8D%89%E5%B1%8B%E6%B0%91%E5%AE%BF%E5%AE%A2%E6%A0%88" target="_blank" rel="noopener">稻草屋民宿客栈</a><span class="where">梅源村41-5号 · 近白银谷、七星墩</span></td>
+          <td class="price">询价</td><td class="disc">5 折</td><td class="rate r4">★★★★☆</td>
+          <td class="ph" data-copy="15967263842">15967263842</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E6%9C%B4%E5%AE%BF%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">云和朴宿民宿</a><span class="where">梅源村上大丘田3号 · 近观云索道起点</span></td>
           <td class="price">询价</td><td class="disc">6 折</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="15925759092">15925759092</td></tr>
@@ -835,54 +933,30 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E8%88%92%E5%AE%A2%E6%A0%88%20%E6%A2%85%E6%BA%90%E6%9D%91" target="_blank" rel="noopener">云舒客栈</a><span class="where">梅源村62-1号 · 60岁以上半价、70岁以上免票</span></td>
           <td class="price">询价</td><td class="disc">6 折</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="13162537808">13162537808</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E7%AB%A5%E8%B6%A3%E7%95%B2%E5%B1%85%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">童趣畲居民宿</a><span class="where">崇头镇上 · 离游客中心近，吃饭方便 · 开车到九曲云环约 20 分钟</span></td>
+        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E7%AB%A5%E8%B6%A3%E7%95%92%E5%B1%85%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">童趣畲居民宿</a><span class="where">崇头镇上 · 离游客中心近，吃饭方便 · 开车到九曲云环约 20 分钟</span></td>
           <td class="price">询价</td><td class="disc">需确认</td><td class="rate r4">★★★☆☆</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%92%8C%E7%94%B0%E5%9B%AD%E7%89%A7%E6%AD%8C%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">云和田园牧歌民宿</a><span class="where">赵善村23号 · 半山腰 · 海拔近 700m · 推窗即梯田</span></td>
-          <td class="price">询价</td><td class="disc">未注明</td><td class="rate r4">★★★☆☆</td>
-          <td class="ph" data-copy="13567633649">13567633649</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="callout">
-    <strong>看日出的选址逻辑。</strong>九曲云环在半山腰，检票口进去步行约 800m 是最佳观景台，住景区内或崇头村最省事。<strong>梅竹村</strong>在海拔 1100m 的七星墩旁，日出一样好看，云山序等几家还提供看日出接送。<strong>崇头镇上</strong>吃饭方便、离游客中心近，但到九曲云环要开车约 20 分钟。
-  </div>
 
-  <h3>10/4 · 缙云仙都（只给方案 C 用）</h3>
+  <h3>10/4 · 云和县城（备选，便宜但明早要摸黑开山路）</h3>
   <div class="scroll">
     <table class="stay">
-      <thead><tr><th>民宿</th><th>价格</th><th>特点</th><th>推荐</th><th>电话</th></tr></thead>
+      <thead><tr><th>酒店</th><th>携程实价</th><th>位置</th><th></th><th>电话</th></tr></thead>
       <tbody>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E5%8D%81%E4%B8%83%E6%A0%8B%E6%B0%91%E5%AE%BF%20%E4%BB%99%E9%83%BD" target="_blank" rel="noopener">十七栋民宿</a><span class="where">仙都风景区店 · 鼎湖峰景区内 · 步行到鼎湖峰、朱潭山 · 2021 装修</span></td>
-          <td class="price">约 300/间</td><td>有两室三卫家庭房，6 人正好</td><td class="rate r5">★★★★★</td>
-          <td class="ph" data-copy="13957097035">13957097035</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E5%A5%BD%E6%BA%AA%E4%BA%91%E8%88%8D%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">好溪云舍民宿</a><span class="where">仙都景区店 · 近婆媳岩、小赤壁 · 2022 开业 · 12 间 · 一楼有餐厅</span></td>
-          <td class="price">询价</td><td>门口小溪，吃住玩一体</td><td class="rate r5">★★★★★</td>
-          <td class="ph" data-copy="15990876656">15990876656</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%B8%80%E7%94%9F%E4%B8%80%E9%81%87%E6%B0%91%E5%AE%BF%20%E4%BB%99%E9%83%BD" target="_blank" rel="noopener">一生一遇民宿</a><span class="where">仙都景区店 · 鼎湖村中心 · 步行到鼎湖峰约 5 分钟</span></td>
-          <td class="price">询价</td><td>免费电瓶车、高铁接送、帮忙规划路线</td><td class="rate r5">★★★★★</td>
-          <td class="ph" data-copy="">需平台内查</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%B8%8D%E8%B4%B0%E5%AE%BF%20%E4%BB%99%E9%83%BD" target="_blank" rel="noopener">不贰·宿</a><span class="where">仙都景区内 · 离朱潭山步行十几分钟 · 2018 开业 · 6 间</span></td>
-          <td class="price">询价</td><td>住客提到国庆价格实惠、安静</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="15325136525">15325136525</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E7%B4%A0%E8%AF%B4%E6%B0%91%E5%AE%BF%20%E4%BB%99%E9%83%BD" target="_blank" rel="noopener">素说民宿</a><span class="where">仙都景区店 · 近鼎湖峰 · 2022 开业 · 8 间</span></td>
-          <td class="price">询价</td><td>老板娘自制早餐 · 押金 500</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="13735885194">13735885194</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E8%8A%B1%E7%AD%91%E4%BA%91%E6%9F%92%20%E4%BB%99%E9%83%BD" target="_blank" rel="noopener">花筑·云柒</a><span class="where">轩辕街2、4号 · 景区中心 · 仅 7 间</span></td>
-          <td class="price">280–300 含双早</td><td>鼎湖峰、朱潭山、倪翁洞都在附近</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="17369755939">17369755939</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E9%99%8C%E9%87%8E%E9%9A%8F%E5%BF%83%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">陌野随心民宿</a><span class="where">轩辕街41号 · 离鼎湖峰二三百米 · 6 间</span></td>
-          <td class="price">询价</td><td>私家车报备后可开到门口 · 烧饼总店斜对面</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="">需平台内查</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BB%99%E9%83%BD%E9%9D%99%E9%9D%99%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">仙都静静民宿</a><span class="where">鼎湖峰景点门口对面 · 评分 9.0</span></td>
-          <td class="price">询价</td><td>可借电瓶车 · 有评价提到设施偏旧</td><td class="rate r4">★★★☆☆</td>
-          <td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">云和美居酒店<span class="where">近云和汽车站</span></td><td class="price">464</td><td>县城</td><td></td><td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">云和大酒店<span class="where">近云和江泰广场 · 大众点评 3.5 分（100评）</span></td><td class="price">488</td><td>县城</td><td></td><td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">云和华威国际大酒店</td><td class="price">498</td><td>县城</td><td></td><td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">陌尚轻居酒店（丽水云和店）</td><td class="price">588</td><td>县城</td><td></td><td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">云和森泉山庄<span class="where">近云和雪梨文化展示中心</span></td><td class="price">284</td><td>云和市区外围</td><td></td><td class="ph" data-copy="">需平台内查</td></tr>
+        <tr><td class="name">全季酒店（丽水云和童话堡店）<span class="where">大众点评 5.0 分（279评）· 偏贵</span></td><td class="price">约 1009</td><td>县城</td><td></td><td class="ph" data-copy="">需平台内查</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="note-bar">仙都的民宿<strong>没有</strong>梯田那种门票折扣机制，别为折扣选房。真要省钱可以住缙云县城（150–400 元，吃饭方便），代价是进景区要二三十分钟。</div>
+  <div class="note-bar">到云和县城 <b>18:00</b>，但从县城开上山到九曲云环观景台还要 <strong>30–40 分钟</strong>（21km 盘山路，基本没路灯），游客中心约 20 分钟。<strong>看日出的话最晚 04:00–04:10 必须出城。</strong></div>
 
-  <h3>10/5 · 仙居神仙居（三个方案都住这）</h3>
+  <h3>10/5 · 仙居淡竹乡（神仙居南门旁）</h3>
   <div class="scroll">
     <table class="stay">
       <thead><tr><th>民宿</th><th>价格</th><th>通道 / 票</th><th>推荐</th><th>电话</th></tr></thead>
@@ -896,23 +970,20 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E6%9D%91%E4%B8%8A%E8%BC%95%E9%9B%B2%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">村上輕雲民宿</a><span class="where">神仙居南门店 · 9.5/10（161评）· 推窗见观音峰</span></td>
           <td class="price">偏高</td><td class="disc">接送景区</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E5%8D%97%E9%97%A8%E4%B8%B4%E6%B0%B4%E5%B1%85%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">南门临水居民宿</a><span class="where">淡竹乡下陈朱村 · 紧邻南门，步行可到入口</span></td>
-          <td class="price">168/人含餐</td><td class="disc">两晚 336/人</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="">需平台内查</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E9%80%B8%E4%BA%91%E9%98%81%E6%B0%91%E5%AE%BF%20%E6%B7%A1%E7%AB%B9" target="_blank" rel="noopener">逸云阁民宿</a><span class="where">淡竹乡下叶村叶宅 · 约 2km，离南门最近的一档</span></td>
           <td class="price">160/人包吃住</td><td class="disc">门票优惠价</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="15058605548">15058605548</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E9%82%B1%E5%AE%B6%E5%AE%A2%E6%A0%88%20%E5%B0%9A%E4%BB%81%E6%9D%91" target="_blank" rel="noopener">邱家客栈</a><span class="where">淡竹乡尚仁村大地14号 · 约 4km · 10 间</span></td>
           <td class="price">130/人包吃住</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="15905760305">15905760305</td></tr>
+        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E5%8D%97%E9%97%A8%E4%B8%B4%E6%B0%B4%E5%B1%85%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">南门临水居民宿</a><span class="where">淡竹乡下陈朱村 · 紧邻南门，步行可到入口</span></td>
+          <td class="price">168/人含餐</td><td class="disc">两晚 336/人</td><td class="rate r4">★★★★☆</td>
+          <td class="ph" data-copy="">需平台内查</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E8%81%9A%E5%8F%8B%E5%B1%85%20%E6%B7%A1%E7%AB%B9%E4%B9%A1" target="_blank" rel="noopener">聚友居</a><span class="where">淡竹乡下叶村 / 石盟垟村</span></td>
           <td class="price">180/人</td><td class="disc">代购 + 接送</td><td class="rate r4">★★★★☆</td>
           <td class="ph" data-copy="17706572658">陈掌柜 17706572658</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E5%9D%90%E7%9C%8B%E4%BA%91%E8%B5%B7%E6%B0%91%E5%AE%BF%20%E7%9F%B3%E7%9B%9F%E5%9E%9F" target="_blank" rel="noopener">坐看云起民宿</a><span class="where">石盟垟村 · 省级银宿 · 7 间可容 21 人</span></td>
           <td class="price">380/间起</td><td class="disc">可代购</td><td class="rate r4">★★★★☆</td>
-          <td class="ph" data-copy="">需平台内查</td></tr>
-        <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E4%BA%91%E5%B1%B1%E9%9B%BE%E8%88%8D%E6%B0%91%E5%AE%BF" target="_blank" rel="noopener">云山雾舍民宿</a><span class="where">下叶叶宅村 · 到南门约 5 分钟 · 屋后淡竹溪</span></td>
-          <td class="price">询价</td><td class="disc">可代购</td><td class="rate r4">★★★☆☆</td>
           <td class="ph" data-copy="">需平台内查</td></tr>
         <tr><td class="name"><a href="https://uri.amap.com/search?keyword=%E5%8F%B6%E5%AE%85%E5%AE%A2%E6%A0%88%20%E7%A5%9E%E4%BB%99%E5%B1%85" target="_blank" rel="noopener">叶宅客栈</a><span class="where">神仙居景区淡竹店 · 紧邻南门 · 门口可停车</span></td>
           <td class="price">询价</td><td class="disc">可代购</td><td class="rate r4">★★★☆☆</td>
@@ -924,99 +995,156 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     </table>
   </div>
   <div class="callout">
-    <strong>神仙居的"优惠票"是假的。</strong>农家乐报的优惠价约 110 元，比途牛直订的 99 还贵。别为门票折扣选民宿，它们的真实价值是<strong>能不能协调早班进山</strong>。订房时直接问："6 个人，10/6 早上能不能走早班通道、几点能进？"答不上来的就别选。
+    <strong>神仙居的"优惠票"是假的。</strong>农家乐报的优惠价约 110 元，比网上直订的 99 还贵。别为门票折扣选民宿，它们的真实价值是<strong>能不能协调早班进山</strong>。订房时直接问：<em>"6 个人，10/6 早上能不能走早班通道、几点能进？"</em>答不上来的就别选。
   </div>
 
   <h2 style="margin-top:52px">门票<span class="sub">含 2026 国庆的实际政策</span></h2>
   <div class="scroll">
-    <table>
+    <table class="wide">
       <thead><tr><th>景区</th><th>级别</th><th>门票</th><th>怎么买</th></tr></thead>
       <tbody>
-        <tr><td>云和梯田</td>
+        <tr><td>缙云仙都<span class="where">10/4</span></td>
           <td>5A</td>
-          <td><b>70–80</b>（含九曲云环 + 白银谷 + 七星墩）</td>
-          <td>入住民宿买 <b>6 折</b>，约 40–48。另有说法称早上 6 点前进山不检票——存疑，别当计划的一部分</td></tr>
-        <tr><td>缙云仙都<span class="where">方案 B / C 用</span></td>
+          <td><b>联票 90</b><span class="where">含景区内所有景点 + 景交车 20 另收</span></td>
+          <td><strong>你们不去鼎湖峰，所以事实上不用买。</strong>只有鼎湖峰设检票点。但官方口径是"联票覆盖所有景点"，没有"免费景点"的说法。<strong>核心区 7:30–17:00 管控，车辆要报备</strong>，见 P5</td></tr>
+        <tr><td>云和梯田<span class="where">10/5</span></td>
           <td>5A</td>
-          <td><b>105</b>（含 2 天无限次景交车）</td>
-          <td>儿童 55、学生 65；60 岁以上免门票只付 20 车费，70 岁以上全免。<b>核心区国庆报备制，7:30–17:00 管控</b></td></tr>
-        <tr><td>神仙居</td>
+          <td><b>70–80</b><span class="where">含九曲云环 + 白银谷 + 七星墩</span></td>
+          <td>入住民宿买 <b>6 折</b>，约 40–48。景交车 1 号线往返 20 元/人（含 2 号线）；<strong>有大门票或索道票，2 号线免费</strong>。<br>索道<strong>没有官方标准价目表</strong>，网上"120/180/240"三个说法都无出处。官方只公布过国庆早鸟票 <b>99–150 元/人</b>（含往返索道 + 门票 + 景交），<strong>但 9/30 已截止</strong>。按 200 元/人预留</td></tr>
+        <tr><td>神仙居<span class="where">10/6</span></td>
           <td>5A</td>
-          <td><b>99</b> · 随时退</td>
-          <td>索道 65 上 / 55 下 / 120 往返，<b>只能现场买</b>。南天顶玻璃观景台另收 <b>99</b>，自愿</td></tr>
-        <tr><td>金华双龙洞<span class="where">方案 A 用</span></td>
-          <td>4A</td>
-          <td><b>80–105</b>（说法不一）</td>
-          <td>景交车往返约 <b>40/人</b>，门票+景交联票约 <b>115–120/人</b>。旺季 8:00–17:10，<b>15:30 停止售票入园</b>。洞内恒温 15–18℃，停车约 10 元/天</td></tr>
+          <td><b>现场 110</b> · 线上提前订 <b>99</b></td>
+          <td>索道官方价 65 上 / 55 下 / 120 往返，<b>只能现场买</b>。南天顶玻璃观景台 <b>99</b>（半票 55），自愿。<br><strong>一票通 327（提前）/ 347（当天）</strong>含大门票 + 索道往返 + 接驳车观光车 + 南天顶，比单买省 20 元还省排队</td></tr>
       </tbody>
     </table>
   </div>
 
+  <h3>日出与云海 · 用哪个工具查</h3>
+  <p class="lead">日出时间可以算死，云海概率不行——它得看当天的低云高度和湿度。<strong>下面这几个是能查云海概率的，出发前一晚再看一眼。</strong></p>
+  <div class="scroll">
+    <table class="wide">
+      <thead><tr><th>工具</th><th>在哪</th><th>能查什么</th><th>评价</th></tr></thead>
+      <tbody>
+        <tr><td><b>云和梯田数字气象地图</b></td><td>微信小程序</td>
+          <td>云海概率预报<span class="where">官方出的，据称准确率 &gt;80%</span></td>
+          <td class="yes">首选。专门为这个景区做的，别的工具替代不了</td></tr>
+        <tr><td><b>云和天气</b></td><td>微信公众号</td>
+          <td>云海概率指数</td>
+          <td>和上面同源，顺手看一眼</td></tr>
+        <tr><td><b>莉景天气</b></td><td>App</td>
+          <td>有专门的"云海"栏目，含日出日落时刻</td>
+          <td>全国通用，覆盖云和</td></tr>
+        <tr><td><b>Windy</b></td><td>App / 网页</td>
+          <td>低云量、云底高度图层 + 探空图</td>
+          <td>最专业。看"低云"图层，云底低于山脊、湿度高，云海概率就大</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>先把期待放低：十月不是云和梯田云海的最佳季节。</strong>
+    云海最佳月份是 <b>3–7 月，6 月是峰值</b>；官方说法是全年云海天数最多约 100 天，主要集中在上半年。十月能碰上算赚到，<strong>但要按"看得到日出、不一定有云海"来安排心情</strong>。日出的时间是钉死的，云海是概率。
+  </div>
+  <div class="note-bar">
+    <strong>云和梯田电话 <span class="ph" data-copy="05785156688">0578-5156688</span></strong>——景区 2026-09-03 曾因强降雨（滑坡落石风险）暂停营业，<strong>没有查到正式的"恢复营业通告"</strong>，第三方平台上至今还有人挂着"暂停营业"。但官方号 9/30 已发国庆游玩 Q&amp;A、10/1 发了《国庆首日实况》（九曲云环升旗、农事体验正常），<strong>可判定国庆期间已恢复运营</strong>。<br>
+    <strong>出发前一天再打一次确认，顺手问清"日出追光巴士"的首班时间</strong>——这是 10/5 早上最大的不确定点。
+  </div>
+
+  <h3>顺路吃与免费景点 · 人均 40 以下 / 免门票</h3>
+  <p class="lead">下面这些是沿线捡出来的，<strong>都不需要改路线</strong>，在饿了或者时间有富余的时候可以顶上。价格和评分来自大众点评。</p>
+  <div class="scroll">
+    <table class="wide">
+      <thead><tr><th>顺路点</th><th>人均 / 门票</th><th>评分</th><th>在哪一天用</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td class="name">云汐砂锅面<span class="where">云和县城</span></td><td class="price">人均 23</td><td class="rate r5">4.5</td>
+          <td><span class="dt d4">10/4 晚<em>住县城时</em></span></td><td>161 条评价。住县城那晚的平价首选</td></tr>
+        <tr><td class="name">云禾小吃<span class="where">云和县城</span></td><td class="price">人均 30</td><td class="rate r4">4.0</td>
+          <td><span class="dt d4">10/4 晚<em>住县城时</em></span></td><td>566 条评价，快餐简餐</td></tr>
+        <tr><td class="name">外婆砂锅菜<span class="where">云和县城</span></td><td class="price">人均 39</td><td class="rate r4">4.0</td>
+          <td><span class="dt d4">10/4 晚<em>住县城时</em></span></td><td>635 条评价，传统手艺菜</td></tr>
+        <tr><td class="name">稻生一 / 云端美咖<span class="where">云和梯田景区内</span></td><td class="price">人均 34 / 36</td><td class="rate r4">4.0</td>
+          <td><span class="dt d5">10/5 上午<em>看完日出</em></span></td><td>日出后回笼觉前的咖啡和简餐</td></tr>
+        <tr><td class="name">仔仔冰汤圆 / 三金糖水<span class="where">仙居白塔镇</span></td><td class="price">人均 16 / 20</td><td class="rate r5">4.5</td>
+          <td><span class="dt d6">10/6 中午<em>下山后</em></span></td><td>甜品类，下山垫肚子刚好</td></tr>
+        <tr><td class="name">春笋面馆<span class="where">仙居白塔镇</span></td><td class="price">人均 19</td><td class="rate r4">4.0</td>
+          <td><span class="dt d6">10/6 中午<em>下山后</em></span></td><td>186 条评价，快</td></tr>
+        <tr><td class="name">小园土菜<span class="where">神仙居店</span></td><td class="price">人均 48</td><td class="rate r5">4.5</td>
+          <td><span class="dt d6">10/6 中午<em>景区出口</em></span></td><td><strong>全程性价比最高的一顿正餐</strong>，1249 条评价</td></tr>
+        <tr><td class="name">松阳古村落<span class="where">杨家堂 · 酉田 · 松庄　｜　丽水松阳</span></td><td class="free">免费</td><td>—</td>
+          <td><span class="dt d4">10/4<em>完全顺路</em></span></td><td>黄土墙老屋群，被叫"江南最后的秘境"。杭州→云和必经，高速有松阳出口，<b>不用改路线</b></td></tr>
+        <tr><td class="name">缙云河阳古民居<span class="where">缙云县新建镇</span></td><td class="price">35–40<span class="where">网友称 17:30 后进村免费</span></td><td>—</td>
+          <td><span class="dt d4">10/4<em>大致顺路，但要下高速</em></span></td><td>村口有免费停车场，逛村 1–1.5 小时。<strong>但如果想省门票就得等到 17:30，赶不上你们的时间</strong></td></tr>
+        <tr><td class="name">古堰画乡<span class="where">丽水莲都区大港头</span></td><td class="price">50<span class="where">网订约 45；17 点后进老街免费但游船停运</span></td><td>—</td>
+          <td><span class="dt no">半顺路<em>要下高速绕行</em></span></td><td>逛核心区要 2–3 小时，10/5 下午时间不够</td></tr>
+        <tr><td class="name">仙居永安溪休闲绿道<span class="where">台州仙居</span></td><td class="free">免费</td><td>—</td>
+          <td><span class="dt d5">10/5 傍晚<em>到得早可以走</em></span></td><td>4A 级免费。淡竹乡住处附近就有段，饭后散步用</td></tr>
+        <tr><td class="name">临海灵湖 / 东湖 / 紫阳古街<span class="where">台州临海</span></td><td class="free">免费<span class="where">东湖 2026 年起永久免费</span></td><td>—</td>
+          <td><span class="dt no">不顺路<em>除非专程去</em></span></td><td>4A/5A 级免费，但临海在仙居<strong>东侧</strong>，要往东绕 40–50 km，和回杭州的方向不一条线</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>"免费游台州"对你们不适用。</strong>
+    台州有 24 家景区对<strong>台州市户籍居民和持台州市居住证的人</strong>免费，而且<strong>法定节假日和双休日不开放免费游</strong>——国庆期间、外地游客，两条都不满足。<strong>别按这个做预算。</strong>上面表里标"免费"的是本来就免费的，跟这个政策无关。
+  </div>
+  <div class="note-bar">另外几个 4A 级免费景区（松阳大木山茶园、松阳松阴溪、仙居氧吧小镇）也在沿线，但都要绕行，<strong>不建议塞进这三天</strong>——把仙都、梯田、神仙居这三大块走扎实比多塞两个点划算。<br>还有 <strong>10/5 下午我的建议是直接走、不插点</strong>：神仙居方向 10:00–17:00 是双向车流集中时段，仙居和白塔收费站周边最容易堵，多留 40 分钟比多逛一个村值。</div>
+
   <h3>必须知道的几件事</h3>
   <ul class="plain">
-    <li><strong>神仙居的步道全关了。</strong>南北登山道、南海桥、西线老君台—蟠桃园都不通，索道从"可选"变成"必须"。6 人 720 元，这笔钱跑不掉。</li>
-    <li><strong>神仙居大门票今天就能订。</strong>99 元随时退，天气不对再退，不用等天气明朗才决定。</li>
+    <li><strong>仙都的"免费"是结果，不是政策。</strong>90 元联票覆盖景区内所有景点，但只有鼎湖峰设检票点。你走朱潭山、岩宕书房、小赤壁那条线，事实上不花钱；但官方立场是"暂时还不具备免门票条件"（缙云县政府 2026-06-08 问政答复），<strong>别拿"免费"去跟检票员理论</strong>。</li>
+    <li><strong>报备解决的是"车能不能进"，不是"要不要买票"。</strong>两条路：让预订的饭店/民宿替你报（当天有效），或到卡口旁游客服务中心现场办（3 分钟内）。<strong>景区饱和会暂停所有报备</strong>，所以越早进越好。</li>
+    <li><strong>神仙居北登山步道确认封闭，南步道状态未证实。</strong>北步道自 2026-06-11 起官方封闭施工；另有南海桥（08-03 起）、西线老君台—蟠桃园（08-18 起）两处维保。网上"南北步道全关"只有一条已失效的游客投诉为证。<strong>出发前打 0576-87038686 问清</strong>——南步道若开着，体力好的能省 720 元索道钱。</li>
+    <li><strong>神仙居的大门票现在就能订，而且有一票通。</strong>线上 99 元（现场 110）。<strong>一票通 327 元含大门票 + 索道往返 + 接驳车观光车 + 南天顶玻璃观景台</strong>（单买是 99+120+99 = 318 还多排队），提前买 327、当天 347。<strong>建议直接上一票通。</strong></li>
+    <li><strong>10/6 返程千万别走白塔收费站。</strong>白塔收费站 8:00–12:00 <strong>只出不进</strong>，必须走<strong>诸永高速神仙居收费站</strong>。诸永台州段全程限速 80，隧道长下坡多。</li>
+    <li><strong>10/6 堵车是有官方口径的。</strong>杭州交警：返程缓行节点是 10/5 8:00–10/6 19:00，<strong>其中 9:00–14:00 最严重</strong>。你们 12:40 上高速，只撞上尾巴；14 点后明显缓解。</li>
     <li><strong>如意桥是神仙居的招牌</strong>（S 形双层玻璃悬索桥，悬空约 170m），在"南上南下"线上，别走岔了。南天梯是免费扶梯，能省一段爬升。</li>
-    <li><strong>梯田索道可以不买，但有一段要先问清。</strong>自驾能直接开到九曲云环和白银谷（都有免费停车）。有资料说九曲云环到七星墩只能坐索道，也有资料说自驾能上到梅竹村（那边确实有民宿）——<strong>出发前打民宿电话问死这一条</strong>，它决定你要不要花 6 人 × 200 的索道钱。</li>
-    <li><strong>选方案 A 要注意：双龙洞国庆期间私家车开不上去。</strong>10/1–10/7 每天 <b>8:00–16:30</b> 对罗电线、花果路、新朝线、金九线等上山路段限行，只放行公务车、景交车、公交车和沿线村民车辆。车停双龙游客中心（或罗店派出所以东的临时停车场），换景交车上山——<strong>游客中心和洞口不是一个地方，走路到不了</strong>。有疑问打景区管委会 <span class="ph" data-copy="057982598016">0579-82598016</span>。</li>
-    <li><strong>神仙居实名分时预约</strong>，票和身份证提前放好。</li>
+    <li><strong>梯田索道这个决定，要先打电话才能下。</strong>自驾能直接开到九曲云环（D 区停车场），这一段没问题；<strong>但九曲云环到七星墩，官方对"能不能自驾"零信息，网友说法互相矛盾</strong>——有说能开上去（有停车场、约 20 元/辆），也有说只能坐索道。山路窄弯多，国庆不建议自驾。<strong>按坐索道做预算（6 人约 1200 元）</strong>，如果问出来能自驾，这 1200 就省下了。</li>
+    <li><strong>看日出必须自驾。</strong>观云索道 08:00 才运行，日出是 05:57。九曲云环 04:40 开门是国庆口径，非节假日要另问。</li>
   </ul>
 
   <h3>天气与提醒</h3>
   <ul class="plain">
     <li><strong>10/4</strong> 中雨转小雨（丽水 / 缙云 / 台州）。<strong>10/5</strong> 丽水晴 23/13℃、台州晴。<strong>10/6</strong> 丽水晴 21/11℃、台州晴。全省先雨后晴，无台风影响。</li>
-    <li>山区比城区低 5–8℃，梯田清晨只有 10℃ 出头，看日出按深秋穿。</li>
-    <li>雨后栈道和石板路都滑，<strong>带防滑鞋</strong>。</li>
-    <li>10/6 返程仙居到杭州 220km，正常 3.5h，高峰 5h。别订晚上的安排。</li>
+    <li>山区比城区低 5–8℃，<strong>梯田清晨只有 10℃ 出头，看日出按深秋穿</strong>——厚外套、长裤，别穿短袖硬扛。</li>
+    <li>雨后栈道和石板路都滑，<strong>带防滑鞋</strong>。10/4 在仙都那三个点全是室外湿滑路面。</li>
+    <li>10/6 返程仙居到杭州 211–219km，正常 2h50–3h15。<strong>杭州交警口径：返程缓行节点是 10/5 8:00–10/6 19:00，其中 9:00–14:00 最严重。</strong>你们 12:40 上高速只撞上尾巴，14 点后明显缓解。别订晚上的安排。</li>
+    <li><strong>10/6 白塔收费站 8:00–12:00 只出不进</strong>，返程必须走<strong>诸永高速神仙居收费站</strong>。诸永台州段全程限速 80，括苍隧道 7927 米、双峰隧道 6.2 公里，长下坡多。</li>
+    <li>诸永高速 5 对服务区：<strong>神仙居</strong>（白塔镇，返程第一站最方便）、磐安、东阳、诸暨、永嘉。<strong>10:00–15:00 服务区充电桩最挤</strong>，可能堵到倒灌主线，纯电车注意。</li>
+    <li>凌晨山路（云和县城→九曲云环）多弯、窄、<strong>基本没路灯</strong>，司机前一晚别喝酒、睡够。</li>
   </ul>
   <div class="note-bar">页面里的天气是按行政区给的，不代表景区那一片的雨。你手上的景区级降雨概率比这个准，以你的为准。</div>
-
-  <h3>附录 · 参考文档的原版</h3>
-  <p class="lead">对照的是蔡森的《杭州-丽水-台州》攻略。原版行程：<strong>Day 1</strong> 朱潭山 → 鼎湖峰 → 岩宕书房 → 小赤壁；<strong>Day 2</strong> 九曲云环 → 索道至七星墩 → 坑根石寨；<strong>Day 3</strong> 神仙居南门进，南上南下，走"懒人轻松线"。</p>
-  <div class="note-bar">景点顺序和第三天的走法本版完全沿用，没有改。<strong>Day 3 的"南门进、南上南下"是这份文档最有价值的一条</strong>，它避开了北门的爬升。</div>
-  <div class="scroll" style="margin-top:20px">
-    <table class="wide">
-      <thead><tr><th>本版改了什么</th><th>原版</th><th>本版</th><th>为什么</th></tr></thead>
-      <tbody>
-        <tr><td>日期</td><td>10/2 – 10/4</td><td><b>10/4 – 10/6</b></td><td>10/2 中雨，神仙居大雨没法玩；10/5 起转晴</td></tr>
-        <tr><td>10/4 这天</td><td>只有仙都一个选择</td><td><b>给了三个方案</b></td><td>10/4 中雨。方案 A 换成金华双龙洞（溶洞，雨天零影响，且在去丽水的路上）；原仙都走法拆成"看日出"和"不过夜"两个</td></tr>
-        <tr><td>梯田索道</td><td>买含索道联票 200/人</td><td><b>自驾先不买</b></td><td>6 人省下 1200 元。但九曲云环到七星墩那一段要先确认</td></tr>
-        <tr><td>住宿账</td><td>300/晚 ÷ 3 人 = 100/人</td><td><b>300/间 × 3 间 = 150/人</b></td><td>你们是 6 人 3 间（2 人一间），不是 6 人 2 间。原版按 3 人一间算的</td></tr>
-        <tr><td>神仙居票</td><td>219（门票+索道）</td><td><b>99 + 120 = 219，自订</b></td><td>门票在途牛直订 99 且随时退，比农家乐的"优惠价"110 还便宜</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="callout">
-    <strong>住宿那一栏值得看一眼。</strong>原版算"300 ÷ 3 人 = 100/人"，是按 3 人挤一间算的。你们 6 人 3 间就是 2 人一间，同样 300 元/晚的房，人均变成 150——刚好卡在你预算的上限。想压到 100–120/人，要么降到 200–240/晚的房，要么接受"包吃住"型农家乐（120–180/人含两餐，其实更划算）。
-  </div>
 </section>
 
 <!-- ══════════════════════ 出发前必办 ══════════════════════ -->
 <section class="parted" id="todo" style="border-top:none">
   <div class="todo">
-    <h2>出发前必须先办的 6 件事<span class="sub">按顺序做，前两件今天就能办掉</span></h2>
+    <h2>出发前必须先办的 6 件事<span class="sub">按顺序做，前四件今天就能办掉</span></h2>
     <ol>
-      <li><b>买神仙居门票（10/6 用）</b>
-        <em>99 元一张，随时退。天气不对再退，不用等天气明朗才决定——现在订掉最省心。</em></li>
-      <li><b>订 10/4 云和梯田的房，6 人 3 间</b>
-        <em>国庆房态紧，越早越好。电话在第三部分住宿表里，点号码可直接复制。</em></li>
-      <li><b>问死一件事：九曲云环 → 七星墩能不能自驾</b>
-        <em>订房时顺口问民宿老板。有资料说只能坐索道，也有说能自驾上梅竹村——这一步决定你要不要花 6 人 × 200 = 1200 元的索道钱。</em>
+      <li><b>办仙都的车辆报备（10/4 用）</b>
+        <em>这是唯一一件不办就进不去的事。<strong>最省事的办法：订 10/4 午饭的座位时，把车牌报给店家</strong>，让他们替你报——推荐好兆头（人均 66，2935 评）或家谦农家菜（人均 59，2197 评），这两家接待量大、流程熟。当天有效。</em>
+        <span class="quote">"我们 10/4 中午 6 个人来吃饭，想顺便办一下车辆报备，车牌是 ×××××，可以吗？"</span></li>
+      <li><b>订 10/4 云和梯田景区内的房，6 人 3 间</b>
+        <em>国庆房态很紧。携程实价：遇见民宿 299、鱼在在云 491、云境山苑 590、溪畔 728、拾光贰号 780、登云间舍 700。电话在 P10 的住宿表里，点号码可直接复制。</em></li>
+      <li><b>问死三件事（订梯田房时一起问）</b>
+        <em>① 门票能不能按 6 折代购；② 明早日出的走法和停车位在哪；③ <strong>从九曲云环到七星墩能不能自驾上去、国庆有没有管制</strong>。第③条决定你要不要花 6 人 × 200 = 1200 元的索道钱。</em>
         <span class="quote">"我们自己开车，从九曲云环到七星墩能开上去吗？国庆有没有管制？停车停哪？"</span></li>
       <li><b>订 10/5 仙居淡竹乡的房</b>
-        <em>选能协调早班进山的那几家。神仙居大门票 99 比农家乐报的"优惠价 110"还便宜，别为门票折扣选房。</em>
+        <em>选能协调早班进山的那几家（迎君客栈、静界·无冬山舍都提供通道或接送）。神仙居大门票 99 比农家乐报的"优惠价 110"还便宜，别为门票折扣选房。</em>
         <span class="quote">"6 个人，10/6 早上能不能走早班通道、几点能进山？"</span></li>
-      <li><b>定 10/4 走哪个方案，然后办对应的事</b>
-        <em>选 A（双龙洞）：<b>不用报备，但要按 5:30 出发</b>——10/1–10/7 每天 8:00–16:30 上山道路限行，私家车只能停双龙游客中心换景交车，7:30 前必须到，才能坐上第一批车上山。有疑问打景区管委会 <span class="ph" data-copy="057982598016">0579-82598016</span>（景交车往返约 40/人，门票+景交联票约 115–120/人）。<br>选 B 或 C（仙都）：打 <span class="ph" data-copy="05783120301">0578-3120301</span> 问国庆当天的报备方式——核心区 7:30–17:00 管控，饱和就停止报备，车可能开不进去。</em></li>
+      <li><b>买神仙居一票通（10/6 用）+ 打三个确认电话</b>
+        <em><strong>一票通 327 元/人（提前购）</strong>，含大门票 + 索道往返 + 接驳车观光车 + 南天顶玻璃观景台——比单买省 20 元，还免掉现场排队买索道票。线上渠道：微信小程序「神仙居旅游」或公众号「神仙居」。<br>
+        再打三个电话：<br>
+        · <strong>云和梯田 <span class="ph" data-copy="05785156688">0578-5156688</span></strong>——问 ① 10/5 是否正常开放（9/3 曾因暴雨关闭）；② <strong>日出追光巴士首班时间、乘车点、要不要预约</strong>；③ 九曲云环 D 区停车场车位与收费；④ 从九曲云环能不能自驾上七星墩。<br>
+        · <strong>神仙居 <span class="ph" data-copy="057687038686">0576-87038686</span></strong>——问 ① 10/6 南北登山步道是否开放（北步道已确认封闭）；② 按夏令 7:00 还是冬令 7:30 开园；③ 南门停车场车位。<br>
+        · <strong>仙都景区 <span class="ph" data-copy="05783120301">0578-3120301</span></strong>——确认国庆当天的报备方式和管控时段。</em></li>
       <li><b>打包 + 收尾</b>
-        <em>防滑鞋（雨后栈道滑）、厚外套（梯田清晨 10℃ 出头）、雨具、充电宝。<br>神仙居是实名分时预约，票和身份证提前装在一起，10/6 早上 6 点就要用。</em></li>
+        <em>防滑鞋（雨后栈道滑）、厚外套（梯田清晨 10℃ 出头）、手电或手机支架灯（凌晨走观景台用）、雨具、充电宝、身份证。<br><strong>神仙居按实名验票，6 个人的票和身份证前一晚就装在一起</strong>，10/6 早上 7 点就要用。</em></li>
     </ol>
   </div>
 </section>
 
 <footer>
-  票价与房价来自公开平台，国庆期间会浮动，下单前请再确认一次。<br>
-  直接打电话比在平台比价更容易拿到国庆的真实房态。
+  房价来自携程 2026-10-02 对 10/4–10/5 的实际报价；餐厅评分、人均、评价数来自大众点评。<br>
+  票价与房价国庆期间会浮动，下单前请再确认一次。<strong>直接打电话比在平台比价更容易拿到国庆的真实房态。</strong>
 </footer>
 
 </div>
@@ -1067,10 +1195,10 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     } else { fallback(num); }
   });
 
-  /* 窄屏把住宿表变成卡片时，把表头文字搬到每个格子上当标签 */
+  /* 窄屏把住宿表 / 停车表变成卡片时，把表头文字搬到每个格子上当标签 */
   function labelStay(){
     if(!window.matchMedia('(max-width:640px)').matches) return;
-    var tables = document.querySelectorAll('table.stay');
+    var tables = document.querySelectorAll('table.stay, table.park');
     for(var t = 0; t < tables.length; t++){
       var ths = [], th = tables[t].querySelectorAll('thead th');
       for(var h = 0; h < th.length; h++) ths.push(th[h].textContent.trim());

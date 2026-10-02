@@ -29,7 +29,7 @@
 <text x="66" y="429" font-size="15.5" font-weight="700" fill="#1A211C">云城酒店</text>
 <text x="330" y="429" font-size="15.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥240</text>
 <text x="66" y="451" font-size="12" fill="#65706A">县城·汽车站旁</text>
-<text x="330" y="451" font-size="13" font-weight="700" text-anchor="end" fill="#9A482D">22.1 km · 46 分</text>
+<text x="330" y="451" font-size="13" font-weight="700" text-anchor="end" fill="#9A482D">22.3 km · 46 分</text>
 <text x="66" y="470" font-size="11.5" fill="#8A948E">唯一一家在县城，其余全在山上</text>
 </g>
 <g><rect x="356" y="402" width="324" height="78" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/>
@@ -62,7 +62,7 @@
 <text x="666" y="541" font-size="13" font-weight="700" text-anchor="end" fill="#9E6C1C">10.3 km · 约 14 分</text>
 <text x="402" y="560" font-size="11.5" fill="#8A948E">海拔 1110 m，全村最高</text>
 </g>
-<text x="20" y="596" font-size="11" fill="#8A948E">示意图：圆点按真实经纬度摆放，编号与下方卡片对应；虚线只表示「从这里出发」，不是行车路径。</text>
-<text x="20" y="614" font-size="11" fill="#8A948E">色条＝距离档：绿 ≤6 km · 金 6–12 km · 红 &gt;12 km。</text>
-<text x="20" y="632" font-size="11" fill="#8A948E">只有云城酒店的 22.1 km / 46 分钟是高德实测值，其余按 OpenStreetMap 路网＋高德山区车速换算，出行前请在导航里复核。</text>
+<text x="20" y="596" font-size="12" fill="#8A948E">示意图：圆点按真实经纬度摆放，编号与下方卡片对应；虚线只表示「从这里出发」，不是行车路径。</text>
+<text x="20" y="614" font-size="12" fill="#8A948E">色条＝距离档：绿 ≤6 km · 金 6–12 km · 红 &gt;12 km。</text>
+<text x="20" y="632" font-size="12" fill="#8A948E">只有云城酒店的 22.3 km / 46 分钟是高德实测值，其余按 OpenStreetMap 路网＋高德山区车速换算，出行前请在导航里复核。</text>
 </svg>

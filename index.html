@@ -11,6 +11,19 @@
 <meta property="og:title" content="丽水台州三日自驾">
 <meta property="og:description" content="6 人 3 间房，杭州往返。10/4 那天中雨，给了三条走法，附花费对比、住宿电话表、出发前必办清单。">
 <title>丽水台州三日自驾</title>
+<script>/* 页签：在正文解析之前定好显示哪一块，避免两块同时闪一下。
+   没有 JS 时这里不执行，html 上没有 js-tabs，两块内容都显示。 */
+(function () {
+  var d = document.documentElement, t;
+  var h = location.hash.replace('#', '');
+  var v = null;
+  try { v = localStorage.getItem('lstz-tab'); } catch (e) {}
+  if (h === 'stayref') t = 'ref';
+  else if (h) t = 'main';
+  else t = (v === 'ref') ? 'ref' : 'main';
+  d.classList.add('js-tabs');
+  d.setAttribute('data-tab', t);
+})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap">
@@ -20,7 +33,9 @@
    方案已定，所以不再有 A/B/C 分支——全文变成一条直线：
    ① 定案（三天怎么排）② 照着走（每天几点导航到哪）
    ③ 后勤（订房买票 + 出发前必办）
-   线性长文，不用标签页——方便转发、打印、导出可跳转的 PDF。
+   正文一条直线（定案 → 照着走 → 后勤 → 必办 → 打包），
+   备选住宿那些留档表格收进「其他住宿参考」页签，主页面只留行程。
+   页签是渐进增强：无 JS 时两块都显示，打印时两块都出。
    ──────────────────────────────────────────────────────── */
 :root{
   --bg:#F5F7F4; --surface:#FFFFFF; --surface-2:#EAEEE8;
@@ -101,6 +116,7 @@ h1{font-family:var(--serif); font-weight:700; font-size:clamp(30px,6vw,42px); li
 .toc .t{font-weight:700; font-size:15px; min-width:0}
 .toc .t em{display:block; font-style:normal; font-weight:400; font-size:13px; color:var(--muted); margin-top:3px; line-height:1.55}
 .pg{display:none}
+.pgx{display:none}
 .toc-mini{display:none}
 
 /* ── 分部 ── */
@@ -320,19 +336,56 @@ ul.pack li em{display:block; font-style:normal; font-size:12px; color:var(--mute
 }
 
 /* ── 打印 / 导出 PDF ── */
+/* ── 页签：行程 / 其他住宿参考 ──────────────────────────────
+   html.js-tabs 由 <head> 里一段行内脚本在解析正文之前打上，避免两块同时闪一下。
+   没有 JS 时不打这个 class，两块内容原样按顺序全显示——不依赖 JS 也能读全文。
+   打印时两块都排出来（见 @media print），PDF 与原来完全一致。 */
+.tabbar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  display:flex; gap:6px; margin:22px 0 0; padding:6px 0 6px;
+  background:var(--bg); border-bottom:1px solid var(--line)
+}
+.tabbar:empty{display:none}
+.tabbtn{
+  appearance:none; border:1px solid transparent; border-radius:var(--radius);
+  background:none; color:var(--muted); cursor:pointer;
+  font-family:var(--sans); font-size:14px; font-weight:500;
+  padding:9px 16px; line-height:1.2
+}
+.tabbtn:hover{background:var(--surface-2); color:var(--ink)}
+.tabbtn[aria-selected="true"]{
+  background:var(--surface); border-color:var(--line); color:var(--ink); font-weight:700
+}
+.tabbtn:focus-visible{outline:2px solid var(--pine); outline-offset:1px}
+.tabpanel{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 62px)}
+html.js-tabs .tabpanel{display:none}
+html.js-tabs[data-tab="main"] .tabpanel[data-tab="main"],
+html.js-tabs[data-tab="ref"] .tabpanel[data-tab="ref"]{display:block}
+/* 切开 part3 之后，两个新 section 各自成了所在 panel 的 first-of-type，
+   会被 section.parted:first-of-type 抹掉那条分隔线——这里用同权重的
+   section.parted.seam 补回来（两条都是 0,2,1，靠源码顺序取胜）。 */
+section.parted.seam{border-top:1px solid var(--line); margin-top:56px; padding-block:56px 0}
+
 @media print{
   @page{size:A4 portrait; margin:14mm}
   body{background:#fff; color:#000; font-size:10.5pt}
   .wrap{max-width:none; padding:0}
   section{padding-block:16px 0}
   section.parted{margin-top:26px; padding-block:26px 0}
+  /* 页签在纸上没有意义：按钮藏掉，两块内容按正常顺序全排出来 */
+  .tabbar{display:none}
+  html.js-tabs .tabpanel{display:block !important}
+  section.parted.seam{margin-top:26px; padding-block:26px 0}
   .eat,.callout,.rows > li,table,tr,figure,ul.plain li,ol.steps li,.toc ol > li{break-inside:avoid}
+  /* 三张吃饭地图整张不跨页；放不下就整张挪到下一页，不强制分页 */
+  figure.eatmap{margin-top:16px; break-inside:avoid}
   h2,h3,.route-line,.todo ol > li,.part,.day-head{break-after:avoid}
   .toc{break-after:page; margin-top:16px; padding:16px 18px 18px}
   .toc > p{margin-bottom:10px; font-size:9pt}
   .toc a{padding:8px 6px}
   .toc .t{font-size:13pt}
   .toc .t em{font-size:8.5pt; margin-top:2px; line-height:1.4}
+  .pgx{display:inline}
   .pg{display:inline; font-family:var(--mono); font-style:normal; font-size:9pt; font-weight:700;
       color:#9E6C1C; letter-spacing:0; padding-top:2px}
   .toc-mini{display:block; margin:10px 0 0; padding-top:9px; border-top:1px solid #ccc;
@@ -410,6 +463,13 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   </div>
 </header>
 
+<div class="tabbar" role="tablist" aria-label="页面分区">
+  <button class="tabbtn" type="button" role="tab" data-go="main" aria-selected="true">行程</button>
+  <button class="tabbtn" type="button" role="tab" data-go="ref" aria-selected="false">其他住宿参考</button>
+</div>
+
+<div class="tabpanel" data-tab="main">
+
 <nav class="toc">
   <h2>这份文档分五段</h2>
   <p>先花 5 分钟看完第一段，后面照着做就行。</p>
@@ -427,18 +487,18 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <li><a href="#part3">
       <span class="n">03</span>
       <span class="t">后勤 · 订房买票查天<em>住宿实价与电话表、门票、日出与云海查询工具、顺路的平价饭店与免费景点</em></span>
-      <span class="pg" data-pg="zzP3">P21</span>
+      <span class="pg" data-pg="zzP3">P25</span>
     </a></li>
     <li><a href="#todo">
       <span class="n">04</span>
       <span class="t">出发前必办<em>六件事，前四件今天就能办掉</em></span>
-      <span class="pg" data-pg="zzTODO">P33</span>
+      <span class="pg" data-pg="zzTODO">P38</span>
     </a></li>
 
     <li><a href="#pack">
       <span class="n">05</span>
       <span class="t">要带的东西<em>六组打包清单，照着打勾——证件、衣服、雨具、药、工具、吃喝</em></span>
-      <span class="pg" data-pg="zzPACK">P34</span>
+      <span class="pg" data-pg="zzPACK">P39</span>
     </a></li>
   </ol>
   <div class="toc-mini">
@@ -450,19 +510,20 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD4PARK">P5</i></span>
     <span class="ind">└ 报备怎么办 <i class="pg" data-pg="zzD4REG">P6</i></span>
     <span class="ind">└ 午饭吃哪家 <i class="pg" data-pg="zzD4EAT">P7</i></span>
-    <span class="ind">└ 晚上住哪 <i class="pg" data-pg="zzD4STAY">P9</i></span>
-    <span>10/5 时刻表 <i class="pg" data-pg="zzD5">P10</i></span>
-    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD5PARK">P13</i></span>
-    <span>10/6 时刻表 <i class="pg" data-pg="zzD6">P15</i></span>
-    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD6PARK">P18</i></span>
-    <span>住宿与电话 <i class="pg" data-pg="zzSTAY">P21</i></span>
-    <span>门票 <i class="pg" data-pg="zzTICKET">P28</i></span>
-    <span>日出与云海工具 <i class="pg" data-pg="zzSUN">P28</i></span>
-    <span>顺路吃与免费景点 <i class="pg" data-pg="zzALT">P29</i></span>
-    <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P31</i></span>
-    <span>天气与提醒 <i class="pg" data-pg="zzWX">P32</i></span>
-    <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P33</i></span>
-    <span>★ 要带的东西 <i class="pg" data-pg="zzPACK">P34</i></span>
+    <span class="ind">└ 晚上住哪 <i class="pg" data-pg="zzD4STAY">P10</i></span>
+    <span>10/5 时刻表 <i class="pg" data-pg="zzD5">P11</i></span>
+    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD5PARK">P14</i></span>
+    <span>10/6 时刻表 <i class="pg" data-pg="zzD6">P17</i></span>
+    <span class="ind">└ 导航与停车 <i class="pg" data-pg="zzD6PARK">P21</i></span>
+    <span>住宿与电话 <i class="pg" data-pg="zzSTAY">P25</i></span>
+    <span class="ind">└ 其他住宿参考 <i class="pg" data-pg="zzSTAYREF">P25</i></span>
+    <span>门票 <i class="pg" data-pg="zzTICKET">P32</i></span>
+    <span>日出与云海工具 <i class="pg" data-pg="zzSUN">P32</i></span>
+    <span>顺路吃与免费景点 <i class="pg" data-pg="zzALT">P33</i></span>
+    <span>必须知道的事 <i class="pg" data-pg="zzFACTS">P35</i></span>
+    <span>天气与提醒 <i class="pg" data-pg="zzWX">P36</i></span>
+    <span>★ 出发前必办 <i class="pg" data-pg="zzTODO">P38</i></span>
+    <span>★ 要带的东西 <i class="pg" data-pg="zzPACK">P39</i></span>
   </div>
   <p class="pdfhint">在微信 / 手机里看：照上面的<strong>页码滑过去</strong>就行，不需要点。<br>在电脑上看：左侧「书签」栏有同样的目录，目录行、住宿表里的民宿名、停车表里的导航关键词都能直接点。</p>
 </nav>
@@ -486,7 +547,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td>几点出发</td>
           <td><b>05:30</b><span class="where">杭州出门 · 06:35 到绍兴后梅小区接人</span></td>
           <td><b>04:10</b><span class="where">出门去看日出 · 夏秋农家乐开 10.3 km</span></td>
-          <td><b>05:15</b><span class="where">起床 · 05:50 出发 · 06:10 到南门</span></td></tr>
+          <td><b>05:15</b><span class="where">起床 · 05:50 出发 · 06:10 到南门 · 06:30 上索道</span></td></tr>
         <tr><td>几点收工</td>
           <td>17:50 到黄家畲村<span class="where">夏秋农家乐</span></td>
           <td>17:00 到仙居淡竹乡</td>
@@ -513,7 +574,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 
   <h3>为什么是这个走法</h3>
   <ul class="plain">
-    <li><strong>「仙都免费版」的真正原理是「7:30 前闸门还没关」，不是「朱潭山不要票」。</strong>90 元大门票里<strong>收费的是朱潭山、鼎湖峰、倪翁洞、仙都观</strong>；<strong>岩宕书房、小赤壁本来就是免费的</strong>。<strong>7:30 之前</strong>景区还没营业、收费闸门还没关，可以直接开车进去、不买票也不报备；<strong>7:30–17:00 一管控，进朱潭山就要买票</strong>。<span class="no">你们 11:00 到，闸门早关了——这跟原来的判断不一样，10/4 那节有更正。</span></li>
+    <li><strong>「仙都免费版」的真正原理是「7:30 前闸门还没关」，不是「朱潭山不要票」。</strong>90 元大门票里<strong>收费的是朱潭山、鼎湖峰、倪翁洞、仙都观</strong>；<strong>岩宕书房、小赤壁本来就是免费的</strong>。<strong>7:30 之前</strong>景区还没营业、收费闸门还没关，可以直接开车进去、不买票也不报备；<strong>7:30–17:00 一管控，进朱潭山就要买票</strong>。<span class="no">你们 11:00 到，闸门早关了，进朱潭山就得买 90 元门票。</span></li>
     <li><strong>报备是「车辆报备」，不是门票豁免。</strong>2026-09-30 的国庆公告写的是「车辆进入景区实行报备制」。报备解决的是<strong>车能不能开进卡口</strong>，不解决门票。详见 10/4「报备怎么办」。</li>
     <li><strong>看日出只能靠自驾，不能指望索道。</strong>云和梯田观云索道 08:00 才开始运行，而 10/5 日出是 <b>05:57</b>。九曲云环 04:40 就开门（国庆口径），自己开车上去是唯一办法。</li>
     <li><strong>神仙居北步道封闭，但南步道是开着的。</strong>北登山步道自 2026-06-11 起封闭施工、至今未恢复；南步道在 2026-07-18 恢复开放后没有再发封闭通知。走「索道上、南步道走下来」<b>下山徒步 1–1.5 小时</b>，索道只买上行 65 元/人，<strong>比往返省 55 元/人、6 人省 330</strong>——但这条路跟一票通冲突，详见 10/6 那节。南海桥、西线老君台—蟠桃园、北海台—栖霞亭—礼佛台三处仍在维保。</li>
@@ -639,8 +700,8 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   </div>
 
   <div class="callout">
-    <strong>重要更正：朱潭山是要门票的，「免费」只在 7:30 之前。</strong>
-    原来这里写的是「只有鼎湖峰设检票点、所以朱潭山不花钱」——<strong>这个说法是错的</strong>。多篇互相独立的实测笔记口径一致：仙都景区里<strong>收费的是朱潭山、鼎湖峰、倪翁洞、仙都观</strong>，真正免费的是<strong>岩宕书房和小赤壁</strong>。「免费版」能成立，是因为<strong>早上 7:30 前景区还没营业、收费闸门还没关</strong>——有博主 6 点进朱潭山没买票，有博主写明「7:30 前自驾直接进、免票」，也有博主自己提醒「尽量提前几分钟，有时候会提前几分钟关闸」。<br>
+    <strong>朱潭山要门票，「免费」只在 7:30 之前。</strong>
+    仙都景区里<strong>收费的是朱潭山、鼎湖峰、倪翁洞、仙都观</strong>，真正免费的是<strong>岩宕书房和小赤壁</strong>。「7:30 前进景区不花钱」能成立，是因为<strong>那会儿景区还没营业、收费闸门还没关</strong>——早上 6 点开车进朱潭山不用买票，闸门一般在 7:30 前后关上，卡点的话提前几分钟。<br>
     <strong>对你们的直接影响：</strong>方案里 <b>11:00</b> 到朱潭山，闸门早就关了，<strong>要买 90 元大门票（6 人 540）</strong>；而且国庆仙都门票是<strong>实名预约</strong>（「仙都旅游」公众号 / 浙里办），现场不一定买得到。再叠上 10/4 有雨、倒影本来就拍不成——<strong>这 540 性价比不高。</strong><br>
     <strong>三个选择，按推荐顺序：</strong><br>
     ① <strong>不进闸门，走免费机位看牵牛</strong>——表演在碇步桥上，对岸看得到。三个现成点位：<strong>望湖农庄</strong>（车停路边，走几分钟到碇步桥）· 从<strong>朱潭山大门口的马路直行、见拱桥右转绕到湖对面</strong> · 坐景交车到<strong>朱潭山站步行约 600 米到「愈见旅拍馆」</strong>。代价是拍不到「老牛 + 碇步桥 + 倒影 + 朱潭山」那张完整构图。<br>
@@ -686,11 +747,13 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 
   <h3>午饭吃哪家 · 仙都景区内</h3>
   <p class="lead">下面是仙都景区内所有<strong>大众点评有标价</strong>的店，按人均从低到高排。评分和评价数都是大众点评的。<strong>要用来报备的话，优先挑评价数多的正餐店</strong>——店家天天接待游客，替你报车牌是熟门熟路的流程。</p>
+  <figure class="mapfig eatmap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 760" font-family="Noto Sans SC,PingFang SC,Microsoft YaHei,Source Han Sans SC,sans-serif" role="img"><rect width="700" height="760" rx="10" fill="#F5F7F4"/><text x="20" y="40" font-size="19" font-weight="700" fill="#1A211C">10/4 · 仙都景区 · 午饭地图</text><text x="20" y="63" font-size="12.5" fill="#65706A">白天动线：卡口 → 朱潭山 → 岩宕书房 → 小赤壁　·　10 家店按人均标色</text><defs><clipPath id="cp4"><rect x="20" y="82" width="660" height="439" rx="8"/></clipPath></defs><rect x="20" y="82" width="660" height="439" rx="8" fill="#FFFFFF" stroke="#DCE1D9"/><path d="M 7.7 408.9 139.1 415.4 172.4 421.1 188.6 421.3 213.7 409.1 260.4 358.4 261.0 345.1 249.4 308.0 227.8 270.8 226.6 252.6 226.9 198.8 256.5 163.2 258.1 152.7 265.7 161.9 304.9 171.9 317.1 179.6 342.0 204.0 369.0 222.9 384.1 200.1 407.6 193.6 440.7 177.7 444.0 158.8 451.4 139.5 459.0 128.5 486.4 137.1 500.4 120.8 549.3 124.8 568.2 139.2 569.8 162.5" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp4)"/><path d="M 7.7 408.9 139.1 415.4 172.4 421.1 188.6 421.3 213.7 409.1 260.4 358.4 261.0 345.1 249.4 308.0 227.8 270.8 226.6 252.6 226.9 198.8 256.5 163.2 258.1 152.7 265.7 161.9 304.9 171.9 317.1 179.6 342.0 204.0 369.0 222.9 384.1 200.1 407.6 193.6 440.7 177.7 444.0 158.8 451.4 139.5 459.0 128.5 486.4 137.1 500.4 120.8 549.3 124.8 568.2 139.2 569.8 162.5" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp4)"/><path d="M 9.8 162.5 568.2 139.2 549.3 124.8 500.4 120.8 486.4 137.1 459.0 128.5 451.4 139.5 444.0 158.8 440.7 177.7 407.6 193.6 384.1 200.1 369.0 222.9 342.0 204.0 312.4 176.6" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp4)"/><path d="M 9.8 162.5 568.2 139.2 549.3 124.8 500.4 120.8 486.4 137.1 459.0 128.5 451.4 139.5 444.0 158.8 440.7 177.7 407.6 193.6 384.1 200.1 369.0 222.9 342.0 204.0 312.4 176.6" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp4)"/><path d="M 2.4 176.6 304.9 171.9 265.7 161.9 258.1 152.7 256.5 163.2 226.9 198.8 227.8 270.8 249.4 308.0 261.0 345.1 254.4 365.2 213.7 409.1 185.6 421.6 190.6 446.5 196.6 446.9 199.5 457.1 217.1 472.6" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp4)"/><path d="M 2.4 176.6 304.9 171.9 265.7 161.9 258.1 152.7 256.5 163.2 226.9 198.8 227.8 270.8 249.4 308.0 261.0 345.1 254.4 365.2 213.7 409.1 185.6 421.6 190.6 446.5 196.6 446.9 199.5 457.1 217.1 472.6" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp4)"/><path d="M 7.1 472.6 199.5 457.1 196.6 446.9 190.6 446.5 185.6 421.6 139.1 415.4 102.7 389.3 28.1 365.9 22.0 366.6" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp4)"/><path d="M 7.1 472.6 199.5 457.1 196.6 446.9 190.6 446.5 185.6 421.6 139.1 415.4 102.7 389.3 28.1 365.9 22.0 366.6" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp4)"/><circle cx="377.9" cy="224.9" r="4" fill="#2E5948" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="486.7" cy="303.9" r="4" fill="#2E5948" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="276.4" cy="147.1" r="4" fill="#2E5948" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="289.4" cy="251.8" r="4" fill="#2E5948" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="547.0" cy="184.6" r="15" fill="#F2E6CE"/><circle cx="547.0" cy="184.6" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="575.6" cy="342.2" r="15" fill="#F2E6CE"/><circle cx="575.6" cy="342.2" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="127.0" cy="409.8" r="15" fill="#F2E6CE"/><circle cx="127.0" cy="409.8" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="259.9" cy="454.6" r="15" fill="#F2E6CE"/><circle cx="259.9" cy="454.6" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="311.8" cy="177.6" r="4" fill="#2E5948" stroke="#FFFFFF" stroke-width="1.6"/><line x1="377.9" y1="224.9" x2="377.9" y2="203.9" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="377.9" y="175.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">轩辕街</text><rect x="352.4" y="181.9" width="51.0" height="22" rx="11" fill="#2E5948"/><text x="377.9" y="197.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">2 3 5</text><line x1="486.7" y1="303.9" x2="486.7" y2="282.9" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="486.7" y="254.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">鼎湖峰下 · 鼎湖村</text><rect x="459.0" y="260.9" width="55.5" height="22" rx="11" fill="#9A482D"/><text x="486.7" y="276.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">6–10</text><line x1="276.4" y1="147.1" x2="255.4" y2="147.1" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="230.4" y="138.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">岩宕书房</text><rect x="215.9" y="144.8" width="29.0" height="22" rx="11" fill="#2E5948"/><text x="230.4" y="160.3" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">1</text><line x1="289.4" y1="251.8" x2="289.4" y2="230.8" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="289.4" y="202.6" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">倪翁洞</text><rect x="274.9" y="208.8" width="29.0" height="22" rx="11" fill="#2E5948"/><text x="289.4" y="224.3" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">4</text><line x1="547.0" y1="184.6" x2="547.0" y2="163.6" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="547.0" y="160.3" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">朱潭山 · 望湖农庄</text><line x1="575.6" y1="342.2" x2="575.6" y2="321.2" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="575.6" y="317.9" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">鼎湖峰</text><line x1="127.0" y1="409.8" x2="127.0" y2="388.8" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="127.0" y="385.5" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">卡口 · 游客中心</text><line x1="259.9" y1="454.6" x2="259.9" y2="433.6" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="259.9" y="430.4" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">小赤壁 · 下洋村</text><line x1="311.8" y1="177.6" x2="326.5" y2="162.9" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="359.0" y="144.5" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">六月山民宿</text><text x="359.0" y="160.2" font-size="10.5" font-weight="400" text-anchor="middle" fill="#8A948E">停车</text><text x="658" y="505" font-size="11.5" font-weight="700" text-anchor="end" fill="#2E5948">出景区 → 云和 ↓</text><line x1="42" y1="505" x2="113.4" y2="505" stroke="#65706A" stroke-width="1.6"/><line x1="42" y1="501" x2="42" y2="509" stroke="#65706A" stroke-width="1.6"/><line x1="113.4" y1="501" x2="113.4" y2="509" stroke="#65706A" stroke-width="1.6"/><text x="120.4" y="509.0" font-size="11" fill="#65706A">500 m</text><path d="M 646 98 L 639 119 L 646 114 L 653 119 Z" fill="#65706A"/><text x="646" y="134" font-size="11" font-weight="700" text-anchor="middle" fill="#65706A">N</text><rect x="20.0" y="536" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="39.0" cy="545.5" r="8.5" fill="#2E5948"/><text x="39.0" y="549.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text><text x="54.0" y="549.5" font-size="12.5" fill="#1A211C">岩宕书房 · 喜笑岩开</text><text x="344.0" y="549.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥28</text><rect x="350.0" y="536" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="369.0" cy="545.5" r="8.5" fill="#2E5948"/><text x="369.0" y="549.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text><text x="384.0" y="549.5" font-size="12.5" fill="#1A211C">缙云烧饼总部</text><text x="674.0" y="549.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥29</text><rect x="20.0" y="557" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="39.0" cy="566.5" r="8.5" fill="#2E5948"/><text x="39.0" y="570.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text><text x="54.0" y="570.5" font-size="12.5" fill="#1A211C">SR酒咖民谣驻唱</text><text x="344.0" y="570.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥32</text><rect x="350.0" y="557" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="369.0" cy="566.5" r="8.5" fill="#2E5948"/><text x="369.0" y="570.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text><text x="384.0" y="570.5" font-size="12.5" fill="#1A211C">喜笑岩开 · 倪翁洞店</text><text x="674.0" y="570.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥32</text><rect x="20.0" y="578" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="39.0" cy="587.5" r="8.5" fill="#2E5948"/><text x="39.0" y="591.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text><text x="54.0" y="591.5" font-size="12.5" fill="#1A211C">喜笑岩开 · 轩辕街店</text><text x="344.0" y="591.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥33</text><rect x="350.0" y="578" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="369.0" cy="587.5" r="8.5" fill="#9E6C1C"/><text x="369.0" y="591.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text><text x="384.0" y="591.5" font-size="12.5" fill="#1A211C">好溪人家</text><text x="674.0" y="591.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥53</text><rect x="20.0" y="599" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="39.0" cy="608.5" r="8.5" fill="#9E6C1C"/><text x="39.0" y="612.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">7</text><text x="54.0" y="612.5" font-size="12.5" fill="#1A211C">家谦农家菜</text><text x="344.0" y="612.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥59</text><rect x="350.0" y="599" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="369.0" cy="608.5" r="8.5" fill="#9E6C1C"/><text x="369.0" y="612.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">8</text><text x="384.0" y="612.5" font-size="12.5" fill="#1A211C">珍仙都土菜馆</text><text x="674.0" y="612.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥64</text><rect x="20.0" y="620" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="39.0" cy="629.5" r="8.5" fill="#9A482D"/><text x="39.0" y="633.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">9</text><text x="54.0" y="633.5" font-size="12.5" fill="#1A211C">好兆头</text><text x="344.0" y="633.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥66</text><rect x="350.0" y="620" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="369.0" cy="629.5" r="8.5" fill="#9A482D"/><text x="369.0" y="633.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">10</text><text x="384.0" y="633.5" font-size="12.5" fill="#1A211C">刘老爷私房菜</text><text x="674.0" y="633.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥73</text><text x="20" y="662" font-size="12" fill="#8A948E">示意图：圆点按高德真实经纬度摆放，编号与上表一致。虚线是当天行车路</text><text x="20" y="680" font-size="12" fill="#8A948E">线（OpenStreetMap 路网，非导航实测）；大圆＝地标，小金点＝停车。</text><text x="20" y="698" font-size="12" fill="#8A948E">色条＝人均：绿 ≤40 · 金 40–65 · 红 &gt;65。同一条街上</text><text x="20" y="716" font-size="12" fill="#8A948E">的店挤在几十米内，用一个编号胶囊表示，名字见上面那张表。</text><text x="20" y="734" font-size="12" fill="#8A948E">开车顺序：卡口 → 朱潭山望湖农庄（东）→ 六月山民宿停车、看岩宕书房（西）→ 小赤壁下洋村（南）→ 出景区。</text></svg><figcaption>图 一　10/4 仙都 · 午饭地图</figcaption></figure>
   <div class="scroll">
     <table class="stay">
       <thead><tr><th>店</th><th>大众评分</th><th>人均</th><th>评价数</th><th>类型</th></tr></thead>
       <tbody>
         <tr><td class="name">仙都8号岩宕书房·喜笑岩开<span class="where">岩宕书房里 · 便宜且评分最高</span></td><td class="rate r5">4.5</td><td class="price">28</td><td class="price">155</td><td>咖啡 / 简餐</td></tr>
+        <tr><td class="name">缙云烧饼总部<span class="where">仙都轩辕街148号 · 快餐，赶时间选它</span></td><td class="rate r4">3.5</td><td class="price">29</td><td class="price">1175</td><td>快餐简餐</td></tr>
         <tr><td class="name">SR酒咖民谣驻唱<span class="where">仙都景区店</span></td><td class="rate r5">4.5</td><td class="price">32</td><td class="price">103</td><td>咖啡</td></tr>
         <tr><td class="name">喜笑岩开 · 倪翁洞店<span class="where">倪翁洞旁</span></td><td class="rate r4">4.0</td><td class="price">32</td><td class="price">347</td><td>咖啡</td></tr>
         <tr><td class="name">喜笑岩开 · 轩辕街店<span class="where">轩辕街</span></td><td class="rate r4">4.0</td><td class="price">33</td><td class="price">385</td><td>咖啡</td></tr>
@@ -699,7 +762,6 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td class="name">珍仙都土菜馆（仙都店）<span class="where">白切鸡、红烧溪鱼</span></td><td class="rate r4">4.0</td><td class="price">64</td><td class="price">797</td><td>农家菜</td></tr>
         <tr><td class="name">好兆头<span class="where">仙都风景区 · <strong>攻略点名可帮报车牌</strong></span></td><td class="rate r4">4.0</td><td class="price">66</td><td class="price">2935</td><td>浙菜</td></tr>
         <tr><td class="name">刘老爷私房菜<span class="where">仙都鼎湖景区店</span></td><td class="rate r4">4.0</td><td class="price">73</td><td class="price">2273</td><td>农家菜</td></tr>
-        <tr><td class="name">缙云烧饼总部<span class="where">五云镇黄龙路 · 快餐，赶时间选它</span></td><td class="rate r4">3.5</td><td class="price">29</td><td class="price">1175</td><td>快餐简餐</td></tr>
       </tbody>
     </table>
   </div>
@@ -911,9 +973,9 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <strong>现场要留意两件事：</strong>① <strong>国庆山上会堵</strong>——2025 国庆 10/3 车正常开上去了，但在九曲云环检票口堵了约 20 分钟，<strong>8:30 后车流暴涨</strong>；② 坑根石寨 08:00–17:00 万一设卡限行，改坐 2 号线摆渡。<strong>索道只当备选，别提前买票。</strong>
   </div>
   <div class="callout">
-    <strong>「早点进去不用买票」是假的。</strong>
-    官方口径：九曲云环日出时段 <strong>04:40–18:30</strong>（景区 2026-09-30 国庆 Q&amp;A）。2025 国庆有人实测 <strong>4:00 到检票口，保安已经在检票</strong>，没有免票这回事。另一个流传的「免票时段」是<strong>旺季 17:00 之后</strong>闸机全开——那是傍晚，跟早上看日出无关。<strong>门票照买。</strong><br>
-    <strong>也别指望「多次入园」：</strong>景区的多次入园政策<strong>法定节假日不适用</strong>，国庆当天按单次票走。<br><br>
+    <strong>早上进景区一样要买票，提前买好。</strong>
+    九曲云环日出时段 <strong>04:40–18:30</strong>（景区 2026-09-30 国庆 Q&amp;A）；2025 国庆有人 <strong>4:00 到检票口，保安已经在检票</strong>。<br>
+    景区的多次入园政策<strong>法定节假日不适用</strong>，国庆当天按单次票走。<br><br>
     电话仍要打一个，问四件事：① 10/5 景区是否正常开放（9/3 因强降雨停过业，节前已恢复）；② <strong>国庆山上有没有临时管制、七星墩能不能自驾</strong>；③ 白银谷坑根石寨入口有没有设卡；④ 索道与景交车首末班。云和梯田 <strong><span class="ph" data-copy="05785156688">0578-5156688</span></strong>。
   </div>
   <div class="note-bar">
@@ -933,18 +995,17 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   </div>
   <h4>云和梯田索道票价 · 备选方案</h4>
   <p class="note-bar">
-    <strong>索道不用猜了，携程有明码标价（2026-10-02 实查）。</strong>
-    门市价一套是 <strong>门票 80 + 索道往返 160 = 240 元</strong>（官方对免门票人群公布的「观云索道全程票」正是 <b>160 元/人</b>，正好对上）。携程在上面的价格上再让一档：<br>
-    · <strong>门票（成人票）：80 → 70 元</strong>（已优惠 10）<br>
-    · <strong>门票 + 往返索道（成人票）：240 → 190 元</strong>（已优惠 50）← <strong>6 个人买这个，1140 元</strong><br>
-    · 门票 + 往返索道（可选人群）：240 → <strong>144.49 元起</strong><br>
-    之前网上流传的「120 / 180 / 240 三个说不清的说法」，现在可以定下来了：<strong>240 是门市套票价，160 是索道本身，190 是携程成人套票到手价</strong>。<br>
-    另有「门票 + 往返索道 + 2 号线景交接驳车」成人套票、以及含 9D 飞跃剧场的组合在售。<br>
+    门市：<strong>门票 80 + 观云索道往返 160 = 240 元/人</strong>（官方给免门票人群单独公布的「观云索道全程票」就是 <b>160</b>）。携程在门市价上再让一档（2026-10-02 实查）：<br>
+    · <strong>门票（成人票）：80 → 70 元</strong><br>
+    · <strong>门票 + 往返索道（成人票）：240 → 190 元</strong>　← <strong>6 个人买这个，1140 元</strong><br>
+    · <strong>门票 + 往返索道（可选人群）：240 → 144.49 元起</strong><br>
+    另有「门票 + 往返索道 + 2 号线景交接驳车」套票、以及含 9D 飞跃剧场的组合在售。<br>
     <strong>门票的另一条路是「住景区民宿买 6 折」（约 48 元），但你们订的两家都不代订票</strong>，所以直接按携程 <b>70</b> 买、6 人 <b>420</b>，别把它算进预算。按上面「全程自驾」的方案，<strong>你们其实不用买索道</strong>，190 元套票只是备选方案的价格参照；真要坐，最优解是携程「门票 + 往返索道」<b>190/人</b>，而不是门票和索道分开凑。
   </p>
 
   <h3>云和梯田吃什么 · 大众点评全收录（按人均升序）</h3>
   <p class="lead">下面是云和梯田景区内<strong>大众点评有标价</strong>的全部店。中午在七星墩 / 梅竹村一带吃，晚上住县城的话县城那几家更便宜。</p>
+  <figure class="mapfig eatmap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 734" font-family="Noto Sans SC,PingFang SC,Microsoft YaHei,Source Han Sans SC,sans-serif" role="img"><rect width="700" height="734" rx="10" fill="#F5F7F4"/><text x="20" y="40" font-size="19" font-weight="700" fill="#1A211C">10/5 · 云和梯田 · 吃饭地图</text><text x="20" y="63" font-size="12.5" fill="#65706A">白天动线：九曲云环 → 七星墩 → 坑根石寨　·　12 家店按人均标色</text><defs><clipPath id="cp5"><rect x="20" y="82" width="660" height="452" rx="8"/></clipPath></defs><rect x="20" y="82" width="660" height="452" rx="8" fill="#FFFFFF" stroke="#DCE1D9"/><path d="M .0 297.9 23.3 293.0 29.2 289.1 30.1 276.8 37.9 275.4 40.4 269.5 45.7 267.3 47.8 259.5 55.1 255.1 58.3 247.6 63.4 246.1 77.8 248.7 92.1 232.3 93.9 223.6 96.6 222.7 103.9 228.5 109.1 222.4 117.1 221.7 118.6 211.9 125.4 207.7 124.4 188.9 129.9 181.4 136.7 179.4 135.5 172.9 139.4 165.8 151.2 161.4 156.8 154.3 179.2 154.5 181.5 174.4 196.1 183.2 194.9 196.3 205.6 200.7 208.8 208.5 217.2 210.6 223.3 227.0 242.1 220.5 247.0 232.7 255.0 234.1 265.0 222.8 274.3 229.5 275.1 236.9 282.6 240.9 287.3 236.9 289.0 230.3 292.7 229.9 298.6 235.4 299.5 254.1 304.4 261.0" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp5)"/><path d="M .0 297.9 23.3 293.0 29.2 289.1 30.1 276.8 37.9 275.4 40.4 269.5 45.7 267.3 47.8 259.5 55.1 255.1 58.3 247.6 63.4 246.1 77.8 248.7 92.1 232.3 93.9 223.6 96.6 222.7 103.9 228.5 109.1 222.4 117.1 221.7 118.6 211.9 125.4 207.7 124.4 188.9 129.9 181.4 136.7 179.4 135.5 172.9 139.4 165.8 151.2 161.4 156.8 154.3 179.2 154.5 181.5 174.4 196.1 183.2 194.9 196.3 205.6 200.7 208.8 208.5 217.2 210.6 223.3 227.0 242.1 220.5 247.0 232.7 255.0 234.1 265.0 222.8 274.3 229.5 275.1 236.9 282.6 240.9 287.3 236.9 289.0 230.3 292.7 229.9 298.6 235.4 299.5 254.1 304.4 261.0" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp5)"/><path d="M 4.4 261.0 299.5 254.1 298.6 235.4 292.7 229.9 289.0 230.3 287.3 236.9 282.6 240.9 275.1 236.9 274.3 229.5 265.0 222.8 255.0 234.1 247.0 232.7 242.1 220.5 223.3 227.0 217.2 210.6 208.8 208.5 205.6 200.7 194.9 196.3 196.1 183.2 181.5 174.4 179.2 154.5 156.8 154.3 151.2 161.4 139.4 165.8 135.5 172.9 136.7 179.4 129.9 181.4 124.4 188.9 125.4 207.7 118.6 211.9 117.1 221.7 109.1 222.4 103.9 228.5 96.6 222.7 93.9 223.6 92.1 232.3 77.8 248.7 63.4 246.1 58.3 247.6 55.1 255.1 47.8 259.5 45.7 267.3 40.4 269.5 37.9 275.4 30.1 276.8 29.2 289.1 23.3 293.0 22.0 297.9" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp5)"/><path d="M 4.4 261.0 299.5 254.1 298.6 235.4 292.7 229.9 289.0 230.3 287.3 236.9 282.6 240.9 275.1 236.9 274.3 229.5 265.0 222.8 255.0 234.1 247.0 232.7 242.1 220.5 223.3 227.0 217.2 210.6 208.8 208.5 205.6 200.7 194.9 196.3 196.1 183.2 181.5 174.4 179.2 154.5 156.8 154.3 151.2 161.4 139.4 165.8 135.5 172.9 136.7 179.4 129.9 181.4 124.4 188.9 125.4 207.7 118.6 211.9 117.1 221.7 109.1 222.4 103.9 228.5 96.6 222.7 93.9 223.6 92.1 232.3 77.8 248.7 63.4 246.1 58.3 247.6 55.1 255.1 47.8 259.5 45.7 267.3 40.4 269.5 37.9 275.4 30.1 276.8 29.2 289.1 23.3 293.0 22.0 297.9" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp5)"/><path d="M .0 309.4 31.2 302.4 40.2 302.9 43.0 294.6 51.5 292.3 52.2 284.5 62.4 282.1 63.1 274.9 68.9 273.2 88.5 283.8 91.6 290.1 96.6 286.9 92.7 294.9 87.2 294.6 88.3 296.8 91.8 297.7 97.0 291.6 103.6 290.5 113.4 304.0 110.8 315.2 112.3 321.5 101.4 340.7 98.1 339.9 98.1 349.6 89.6 352.4 84.4 363.5 85.9 375.8 80.9 378.8 77.4 387.3 70.0 391.5 72.6 400.8 65.2 418.3 67.8 423.1 65.2 439.1 70.2 449.9 74.2 451.3 70.1 440.5 71.9 433.9 74.3 442.9 84.4 444.1 81.9 449.3 83.7 452.3 97.2 445.4 113.6 426.8 118.6 427.4 124.3 423.1 128.2 426.3" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp5)"/><path d="M .0 309.4 31.2 302.4 40.2 302.9 43.0 294.6 51.5 292.3 52.2 284.5 62.4 282.1 63.1 274.9 68.9 273.2 88.5 283.8 91.6 290.1 96.6 286.9 92.7 294.9 87.2 294.6 88.3 296.8 91.8 297.7 97.0 291.6 103.6 290.5 113.4 304.0 110.8 315.2 112.3 321.5 101.4 340.7 98.1 339.9 98.1 349.6 89.6 352.4 84.4 363.5 85.9 375.8 80.9 378.8 77.4 387.3 70.0 391.5 72.6 400.8 65.2 418.3 67.8 423.1 65.2 439.1 70.2 449.9 74.2 451.3 70.1 440.5 71.9 433.9 74.3 442.9 84.4 444.1 81.9 449.3 83.7 452.3 97.2 445.4 113.6 426.8 118.6 427.4 124.3 423.1 128.2 426.3" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp5)"/><path d="M 8.2 426.3 124.3 423.1 118.6 427.4 113.6 426.8 97.2 445.4 83.7 452.3 81.9 449.3 84.4 444.1 74.3 442.9 71.9 433.9 70.1 440.5 74.2 451.3 70.2 449.9 65.2 439.1 67.8 423.1 65.2 418.3 72.6 400.8 70.0 391.5 77.4 387.3 80.9 378.8 85.9 375.8 84.4 363.5 89.6 352.4 98.1 349.6 98.1 339.9 101.4 340.7 112.3 321.5 110.8 315.2 113.4 304.0 103.6 290.5 97.0 291.6 91.8 297.7 88.3 296.8 87.2 294.6 92.7 294.9 96.6 286.9 91.6 290.1 88.5 283.8 68.9 273.2 63.1 274.9 62.4 282.1 52.2 284.5 51.5 292.3 43.0 294.6 40.2 302.9 31.2 302.4 22.0 309.4" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp5)"/><path d="M 8.2 426.3 124.3 423.1 118.6 427.4 113.6 426.8 97.2 445.4 83.7 452.3 81.9 449.3 84.4 444.1 74.3 442.9 71.9 433.9 70.1 440.5 74.2 451.3 70.2 449.9 65.2 439.1 67.8 423.1 65.2 418.3 72.6 400.8 70.0 391.5 77.4 387.3 80.9 378.8 85.9 375.8 84.4 363.5 89.6 352.4 98.1 349.6 98.1 339.9 101.4 340.7 112.3 321.5 110.8 315.2 113.4 304.0 103.6 290.5 97.0 291.6 91.8 297.7 88.3 296.8 87.2 294.6 92.7 294.9 96.6 286.9 91.6 290.1 88.5 283.8 68.9 273.2 63.1 274.9 62.4 282.1 52.2 284.5 51.5 292.3 43.0 294.6 40.2 302.9 31.2 302.4 22.0 309.4" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp5)"/><path d="M .0 297.9 23.3 293.0 29.2 289.1 30.1 276.8 37.9 275.4 40.4 269.5 45.7 267.3 47.8 259.5 55.1 255.1 58.3 247.6 63.4 246.1 77.8 248.7 92.1 232.3 93.9 223.6 96.6 222.7 103.9 228.5 109.1 222.4 117.1 221.7 118.6 211.9 125.4 207.7 123.9 190.1 129.2 182.0 136.7 179.4 135.5 172.9 139.4 165.8 151.2 161.4 155.7 154.5 177.7 153.6 180.6 157.2 181.5 174.4 197.1 184.6 194.1 190.6 194.9 196.3 205.6 200.7 208.8 208.5 217.2 210.6 223.3 227.0 242.1 220.5 247.0 232.7 255.0 234.1 265.0 222.8 274.3 229.5 275.1 236.9 281.6 240.6 285.8 239.3 290.2 229.5 298.6 235.4 299.5 254.1 305.1 264.0 301.1 265.7 296.8 280.7 293.1 281.8 282.7 275.1 279.0 284.1 270.9 292.2 275.5 300.6 270.2 303.9 268.9 314.9 275.3 333.7 267.2 338.5 260.7 339.1 257.1 348.1 261.6 356.9" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp5)"/><path d="M .0 297.9 23.3 293.0 29.2 289.1 30.1 276.8 37.9 275.4 40.4 269.5 45.7 267.3 47.8 259.5 55.1 255.1 58.3 247.6 63.4 246.1 77.8 248.7 92.1 232.3 93.9 223.6 96.6 222.7 103.9 228.5 109.1 222.4 117.1 221.7 118.6 211.9 125.4 207.7 123.9 190.1 129.2 182.0 136.7 179.4 135.5 172.9 139.4 165.8 151.2 161.4 155.7 154.5 177.7 153.6 180.6 157.2 181.5 174.4 197.1 184.6 194.1 190.6 194.9 196.3 205.6 200.7 208.8 208.5 217.2 210.6 223.3 227.0 242.1 220.5 247.0 232.7 255.0 234.1 265.0 222.8 274.3 229.5 275.1 236.9 281.6 240.6 285.8 239.3 290.2 229.5 298.6 235.4 299.5 254.1 305.1 264.0 301.1 265.7 296.8 280.7 293.1 281.8 282.7 275.1 279.0 284.1 270.9 292.2 275.5 300.6 270.2 303.9 268.9 314.9 275.3 333.7 267.2 338.5 260.7 339.1 257.1 348.1 261.6 356.9" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp5)"/><path d="M 1.6 356.9 257.1 348.1 260.7 339.1 267.2 338.5 275.3 333.7 268.9 314.9 270.2 303.9 275.5 300.6 270.9 292.2 279.0 284.1 282.7 275.1 293.1 281.8 296.8 280.7 301.1 265.7 305.3 263.4 299.4 253.5 298.9 232.9 290.8 225.1 281.7 228.2 277.6 219.6 277.7 210.1 266.8 207.4 267.1 193.8 258.4 189.0 259.2 179.3 252.9 175.3 248.4 159.3 236.8 153.4 236.7 136.3 254.3 121.5 273.0 121.1 279.8 127.2 283.6 117.8 298.3 120.9 313.5 106.4 326.6 111.2 325.0 116.7 314.5 124.1 305.8 123.5 296.3 130.4 303.3 137.6 306.9 147.8 303.6 160.2 307.0 164.6 316.4 164.5 321.6 170.9 329.1 172.8 335.4 188.9 345.6 203.5 346.6 226.8 343.8 239.0 346.8 245.1 352.4 251.3 369.9 254.5 378.0 263.8 375.5 270.0 377.6 286.1 373.1 292.0 372.4 299.8 388.1 298.0 393.6 318.9 417.2 360.9 418.0 369.6 428.7 372.2 430.9 375.0 431.3 377.7 425.7 382.7 430.5 411.6 431.2 395.4 439.3 371.7 431.9 357.4 433.2 348.2 428.8 333.3 419.5 323.7 415.7 309.4 420.7 291.6 420.5 279.8 429.1 272.5 431.4 261.1 439.7 253.6 436.7 240.9 444.6 227.7 454.9 198.0 474.4 180.6 475.9 155.9 479.9 145.0 533.9 84.0" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp5)"/><path d="M 1.6 356.9 257.1 348.1 260.7 339.1 267.2 338.5 275.3 333.7 268.9 314.9 270.2 303.9 275.5 300.6 270.9 292.2 279.0 284.1 282.7 275.1 293.1 281.8 296.8 280.7 301.1 265.7 305.3 263.4 299.4 253.5 298.9 232.9 290.8 225.1 281.7 228.2 277.6 219.6 277.7 210.1 266.8 207.4 267.1 193.8 258.4 189.0 259.2 179.3 252.9 175.3 248.4 159.3 236.8 153.4 236.7 136.3 254.3 121.5 273.0 121.1 279.8 127.2 283.6 117.8 298.3 120.9 313.5 106.4 326.6 111.2 325.0 116.7 314.5 124.1 305.8 123.5 296.3 130.4 303.3 137.6 306.9 147.8 303.6 160.2 307.0 164.6 316.4 164.5 321.6 170.9 329.1 172.8 335.4 188.9 345.6 203.5 346.6 226.8 343.8 239.0 346.8 245.1 352.4 251.3 369.9 254.5 378.0 263.8 375.5 270.0 377.6 286.1 373.1 292.0 372.4 299.8 388.1 298.0 393.6 318.9 417.2 360.9 418.0 369.6 428.7 372.2 430.9 375.0 431.3 377.7 425.7 382.7 430.5 411.6 431.2 395.4 439.3 371.7 431.9 357.4 433.2 348.2 428.8 333.3 419.5 323.7 415.7 309.4 420.7 291.6 420.5 279.8 429.1 272.5 431.4 261.1 439.7 253.6 436.7 240.9 444.6 227.7 454.9 198.0 474.4 180.6 475.9 155.9 479.9 145.0 533.9 84.0" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp5)"/><circle cx="300.2" cy="224.6" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="176.3" cy="450.9" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="329.9" cy="315.5" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="321.3" cy="371.2" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="320.7" cy="157.4" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="578.4" cy="123.2" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="492.9" cy="224.9" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="277.0" cy="220.3" r="15" fill="#F2E6CE"/><circle cx="277.0" cy="220.3" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="306.2" cy="260.2" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="176.1" cy="462.6" r="15" fill="#F2E6CE"/><circle cx="176.1" cy="462.6" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="294.1" cy="409.5" r="15" fill="#F2E6CE"/><circle cx="294.1" cy="409.5" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="309.9" cy="392.3" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><line x1="300.2" y1="224.6" x2="321.2" y2="224.6" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="375.2" y="216.1" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">九曲云环 · 梅竹村</text><rect x="340.7" y="222.3" width="69.0" height="22" rx="11" fill="#9E6C1C"/><text x="375.2" y="237.8" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">2 4 7 10</text><line x1="176.3" y1="450.9" x2="176.3" y2="429.9" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="176.3" y="401.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">云端 · 七星墩</text><rect x="156.3" y="407.9" width="40.0" height="22" rx="11" fill="#2E5948"/><text x="176.3" y="423.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">3 9</text><line x1="329.9" y1="315.5" x2="350.9" y2="315.5" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="386.1" y="307.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">见山 · 半山</text><rect x="362.6" y="313.2" width="47.0" height="22" rx="11" fill="#2E5948"/><text x="386.1" y="328.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">1 12</text><line x1="321.3" y1="371.2" x2="342.3" y2="371.2" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="361.0" y="362.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">一株禾</text><rect x="346.5" y="368.9" width="29.0" height="22" rx="11" fill="#9E6C1C"/><text x="361.0" y="384.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">8</text><line x1="320.7" y1="157.4" x2="320.7" y2="136.4" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="320.7" y="108.2" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">云山畲味</text><rect x="306.2" y="114.4" width="29.0" height="22" rx="11" fill="#9E6C1C"/><text x="320.7" y="129.9" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">5</text><line x1="578.4" y1="123.2" x2="557.4" y2="123.2" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="519.9" y="114.8" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">梯田农家小炒</text><rect x="505.4" y="120.9" width="29.0" height="22" rx="11" fill="#9E6C1C"/><text x="519.9" y="136.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">6</text><line x1="492.9" y1="224.9" x2="492.9" y2="203.9" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="492.9" y="175.7" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">稻香餐厅</text><rect x="474.9" y="181.9" width="36.0" height="22" rx="11" fill="#9A482D"/><text x="492.9" y="197.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">11</text><line x1="277.0" y1="220.3" x2="277.0" y2="199.3" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="277.0" y="196.0" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">九曲云环</text><line x1="306.2" y1="260.2" x2="285.2" y2="260.2" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="253.4" y="256.8" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">D 区停车场</text><text x="253.4" y="272.5" font-size="10.5" font-weight="400" text-anchor="middle" fill="#8A948E">看日出停车</text><line x1="176.1" y1="462.6" x2="197.1" y2="462.6" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="236.1" y="466.7" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">七星墩观景台</text><line x1="294.1" y1="409.5" x2="294.1" y2="430.5" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="294.1" y="442.2" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">坑根石寨</text><line x1="309.9" y1="392.3" x2="324.6" y2="407.0" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="363.6" y="418.7" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">白银谷停车场</text><text x="42" y="500" font-size="11.5" font-weight="700" fill="#2E5948">↖ 夏秋农家乐（黄家畲村）10.3 km · 约 14 分</text><text x="658" y="518" font-size="11.5" font-weight="700" text-anchor="end" fill="#2E5948">云和县城 · 4 家平价店 →</text><line x1="42" y1="518" x2="145.4" y2="518" stroke="#65706A" stroke-width="1.6"/><line x1="42" y1="514" x2="42" y2="522" stroke="#65706A" stroke-width="1.6"/><line x1="145.4" y1="514" x2="145.4" y2="522" stroke="#65706A" stroke-width="1.6"/><text x="152.4" y="522.0" font-size="11" fill="#65706A">1 km</text><path d="M 646 98 L 639 119 L 646 114 L 653 119 Z" fill="#65706A"/><text x="646" y="134" font-size="11" font-weight="700" text-anchor="middle" fill="#65706A">N</text><rect x="20.0" y="549" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="39.0" cy="558.5" r="8.5" fill="#2E5948"/><text x="39.0" y="562.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text><text x="54.0" y="562.5" font-size="12.5" fill="#1A211C">见山咖啡</text><text x="234.0" y="562.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥29</text><rect x="240.0" y="549" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="259.0" cy="558.5" r="8.5" fill="#2E5948"/><text x="259.0" y="562.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text><text x="274.0" y="562.5" font-size="12.5" fill="#1A211C">稻生一</text><text x="454.0" y="562.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥34</text><rect x="460.0" y="549" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="479.0" cy="558.5" r="8.5" fill="#2E5948"/><text x="479.0" y="562.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text><text x="494.0" y="562.5" font-size="12.5" fill="#1A211C">云端美咖</text><text x="674.0" y="562.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥36</text><rect x="20.0" y="570" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="39.0" cy="579.5" r="8.5" fill="#9E6C1C"/><text x="39.0" y="583.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text><text x="54.0" y="583.5" font-size="12.5" fill="#1A211C">梯田筑心小阁</text><text x="234.0" y="583.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥55</text><rect x="240.0" y="570" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="259.0" cy="579.5" r="8.5" fill="#9E6C1C"/><text x="259.0" y="583.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text><text x="274.0" y="583.5" font-size="12.5" fill="#1A211C">云山畲味</text><text x="454.0" y="583.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥55</text><rect x="460.0" y="570" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="479.0" cy="579.5" r="8.5" fill="#9E6C1C"/><text x="479.0" y="583.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text><text x="494.0" y="583.5" font-size="12.5" fill="#1A211C">梯田农家小炒</text><text x="674.0" y="583.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥55</text><rect x="20.0" y="591" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="39.0" cy="600.5" r="8.5" fill="#9E6C1C"/><text x="39.0" y="604.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">7</text><text x="54.0" y="604.5" font-size="12.5" fill="#1A211C">炊烟小筑</text><text x="234.0" y="604.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥59</text><rect x="240.0" y="591" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="259.0" cy="600.5" r="8.5" fill="#9E6C1C"/><text x="259.0" y="604.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">8</text><text x="274.0" y="604.5" font-size="12.5" fill="#1A211C">一株禾餐厅</text><text x="454.0" y="604.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥63</text><rect x="460.0" y="591" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="479.0" cy="600.5" r="8.5" fill="#9A482D"/><text x="479.0" y="604.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">9</text><text x="494.0" y="604.5" font-size="12.5" fill="#1A211C">云端餐厅</text><text x="674.0" y="604.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥69</text><rect x="20.0" y="612" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="39.0" cy="621.5" r="8.5" fill="#9A482D"/><text x="39.0" y="625.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">10</text><text x="54.0" y="625.5" font-size="12.5" fill="#1A211C">田园牧歌</text><text x="234.0" y="625.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥72</text><rect x="240.0" y="612" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="259.0" cy="621.5" r="8.5" fill="#9A482D"/><text x="259.0" y="625.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">11</text><text x="274.0" y="625.5" font-size="12.5" fill="#1A211C">稻香餐厅</text><text x="454.0" y="625.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥75</text><rect x="460.0" y="612" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="479.0" cy="621.5" r="8.5" fill="#9A482D"/><text x="479.0" y="625.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">12</text><text x="494.0" y="625.5" font-size="12.5" fill="#1A211C">半山餐厅</text><text x="674.0" y="625.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥89</text><text x="20" y="654" font-size="12" fill="#8A948E">示意图：圆点按高德真实经纬度摆放，编号与上表一致。虚线是当天行车路</text><text x="20" y="672" font-size="12" fill="#8A948E">线（OpenStreetMap 路网，非导航实测）；大圆＝地标，小金点＝停车。</text><text x="20" y="690" font-size="12" fill="#8A948E">色条＝人均：绿 ≤40 · 金 40–65 · 红 &gt;65。九曲云环 / 梅竹村一带店最密，挤在一起的用一个编号胶囊表示。</text><text x="20" y="708" font-size="12" fill="#8A948E">住县城那 4 家在面板外：云汐砂锅面 ¥23、云禾小吃 ¥30、外婆砂锅菜 ¥39、糖叙糖水铺 ¥22，都在云和汽车站步行圈内。</text></svg><figcaption>图 二　10/5 云和梯田 · 吃饭地图</figcaption></figure>
   <div class="scroll">
     <table class="stay">
       <thead><tr><th>店</th><th>大众评分</th><th>人均</th><th>评价数</th><th>类型</th></tr></thead>
@@ -994,11 +1055,11 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
       <div class="main">范范的家 <span class="arrow">→</span> 神仙居南门 3 号停车场<span class="km">5.2 km · 约 13 min</span></div>
       <p class="note"><strong>3 号停车场离南天索道最近</strong>，是南门三个场子里最该抢的。<strong>国庆有一条硬期限：8 点前必须开进去</strong>——8 点后 3 号场就进不去了，只能停外面换乘景区大巴（2026-10-01 实地记录）</p></li>
     <li class="hi"><time>06:10</time>
-      <div class="main">到南门，检票入园</div>
-      <p class="note">国庆 10/1–7 南北门及索道 <strong>6:00 就开</strong>（官方公告）。2025 年 10 月 5 日当天实录：<strong>6:00 停好车、6:13 到检票口已经全是人，但只排了十来分钟，6:32 就上了索道</strong>——比大部队早 20 分钟，换的是完全不用排队</p></li>
+      <div class="main">到南门 3 号停车场，检票入园</div>
+      <p class="note">国庆 10/1–7 <strong>南、北门及索道运营时间都提前到 6:00</strong>（景区 2026-09-30 公告）；仙居县政府历年国庆公告也是「十一假期营业时间提前至 6:00」。<strong>所以 6 点就开闸，不是 7 点。</strong><br>2025 年 10 月 5 日实录：<strong>6:00 停好车、6:13 到检票口已经全是人，只排了十来分钟，6:32 就上了索道</strong>——比大部队早 20 分钟，换的是完全不用排队。<br>这 50 分钟还顺手买下<strong>3 号场的车位</strong>：8 点后这个场子就进不去了。</p></li>
     <li class="hi"><time>06:30</time>
       <div class="main">坐南天索道上行</div>
-      <p class="note">官方价：<strong>全票 120 / 上山 65 / 下山 55</strong>。<strong>入园名额必须先实名预约</strong>，约好后凭身份证原件直接检票、不用换票。<strong>代价说清楚：晚几小时，索道就要排一到两小时</strong></p></li>
+      <p class="note">官方价：<strong>全票 120 / 上山 65 / 下山 55</strong>。<strong>入园名额要先实名预约</strong>，约好后凭身份证原件直接检票、不用换票——预约走官方小程序，别在携程这类代销渠道买。<strong>代价说清楚：晚几小时，索道就要排一到两小时</strong></p></li>
     <li class="hi"><time>07:30</time>
       <div class="main">南天梯 → 南天顶 → 观音峰 → 如意桥 → 悬空栈道</div>
       <p class="note">走「南上南下」轻松线，山上约 4 小时。南天梯是免费扶梯；<strong>南天顶玻璃观景台另收 99 元/人，自愿</strong></p></li>
@@ -1007,7 +1068,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
       <p class="note">同日实录：<strong>8:29 下索道 0 排队</strong>，而同一时刻南门索道已经在排长队——<strong>下山也是越早越丝滑</strong>。11 点撤，正好躲开中午的上山高峰</p></li>
     <li class="meal"><time>12:00</time>
       <div class="main">午饭 · 白塔镇 / 景区出口</div>
-      <p class="note">吃过再上高速，服务区会挤</p></li>
+      <p class="note">吃过再上高速，服务区会挤。店和位置见本节的吃饭地图</p></li>
     <li class="drive"><time>12:40</time>
       <div class="main">仙居 <span class="arrow">→</span> 杭州<span class="km">211–219 km · 2h50–3h15</span></div>
       <p class="note"><strong>必须走「诸永高速神仙居收费站」上高速</strong>——白塔收费站 8:00–12:00 只出不进。诸永台州段限速 80，隧道多、长下坡多</p></li>
@@ -1031,11 +1092,11 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     <strong>为什么走南门、南上南下？</strong>北门进要爬升、车位也比南门更难抢；南门进直接坐索道上去、从上往下走，是这条线里最省力的一版。如意桥（S 形双层玻璃悬索桥，悬空约 170m）就在这条线上，别走岔了。南天梯是免费扶梯，能省一段爬升。
   </div>
   <div class="callout good">
-    <strong>两个数要更正：南登山步道是开着的，下山可以不坐索道；但「省 720」是错的，实际省 330。</strong>
+    <strong>索道上、南步道下，6 人省 330。</strong>
     <ul class=plain style="margin-top:10px">
       <li><strong>南步道开着、北步道仍封闭。</strong>北步道 2026-06-11 起封闭施工，至今没有恢复公告；南步道 2026-07-18 恢复开放后，再也没有发过封闭通知。</li>
-      <li><strong>下山徒步 1–1.5 小时</strong>（全程台阶，膝盖要顶得住）。原来这里写的「2–2.5 小时」是<strong>上山</strong>的用时，不是下山。</li>
-      <li><strong>索道只买上行 65 元</strong>，比往返 120 省 55 元/人、<strong>6 人省 330</strong>。原来写的「省 720」是「往返索道全不坐」的钱，而你们是坐着上、走着下。</li>
+      <li><strong>下山徒步 1–1.5 小时</strong>（全程台阶，膝盖要顶得住）。</li>
+      <li><strong>索道只买上行 65 元</strong>，比往返 120 省 55 元/人、<strong>6 人省 330</strong>。</li>
       <li><strong>这条路跟一票通冲突。</strong>一票通 327 里含的是<strong>往返</strong>索道，走下山等于把下行那 55 元白买了。真要走下来就别买一票通，拆开买：<strong>99 + 65 + 99 = 263 元/人</strong>，6 人 1578，<strong>比一票通还省 384</strong>。</li>
       <li>全程徒步上下山 6–7 小时（13 km、爬升 600 m），你们 12:40 还要返杭，<strong>不建议</strong>。</li>
       <li>三处仍在维保、走到会绕路：<strong>南海桥</strong>（2026-08-03 起封闭检修）、<strong>西线老君台—蟠桃园</strong>（08-18 起临时封闭，改走如意桥）、<strong>北海台—栖霞亭—礼佛台</strong>。</li>
@@ -1043,10 +1104,11 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     出发前打 <strong>神仙居 <span class="ph" data-copy="057687038686">0576-87038686</span></strong> 确认南步道当天开放——这是「走下来」能不能成立的唯一依据。
   </div>
   <div class="callout">
-    <strong>国庆必须提前实名预约，这条别漏。</strong>
-    官方 2026-09-30 公告：国庆执行<strong>「限量、预约、错峰」，实名制分时段预约入园</strong>，<strong>建议至少提前一天</strong>在官方平台约。<br>
+    <strong>国庆必须提前实名预约，而且只能走官方渠道。</strong>
+    官方 2026-09-30 公告：国庆执行<strong>「限量、预约、错峰」，实名制分时段预约、核验入园</strong>，<strong>建议至少提前一天</strong>预约。公告原话——<strong>「请勿在非官方渠道预约景区票务，切勿轻信低价或加价预约抢票，以免无法检票」</strong>。<br>
     配额：<strong>单门票 17500 张/日</strong>、<strong>含南天顶等的联票共 8500 张/日</strong>，达上限即限流。<strong>10 月 2 日的票当天就已经约满了</strong>——10/6 的票务必现在就去约。<br>
-    渠道：微信小程序「神仙居旅游」或公众号「神仙居」，<strong>别在非官方渠道买</strong>。
+    渠道：<strong>微信小程序「神仙居旅游」或公众号「神仙居」</strong>。<br>
+    <strong>别被携程的时段吓到：</strong>携程上 10/6 最早一档写的是 <b>07:00–09:00</b>（2026-10-02 实查），但那是代销渠道自己放出来的档，<strong>不是开园时间</strong>。景区公告和历年国庆口径都是<strong>6:00 开园、索道同步 6:00</strong>，所以按上面的 06:10 / 06:30 走。
   </div>
   <div class="callout">
     <strong>高速有管制：10/1–10/7 每天 8:00–12:00。</strong>
@@ -1066,7 +1128,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
           <td class="price">8 小时内 10 元<span class="where">8–16 小时 15 元，16–24 小时 20 元；不足 30 分钟免费</span></td>
           <td><strong>国庆最晚 8 点前必须开进 3 号场</strong>——过了 8 点只能停外面换乘景区大巴（2026-10-01 实地）。南门车位历来最紧张（2018 年南门仅 100 个，改扩建后规划 639 个）。停好车坐观光车 5 元/人·次到南门入口</td></tr>
         <tr>
-          <td class="name">南天索道<span class="where">国庆 06:00</span></td>
+          <td class="name">南天索道<span class="where">国庆 06:00 开 · 按预约档进</span></td>
           <td><a href="https://uri.amap.com/search?keyword=%E7%A5%9E%E4%BB%99%E5%B1%85%E5%8D%97%E5%A4%A9%E7%B4%A2%E9%81%93" target="_blank" rel="noopener"><span class="kw">神仙居南天索道</span></a></td>
           <td>同上，车停在 3 号场</td>
           <td class="price">计在停车费里</td>
@@ -1094,6 +1156,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 
   <h3>神仙居 / 白塔镇 / 仙居县城吃什么 · 大众点评全收录（按人均升序）</h3>
   <p class="lead">10/5 晚上和 10/6 中午都在这一带解决。景区出口、白塔镇、仙居县城三处，按人均从低到高排。<strong>评分和评价数都是大众点评的。</strong></p>
+  <figure class="mapfig eatmap"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 933" font-family="Noto Sans SC,PingFang SC,Microsoft YaHei,Source Han Sans SC,sans-serif" role="img"><rect width="700" height="933" rx="10" fill="#F5F7F4"/><text x="20" y="40" font-size="19" font-weight="700" fill="#1A211C">10/6 · 神仙居 · 吃饭地图</text><text x="20" y="63" font-size="12.5" fill="#65706A">早 05:50 淡竹乡出发 → 南门 3 号场 · 06:30 上索道；午 12:40 南门 → 高速　·　19 家店按人均标色</text><defs><clipPath id="cp6"><rect x="20" y="82" width="380" height="709" rx="8"/></clipPath></defs><rect x="20" y="82" width="380" height="709" rx="8" fill="#FFFFFF" stroke="#DCE1D9"/><path d="M .4 410.8 57.5 436.7 48.3 446.6 49.1 482.5 55.3 501.2 68.1 508.9 82.5 522.4 85.9 531.2 81.9 544.8 99.6 572.5 120.3 585.7 165.0 575.7 178.3 578.5" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp6)"/><path d="M .4 410.8 57.5 436.7 48.3 446.6 49.1 482.5 55.3 501.2 68.1 508.9 82.5 522.4 85.9 531.2 81.9 544.8 99.6 572.5 120.3 585.7 165.0 575.7 178.3 578.5" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp6)"/><path d="M 8.3 578.5 165.0 575.7 120.3 585.7 99.6 572.5 81.9 544.8 85.9 531.2 82.5 522.4 68.1 508.9 55.3 501.2 49.1 482.5 49.3 461.6 71.8 466.5" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp6)"/><path d="M 8.3 578.5 165.0 575.7 120.3 585.7 99.6 572.5 81.9 544.8 85.9 531.2 82.5 522.4 68.1 508.9 55.3 501.2 49.1 482.5 49.3 461.6 71.8 466.5" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp6)"/><path d="M 8.3 578.5 165.0 575.7 120.3 585.7 99.6 572.5 81.9 544.8 74.1 560.1 75.2 566.5 84.8 574.4 98.0 596.4 96.5 604.7 100.6 612.5 93.6 623.2 92.8 630.1 99.8 639.5 103.9 659.2 116.0 671.2 123.8 672.4 119.9 683.5 121.0 689.2 143.8 699.8 177.0 727.1 187.1 728.1 187.5 731.3 181.6 733.2" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp6)"/><path d="M 8.3 578.5 165.0 575.7 120.3 585.7 99.6 572.5 81.9 544.8 74.1 560.1 75.2 566.5 84.8 574.4 98.0 596.4 96.5 604.7 100.6 612.5 93.6 623.2 92.8 630.1 99.8 639.5 103.9 659.2 116.0 671.2 123.8 672.4 119.9 683.5 121.0 689.2 143.8 699.8 177.0 727.1 187.1 728.1 187.5 731.3 181.6 733.2" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp6)"/><path d="M 3.5 572.2 180.2 578.4 165.0 575.7 118.8 585.4 99.6 572.5 81.9 544.8 85.9 531.2 82.5 522.4 68.1 508.9 55.3 501.2 49.1 482.5 48.3 446.6 57.5 436.7 63.1 419.9 67.6 415.3 69.1 406.4 60.2 378.6 41.8 350.7 45.5 340.1 49.3 334.1 63.8 327.3 73.0 326.6 81.0 330.4 87.3 341.1 92.3 340.4 89.0 318.3 104.6 304.9 111.0 304.0 121.1 307.7 135.3 294.9 134.8 281.3 137.9 273.9 162.1 247.5 181.0 158.6 197.1 154.3 272.8 105.1 283.9 139.3 293.9 151.8 311.5 157.5 353.0 152.2 359.1 156.7 363.0 173.0" fill="none" stroke="#DCE1D9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" clip-path="url(#cp6)"/><path d="M 3.5 572.2 180.2 578.4 165.0 575.7 118.8 585.4 99.6 572.5 81.9 544.8 85.9 531.2 82.5 522.4 68.1 508.9 55.3 501.2 49.1 482.5 48.3 446.6 57.5 436.7 63.1 419.9 67.6 415.3 69.1 406.4 60.2 378.6 41.8 350.7 45.5 340.1 49.3 334.1 63.8 327.3 73.0 326.6 81.0 330.4 87.3 341.1 92.3 340.4 89.0 318.3 104.6 304.9 111.0 304.0 121.1 307.7 135.3 294.9 134.8 281.3 137.9 273.9 162.1 247.5 181.0 158.6 197.1 154.3 272.8 105.1 283.9 139.3 293.9 151.8 311.5 157.5 353.0 152.2 359.1 156.7 363.0 173.0" fill="none" stroke="#8A948E" stroke-width="1.6" stroke-dasharray="7 6" clip-path="url(#cp6)"/><circle cx="230.4" cy="128.6" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="292.6" cy="344.7" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="352.6" cy="255.0" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="290.2" cy="610.5" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="180.2" cy="731.3" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="81.4" cy="484.8" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="163.9" cy="592.1" r="15" fill="#F2E6CE"/><circle cx="163.9" cy="592.1" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="178.9" cy="596.8" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="68.4" cy="410.8" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><circle cx="324.9" cy="492.4" r="15" fill="#F2E6CE"/><circle cx="324.9" cy="492.4" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="360.6" cy="173.4" r="15" fill="#F2E6CE"/><circle cx="360.6" cy="173.4" r="7" fill="#2E5948" stroke="#FFFFFF" stroke-width="2.5"/><circle cx="337.8" cy="185.6" r="4" fill="#9E6C1C" stroke="#FFFFFF" stroke-width="1.6"/><line x1="230.4" y1="128.6" x2="251.4" y2="128.6" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="295.6" y="120.1" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">白塔镇街</text><rect x="251.4" y="126.3" width="88.5" height="22" rx="11" fill="#2E5948"/><text x="295.6" y="141.8" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">1–3 5 7 11</text><line x1="292.6" y1="344.7" x2="292.6" y2="323.7" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="292.6" y="295.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">神仙居店群</text><rect x="242.1" y="301.7" width="101.0" height="22" rx="11" fill="#9E6C1C"/><text x="292.6" y="317.2" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">6 13 16 18 19</text><line x1="352.6" y1="255.0" x2="331.6" y2="255.0" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="308.1" y="246.5" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">景园村</text><rect x="284.6" y="252.6" width="47.0" height="22" rx="11" fill="#9E6C1C"/><text x="308.1" y="268.1" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">9 14</text><line x1="290.2" y1="610.5" x2="290.2" y2="589.5" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="290.2" y="561.3" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">景区出口 · 山上</text><rect x="266.7" y="567.5" width="47.0" height="22" rx="11" fill="#2E5948"/><text x="290.2" y="583.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">4 10</text><line x1="180.2" y1="731.3" x2="180.2" y2="710.3" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="180.2" y="682.1" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">淡竹 · 山脚人家</text><rect x="162.2" y="688.3" width="36.0" height="22" rx="11" fill="#9A482D"/><text x="180.2" y="703.8" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">15</text><line x1="81.4" y1="484.8" x2="102.4" y2="484.8" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="156.4" y="476.4" font-size="12.5" font-weight="700" text-anchor="middle" fill="#1A211C">石盟垟 · 仙居家宴</text><rect x="138.4" y="482.5" width="36.0" height="22" rx="11" fill="#9A482D"/><text x="156.4" y="498.0" font-size="12.5" font-weight="700" text-anchor="middle" fill="#FFFFFF" letter-spacing="1">17</text><line x1="163.9" y1="592.1" x2="163.9" y2="571.1" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="163.9" y="552.7" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">神仙居南门</text><text x="163.9" y="568.4" font-size="10.5" font-weight="400" text-anchor="middle" fill="#8A948E">按预约档进</text><line x1="178.9" y1="596.8" x2="178.9" y2="617.8" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="178.9" y="629.5" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">3 号停车场</text><text x="178.9" y="645.2" font-size="10.5" font-weight="400" text-anchor="middle" fill="#8A948E">06:10 前到</text><line x1="68.4" y1="410.8" x2="68.4" y2="389.8" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="68.4" y="371.4" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">范范的家</text><text x="68.4" y="387.1" font-size="10.5" font-weight="400" text-anchor="middle" fill="#8A948E">你们住这</text><line x1="324.9" y1="492.4" x2="324.9" y2="471.4" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="324.9" y="468.1" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">北海索道下站</text><line x1="360.6" y1="173.4" x2="339.6" y2="173.4" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="300.6" y="170.0" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">神仙居收费站</text><text x="300.6" y="185.7" font-size="10.5" font-weight="400" text-anchor="middle" fill="#8A948E">12:40 上高速</text><line x1="337.8" y1="185.6" x2="337.8" y2="206.6" stroke="#8A948E" stroke-width="1" opacity="0.7"/><text x="337.8" y="218.3" font-size="13" font-weight="700" text-anchor="middle" fill="#2E5948">神仙居游客中心</text><text x="42" y="102" font-size="11.5" font-weight="700" fill="#2E5948">↑ 北 · 白塔镇</text><text x="378" y="757" font-size="11.5" font-weight="700" text-anchor="end" fill="#2E5948">南门 ↓</text><line x1="42" y1="775" x2="153.0" y2="775" stroke="#65706A" stroke-width="1.6"/><line x1="42" y1="771" x2="42" y2="779" stroke="#65706A" stroke-width="1.6"/><line x1="153.0" y1="771" x2="153.0" y2="779" stroke="#65706A" stroke-width="1.6"/><text x="160.0" y="779.0" font-size="11" fill="#65706A">2 km</text><path d="M 366 98 L 359 119 L 366 114 L 373 119 Z" fill="#65706A"/><text x="366" y="134" font-size="11" font-weight="700" text-anchor="middle" fill="#65706A">N</text><text x="418" y="106" font-size="12.5" font-weight="700" fill="#65706A" letter-spacing="0.6">编号对上面那张表 · 色＝人均</text><rect x="418" y="119" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="437" cy="128.5" r="8.5" fill="#2E5948"/><text x="437" y="132.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">1</text><text x="452" y="132.5" font-size="12.5" fill="#1A211C">仔仔冰汤圆</text><text x="519.5" y="132.5" font-size="10" fill="#8A948E">白塔</text><text x="680" y="132.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥16</text><rect x="418" y="140" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="437" cy="149.5" r="8.5" fill="#2E5948"/><text x="437" y="153.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">2</text><text x="452" y="153.5" font-size="12.5" fill="#1A211C">春笋面馆</text><text x="507.0" y="153.5" font-size="10" fill="#8A948E">白塔</text><text x="680" y="153.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥19</text><rect x="418" y="161" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="437" cy="170.5" r="8.5" fill="#2E5948"/><text x="437" y="174.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">3</text><text x="452" y="174.5" font-size="12.5" fill="#1A211C">三金糖水</text><text x="507.0" y="174.5" font-size="10" fill="#8A948E">白塔</text><text x="680" y="174.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥20</text><rect x="418" y="182" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="437" cy="191.5" r="8.5" fill="#2E5948"/><text x="437" y="195.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">4</text><text x="452" y="195.5" font-size="12.5" fill="#1A211C">肯德基</text><text x="494.5" y="195.5" font-size="10" fill="#8A948E">景区出口</text><text x="680" y="195.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥37</text><rect x="418" y="203" width="3.5" height="19" rx="1.75" fill="#2E5948"/><circle cx="437" cy="212.5" r="8.5" fill="#2E5948"/><text x="437" y="216.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">5</text><text x="452" y="216.5" font-size="12.5" fill="#1A211C">锅中锅炖肉</text><text x="519.5" y="216.5" font-size="10" fill="#8A948E">白塔</text><text x="680" y="216.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥40</text><rect x="418" y="224" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="437" cy="233.5" r="8.5" fill="#9E6C1C"/><text x="437" y="237.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">6</text><text x="452" y="237.5" font-size="12.5" fill="#1A211C">小园土菜</text><text x="507.0" y="237.5" font-size="10" fill="#8A948E">神仙居店</text><text x="680" y="237.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥48</text><rect x="418" y="245" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="437" cy="254.5" r="8.5" fill="#9E6C1C"/><text x="437" y="258.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">7</text><text x="452" y="258.5" font-size="12.5" fill="#1A211C">四合院紫铜火锅</text><text x="544.5" y="258.5" font-size="10" fill="#8A948E">白塔</text><text x="680" y="258.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥50</text><rect x="418" y="266" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="437" cy="275.5" r="8.5" fill="#9E6C1C"/><text x="437" y="279.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">8</text><text x="452" y="279.5" font-size="12.5" fill="#1A211C">桃源人家</text><text x="507.0" y="279.5" font-size="10" fill="#8A948E">不顺路</text><text x="680" y="279.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥51</text><rect x="418" y="287" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="437" cy="296.5" r="8.5" fill="#9E6C1C"/><text x="437" y="300.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">9</text><text x="452" y="300.5" font-size="12.5" fill="#1A211C">土灶头农家菜</text><text x="532.0" y="300.5" font-size="10" fill="#8A948E">景园村</text><text x="680" y="300.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥60</text><rect x="418" y="308" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="437" cy="317.5" r="8.5" fill="#9E6C1C"/><text x="437" y="321.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">10</text><text x="452" y="321.5" font-size="12.5" fill="#1A211C">南天顶咖啡</text><text x="519.5" y="321.5" font-size="10" fill="#8A948E">山上</text><text x="680" y="321.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥60</text><rect x="418" y="329" width="3.5" height="19" rx="1.75" fill="#9E6C1C"/><circle cx="437" cy="338.5" r="8.5" fill="#9E6C1C"/><text x="437" y="342.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">11</text><text x="452" y="342.5" font-size="12.5" fill="#1A211C">佳东柴火鸡</text><text x="519.5" y="342.5" font-size="10" fill="#8A948E">白塔</text><text x="680" y="342.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥61</text><rect x="418" y="350" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="359.5" r="8.5" fill="#9A482D"/><text x="437" y="363.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">12</text><text x="452" y="363.5" font-size="12.5" fill="#1A211C">味仙居 · 瑞丰年</text><text x="552.5" y="363.5" font-size="10" fill="#8A948E">不顺路</text><text x="680" y="363.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥68</text><rect x="418" y="371" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="380.5" r="8.5" fill="#9A482D"/><text x="437" y="384.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">13</text><text x="452" y="384.5" font-size="12.5" fill="#1A211C">灶香土菜</text><text x="507.0" y="384.5" font-size="10" fill="#8A948E">神仙居店</text><text x="680" y="384.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥69</text><rect x="418" y="392" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="401.5" r="8.5" fill="#9A482D"/><text x="437" y="405.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">14</text><text x="452" y="405.5" font-size="12.5" fill="#1A211C">溪涧堂</text><text x="494.5" y="405.5" font-size="10" fill="#8A948E">景园村</text><text x="680" y="405.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥69</text><rect x="418" y="413" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="422.5" r="8.5" fill="#9A482D"/><text x="437" y="426.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">15</text><text x="452" y="426.5" font-size="12.5" fill="#1A211C">山脚人家</text><text x="507.0" y="426.5" font-size="10" fill="#8A948E">淡竹店</text><text x="680" y="426.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥71</text><rect x="418" y="434" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="443.5" r="8.5" fill="#9A482D"/><text x="437" y="447.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">16</text><text x="452" y="447.5" font-size="12.5" fill="#1A211C">小山村农家乐</text><text x="532.0" y="447.5" font-size="10" fill="#8A948E">神仙居店</text><text x="680" y="447.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥74</text><rect x="418" y="455" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="464.5" r="8.5" fill="#9A482D"/><text x="437" y="468.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">17</text><text x="452" y="468.5" font-size="12.5" fill="#1A211C">仙居家宴</text><text x="507.0" y="468.5" font-size="10" fill="#8A948E">石盟垟</text><text x="680" y="468.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥78</text><rect x="418" y="476" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="485.5" r="8.5" fill="#9A482D"/><text x="437" y="489.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">18</text><text x="452" y="489.5" font-size="12.5" fill="#1A211C">天然居饭店</text><text x="519.5" y="489.5" font-size="10" fill="#8A948E">神仙居店</text><text x="680" y="489.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥82</text><rect x="418" y="497" width="3.5" height="19" rx="1.75" fill="#9A482D"/><circle cx="437" cy="506.5" r="8.5" fill="#9A482D"/><text x="437" y="510.5" font-size="11" font-weight="700" text-anchor="middle" fill="#FFFFFF">19</text><text x="452" y="510.5" font-size="12.5" fill="#1A211C">与山有食</text><text x="507.0" y="510.5" font-size="10" fill="#8A948E">神仙居店</text><text x="680" y="510.5" font-size="12.5" font-weight="700" text-anchor="end" fill="#9E6C1C">¥85</text><line x1="418" y1="533" x2="680" y2="533" stroke="#DCE1D9"/><rect x="418" y="547" width="262" height="81" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/><rect x="418" y="547" width="3.5" height="81" rx="1.75" fill="#9A482D"/><text x="434" y="568" font-size="12.5" font-weight="700" fill="#9A482D">这 2 家不顺路</text><text x="434" y="588" font-size="12" fill="#65706A">⑧ 桃源人家 —— 仙居高速路口，离收费站 14 km</text><text x="434" y="605" font-size="12" fill="#65706A">⑫ 味仙居 —— 仙居县城，离收费站 12 km</text><text x="434" y="622" font-size="12" fill="#65706A">12:40 上高速，绕一趟多花 40 分钟以上。</text><rect x="418" y="640" width="262" height="98" rx="6" fill="#FFFFFF" stroke="#DCE1D9"/><rect x="418" y="640" width="3.5" height="98" rx="1.75" fill="#2E5948"/><text x="434" y="661" font-size="12.5" font-weight="700" fill="#2E5948">怎么选</text><text x="434" y="681" font-size="12" fill="#65706A">回程顺路：⑥ 小园土菜 ¥48（4.5 分）— 首选</text><text x="434" y="698" font-size="12" fill="#65706A">离住处近：⑮ 山脚人家 ¥71 — 淡竹乡</text><text x="434" y="715" font-size="12" fill="#65706A">买了就走：④ 肯德基 ¥37 — 景区出口</text><text x="434" y="732" font-size="12" fill="#65706A">白塔镇 6 家是甜品面馆，上山前垫肚子正合适。</text><text x="20" y="817" font-size="12" fill="#8A948E">示意图：圆点按高德真实经纬度摆放，编号与上表一致。虚线是自驾路线</text><text x="20" y="835" font-size="12" fill="#8A948E">（OpenStreetMap 路网，非导航实测）；大圆＝地标，小金点＝停车 / 索道口。</text><text x="20" y="853" font-size="12" fill="#8A948E">这条走廊南北约 12 km、东西约 4 km，装不进一张横图，所以整个</text><text x="20" y="871" font-size="12" fill="#8A948E">景区画成一块竖版：上面是白塔镇，下面是南门，仍是上北下南。</text><text x="20" y="889" font-size="12" fill="#8A948E">色条＝人均：绿 ≤40 · 金 40–65 · 红 &gt;65。神仙居店群、</text><text x="20" y="907" font-size="12" fill="#8A948E">白塔镇街、景园村三处的店都在几十米内，用一个编号胶囊表示。</text></svg><figcaption>图 三　10/6 神仙居 · 吃饭地图</figcaption></figure>
   <div class="scroll">
     <table class="stay">
       <thead><tr><th>店</th><th>大众评分</th><th>人均</th><th>评价数</th><th>位置 / 类型</th></tr></thead>
@@ -1111,7 +1174,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td class="name">佳东柴火鸡</td><td class="rate r5">4.5</td><td class="price">61</td><td class="price">628</td><td>本地鸡窝火锅</td></tr>
         <tr><td class="name">味仙居·瑞丰年<span class="where">仙居县城</span></td><td class="rate r4">4.0</td><td class="price">68</td><td class="price">413</td><td>特色菜</td></tr>
         <tr><td class="name">灶香土菜·海鲜<span class="where">神仙居店 · 接待量很大</span></td><td class="rate r4">4.0</td><td class="price">69</td><td class="price">2662</td><td>农家菜</td></tr>
-        <tr><td class="name">溪涧堂·仙居本地菜<span class="where">仙居县城</span></td><td class="rate r4">4.0</td><td class="price">69</td><td class="price">3459</td><td>农家菜</td></tr>
+        <tr><td class="name">溪涧堂·仙居本地菜<span class="where">白塔镇景园村116号</span></td><td class="rate r4">4.0</td><td class="price">69</td><td class="price">3459</td><td>农家菜</td></tr>
         <tr><td class="name">山脚人家<span class="where">淡竹店 · <strong>离你们住的地方最近</strong></span></td><td class="rate r5">4.5</td><td class="price">71</td><td class="price">136</td><td>苏浙菜</td></tr>
         <tr><td class="name">小山村农家乐<span class="where">神仙居店</span></td><td class="rate r5">4.5</td><td class="price">74</td><td class="price">2090</td><td>农家菜</td></tr>
         <tr><td class="name">仙居家宴·山野仙居菜<span class="where">神仙居店 · <strong>评价数最多</strong></span></td><td class="rate r4">4.0</td><td class="price">78</td><td class="price">4241</td><td>浙菜</td></tr>
@@ -1144,7 +1207,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <!-- ══════════════════════ 第三部分 · 后勤 ══════════════════════ -->
 <section class="parted" id="part3">
   <p class="part">第三部分 · 订房、买票、查天</p>
-  <h2>住宿<span class="sub">两晚都已经定了，下面这些表置灰留档</span></h2>
+  <h2>住宿<span class="sub">两晚都已经定了，备选表都在「其他住宿参考」里</span></h2>
 
   <div class="booked">
     <h3>已定 · 这两晚不用再挑了</h3>
@@ -1162,8 +1225,16 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     </div>
     <p><b>两家都不能代订门票。</b>所以云和梯田门票和神仙居一票通都得自己线上买，别指望到店再让老板搞定——<strong>神仙居现场还会停售，必须提前买</strong>。</p>
     <p><b>两家都可以停车</b>，车直接停民宿门口，白天出去玩不用挪。</p>
-    <p class="dn">下面所有住宿表都置灰了。留着不是为了现在，是万一要换房、加人，或者想跟别的候选比个价。</p>
+    <p class="dn">备选表都置灰留档了，都挪进了「其他住宿参考」<span class="pgx">（<i class="pg" data-pg="zzSTAYREF">P25</i>）</span>。留着不是为了现在，是万一要换房、加人，或者想跟别的候选比个价。</p>
   </div>
+  </section>
+</div>
+
+<div class="tabpanel" data-tab="ref" id="stayref">
+<section class="parted seam">
+  <p class="part">附 · 其他住宿参考</p>
+  <h2>备选住宿与比价<span class="sub">已经用不上了，留档给换房、加人、比价时翻</span></h2>
+
   <p class="lead">价格分两类：<strong>「携程实价」是从携程 10/4–10/5 的真实报价里读出来的</strong>（1 间 2 人），可以直接当预算用；标「询价」的是名录里查不到当天报价的，需要打电话确认——<strong>国庆房态紧，直接打电话比在平台上比价更容易拿到真房</strong>。</p>
 
   <div class="dim">
@@ -1408,7 +1479,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <text x="20" y="614" font-size="12" fill="#8A948E">色条＝距离档：绿 ≤6 km · 金 6–12 km · 红 &gt;12 km。</text>
 <text x="20" y="632" font-size="12" fill="#8A948E">只有云城酒店的 22.3 km / 46 分钟是高德实测值，其余按 OpenStreetMap 路网＋高德山区车速换算，出行前请在导航里复核。</text>
 </svg>
-    <figcaption>图 一　云和四家候选 → 九曲云环 D 区（10/5 日出观景点）</figcaption>
+    <figcaption>图 四　云和四家候选 → 九曲云环 D 区（10/5 日出观景点）</figcaption>
   </figure>
   <figure class="mapfig">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 736" font-family="Noto Sans SC,PingFang SC,Microsoft YaHei,Source Han Sans SC,sans-serif" role="img">
@@ -1494,7 +1565,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 <text x="20" y="704" font-size="12" fill="#8A948E">范范的家按你们提供的「仙居淡竹乡下叶村叶宅」归入本村，与其余四家同组；位置口令在网页端无法解析坐标，点到村一级。</text>
 <text x="20" y="722" font-size="12" fill="#8A948E">距离为 OpenStreetMap 路网实测；时间为按高德山区实测车速换算的估值，出行前请在导航里复核。</text>
 </svg>
-    <figcaption>图 二　仙居六家候选 → 神仙居南门（10/6 南进南出）</figcaption>
+    <figcaption>图 五　仙居六家候选 → 神仙居南门（10/6 南进南出）</figcaption>
   </figure>
   <div class="callout warn">
     <strong>结论：云和那点「近」是假象；仙居真正的坑只有一家。</strong><br>
@@ -1503,7 +1574,11 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
     真正要避开的是<b>沐语山居</b>：它在景区<b>北侧</b>的白塔镇感德村，到<b>南门</b>要 10.9 km / 约 22 分钟，南进南出等于每天多开约 20 分钟。<br>
     <em>唯一要留意：范范的家在<b>高德里的词条没有坐标</b>（所以地图工具搜不到、携程美团也搜不出来），导航时请用你手上那个高德位置口令 <b>021053</b>，或者直接搜「淡竹乡下叶村叶宅」。</em>
   </div>
-  </div>
+  </div></section>
+</div>
+
+<div class="tabpanel" data-tab="main">
+<section class="parted seam" id="part3b">
 
   <h2 class="h2gap">门票<span class="sub">含 2026 国庆的实际政策</span></h2>
   <div class="scroll">
@@ -1513,7 +1588,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <tr><td>缙云仙都<span class="where">10/4</span></td>
           <td>5A</td>
           <td><b>90</b><span class="where">主景区大门票 · 6 人 540</span></td>
-          <td><strong>看你怎么玩：只走岩宕书房 + 小赤壁不用买；进朱潭山就要买 90 元大门票。</strong>收费的是<strong>朱潭山、鼎湖峰、倪翁洞、仙都观</strong>，免费的是<strong>岩宕书房、小赤壁</strong>。<strong>只有 7:30 前进景区才是真的既不买票也不报备</strong>；你们 11:00 到，进朱潭山得买票。国庆门票需<strong>实名预约</strong>（「仙都旅游」公众号 / 浙里办）；联票 <b>130</b> 含六大景点，单买主景区 90。<strong>核心区 7:30–17:00 管控，车辆要报备</strong>，见 10/4 那节的更正</td></tr>
+          <td><strong>看你怎么玩：只走岩宕书房 + 小赤壁不用买；进朱潭山就要买 90 元大门票。</strong>收费的是<strong>朱潭山、鼎湖峰、倪翁洞、仙都观</strong>，免费的是<strong>岩宕书房、小赤壁</strong>。<strong>只有 7:30 前进景区才是真的既不买票也不报备</strong>；你们 11:00 到，进朱潭山得买票。国庆门票需<strong>实名预约</strong>（「仙都旅游」公众号 / 浙里办）；联票 <b>130</b> 含六大景点，单买主景区 90。<strong>核心区 7:30–17:00 管控，车辆要报备</strong>，见 10/4 那节</td></tr>
         <tr><td>云和梯田<span class="where">10/5</span></td>
           <td>5A</td>
           <td><b>携程 70</b><span class="where">门市 80 · 国庆按单次票执行（当天可再进一次）· 含九曲云环 + 白银谷 + 七星墩</span></td>
@@ -1602,7 +1677,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   <h4>三个硬期限</h4>
   <ul class="plain">
     <li><strong>10/4 · 朱潭山「老农牵牛」上午最后一场 11:00。</strong>9:30–11:00、14:30–16:00，半小时一场。赶不上就按 10/4 那节的补救方案挪到下午。</li>
-    <li><strong>10/6 · 神仙居 3 号停车场 08:00 前必须开进去。</strong>它离南天索道最近，是南门三个场子里最该抢的。8 点后只能停外面换乘景区大巴。要零排队：<strong>05:50 从淡竹乡出发、06:10 到南门、06:30 前上索道</strong>。</li>
+    <li><strong>10/6 · 神仙居 3 号停车场 08:00 前必须开进去。</strong>它离南天索道最近，是南门三个场子里最该抢的。8 点后只能停外面换乘景区大巴。要零排队：<strong>05:50 从淡竹乡出发、06:10 到南门、06:30 前上索道</strong>（国庆 6:00 就开园）。</li>
     <li><strong>10/6 · 返程等过了 12:00 再上高速。</strong>白塔收费站 8:00–12:00 只出不进，12 点前撤就得改走诸永高速神仙居收费站。</li>
   </ul>
 
@@ -1664,7 +1739,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         <em>订的是<b>范范的家</b>（淡竹乡下叶村叶宅，171/间，全组最便宜）。到神仙居南门 5.2 km / 约 13 分钟。<strong>这家同样不代订门票</strong>，神仙居一票通要自己买（见下一条）。<strong>可以停车。</strong><br>
         <em>导航注意：范范的家在高德里没有坐标，用位置口令 <b>021053</b>，或直接搜「淡竹乡下叶村叶宅」。</em></em></li>
       <li><b>入住当晚把这三件事问清楚（两家都问）</b>
-        <em>① <strong>明早日出的走法和停车位</strong>——夏秋农家乐到九曲云环 10.3 km，<strong>能不能凌晨开车送一趟观景台</strong>（能送最省事，那条山路没路灯）；② <strong>国庆 10/5 山上有没有临时交通管制</strong>——自驾上七星墩已经证实可行（约 20 分钟），这一步只确认管制。<strong>梯田索道不买，净省 720</strong>；临时要买的话，携程「门票 + 往返索道」190/人；③ <strong>10/6 早上几点能进山</strong>——你们 5:50 就要从淡竹乡出发赶 6:10 到南门。</em>
+        <em>① <strong>明早日出的走法和停车位</strong>——夏秋农家乐到九曲云环 10.3 km，<strong>能不能凌晨开车送一趟观景台</strong>（能送最省事，那条山路没路灯）；② <strong>国庆 10/5 山上有没有临时交通管制</strong>——自驾上七星墩已经证实可行（约 20 分钟），这一步只确认管制。<strong>梯田索道不买，净省 720</strong>；临时要买的话，携程「门票 + 往返索道」190/人；③ <strong>10/6 官方渠道能不能约到 6:00 那一档</strong>——国庆 6:00 开园，携程只放 07:00–09:00，去微信小程序「神仙居旅游」约。</em>
         <span class="quote">「我们自己开车，不想坐索道——10/5 国庆期间山上有没有交通管制？从九曲云环能开上七星墩吗？三个点停车收费吗？」</span></li>
       <li><b>买神仙居一票通（10/6 用）+ 打三个确认电话</b>
         <em><strong>一票通 327 元/人（提前购）</strong>，含大门票 + 索道往返 + 接驳车观光车 + 南天顶玻璃观景台——全拆开单买是 99 + 120 + 99 = 318，<strong>一票通贵 9 元，买的就是免掉现场排队买索道票</strong>。（若打算走南步道下山就别买，改拆开买，见 10/6 那节。）线上渠道：微信小程序「神仙居旅游」或公众号「神仙居」。<br>
@@ -1673,7 +1748,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
         · <strong>神仙居 <span class="ph" data-copy="057687038686">0576-87038686</span></strong>——问 ① <strong>10/6 南登山步道是否开放徒步下山</strong>（北步道已确认封闭，南步道 7/18 起恢复开放）；② 国庆 6:00 开园是否 10/6 也适用；③ 南门停车场车位与收费。<br>
         · <strong>仙都景区 <span class="ph" data-copy="05783120301">0578-3120301</span></strong>——确认国庆当天的报备方式和管控时段。</em></li>
       <li><b>打包 + 收尾</b>
-        <em>直接照<strong>第五部分「要带的东西」</strong>那份清单打勾：证件与票、衣服、雨具、药、工具、吃喝六组，标红的是缺了会影响行程的。<br><strong>神仙居按实名验票，6 个人的票和身份证 10/5 晚上就装进一个袋子</strong>，10/6 早上 7 点就要用。</em></li>
+        <em>直接照<strong>第五部分「要带的东西」</strong>那份清单打勾：证件与票、衣服、雨具、药、工具、吃喝六组，标红的是缺了会影响行程的。<br><strong>神仙居按实名验票，6 个人的票和身份证 10/5 晚上就装进一个袋子</strong>，10/6 早上 6 点就要用。</em></li>
     </ol>
   </div>
 </section>
@@ -1684,7 +1759,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
 
   <div class="callout">
     <strong>最要紧的一条：10/5 晚上就把 6 张身份证和 6 张票单独装进一个袋子。</strong>
-    神仙居按<strong>实名验票</strong>，一人一证，10/6 早上 7 点进山就要用。六个人的证件临时现翻包，是那天最容易误事的地方——票和证装一起，早上拎起来就走。
+    神仙居按<strong>实名验票</strong>，一人一证，10/6 早上 6 点进山就要用。六个人的证件临时现翻包，是那天最容易误事的地方——票和证装一起，早上拎起来就走。
   </div>
 
   <div class="packgrid">
@@ -1764,6 +1839,7 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   住宿（云和夏秋农家乐、仙居范范的家）已于 2026-10-02 订好，<strong>两家都不代订门票、都可以停车</strong>；第三部分「住宿」里的表全部置灰留档，只在换房、加人、比价时翻。<br>
   <strong>出发前一定要自己线上买掉的票</strong>：云和梯田门票（携程提前一天 70/人）、神仙居一票通（327/人，现场会停售）——这两张没人能替你们买。
 </footer>
+</div>
 
 </div>
 
@@ -1829,6 +1905,41 @@ body{padding-left:env(safe-area-inset-left,0px); padding-right:env(safe-area-ins
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', labelStay);
   else labelStay();
+})();
+
+/* ── 页签切换 ────────────────────────────────────────────────
+   没跑 head 那段（比如脚本被拦）就不接管，按钮本来也不显示。 */
+(function () {
+  var d = document.documentElement;
+  if (!d.classList.contains('js-tabs')) return;
+  var bar = document.querySelector('.tabbar');
+  if (!bar) return;
+  var btns = bar.querySelectorAll('.tabbtn');
+
+  function go(t, scroll) {
+    d.setAttribute('data-tab', t);
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].setAttribute('aria-selected',
+        btns[i].getAttribute('data-go') === t ? 'true' : 'false');
+    }
+    try { localStorage.setItem('lstz-tab', t); } catch (e) {}
+    if (scroll) {
+      var p = document.querySelector('.tabpanel[data-tab="' + t + '"]');
+      if (p && p.scrollIntoView) p.scrollIntoView({ block: 'start' });
+    }
+  }
+
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function () {
+      go(this.getAttribute('data-go'), true);
+    });
+  }
+  window.addEventListener('hashchange', function () {
+    if (location.hash === '#stayref') go('ref', true);
+  });
+
+  if (location.hash === '#stayref') go('ref', false);
+  go(d.getAttribute('data-tab') || 'main', false);
 })();
 </script>
 
